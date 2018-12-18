@@ -1,0 +1,10 @@
+CoreUpdates
+*.changes
+*.image
+*.sources
+*.sh
+.*
+Packages
+Documentation
+vm
+!.gitignore

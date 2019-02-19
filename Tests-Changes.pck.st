@@ -1,4 +1,4 @@
-'From Cuis 5.0 of 7 November 2016 [latest update: #3430] on 4 January 2019 at 9:56:13 am'!
+'From Cuis 5.0 of 7 November 2016 [latest update: #3430] on 19 February 2019 at 9:04:20 am'!
 'Description Please enter a description for this package'!
 !provides: 'Tests-Changes' 1 0!
 SystemOrganization addCategory: #'Tests-Changes'!
@@ -6,7 +6,7 @@ SystemOrganization addCategory: #'Tests-Changes'!
 
 !classDefinition: #ChangesTest category: #'Tests-Changes'!
 TestCase subclass: #ChangesTest
-	instanceVariableNames: ''
+	instanceVariableNames: 'testClass'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Tests-Changes'!
@@ -26,7 +26,7 @@ LogChangesTest class
 
 !classDefinition: #ScanChangesTest category: #'Tests-Changes'!
 ChangesTest subclass: #ScanChangesTest
-	instanceVariableNames: 'testClass'
+	instanceVariableNames: 'mockClass'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Tests-Changes'!
@@ -39,14 +39,23 @@ ScanChangesTest class
 changesFileForTests
 	^ 'test.changes'! !
 
-!ChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 1/4/2019 09:30:43'!
+!ChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 2/4/2019 17:32:08'!
 setUp
-	Preferences setPreference: #userChangesFileName toValue: self changesFileForTests.! !
+	Preferences setPreference: #userChangesFileName toValue: self changesFileForTests.
+	
+	testClass := TestCase subclass: #NewTestCase instanceVariableNames: '' classVariableNames: '' poolDictionaries: '' category: 'Tests-Changes'.
+	
+	testClass compile: 'testPassed self assert: true'.
+	testClass compile: 'testFailure self assert: false'.
+	testClass compile: 'testError self error: ''Unexpected error'''.! !
 
-!ChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 1/4/2019 09:30:47'!
+!ChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 2/4/2019 17:32:48'!
 tearDown
 	Preferences setPreference: #userChangesFileName toValue: Preferences defaultUserChangesFileName.
-	self changesFileForTests asFileEntry delete.! !
+	self changesFileForTests asFileEntry delete.
+	
+	testClass removeFromSystem.
+! !
 
 !ChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 1/4/2019 09:31:12'!
 userChangesFile
@@ -162,7 +171,76 @@ test04RemovingAMethodShouldBeLogged
 	]
 ! !
 
-!ScanChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 1/4/2019 09:37:57'!
+!LogChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 1/7/2019 09:42:44'!
+test05RemovingAClassShouldBeLogged
+	" Log format expected:
+	
+	!!classRemoval: #ClassName!!
+	classDefinitionMessage
+	"
+	| aClass definition |
+
+	aClass := Object subclass: #NewClass instanceVariableNames: '' classVariableNames: '' poolDictionaries: '' category: 'Tests-Changes'.
+	definition := aClass definition.
+	aClass removeFromSystem.
+
+	self assertIsLoggedOnce: '!!classRemoval: #NewClass!!', String newLineString, definition.
+
+! !
+
+!LogChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 2/3/2019 15:19:39'!
+test06RunningAPassingTestShouldBeLogged
+	" Log format expected:
+	
+	!!testRun #testSelector PASSED!!
+	"
+	testClass run: #testPassed.
+
+	self assertIsLoggedOnce: '!!testRun: #testPassed PASSED!!'.
+
+! !
+
+!LogChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 2/3/2019 15:19:37'!
+test07RunningAFailingTestShouldBeLogged
+	" Log format expected:
+	
+	!!testRun #testSelector FAILURE!!
+	"
+	testClass run: #testFailure.
+
+	self assertIsLoggedOnce: '!!testRun: #testFailure FAILURE!!'.
+
+! !
+
+!LogChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 2/3/2019 15:32:37'!
+test08RunningATestWithAnErrorShouldBeLogged
+	" Log format expected:
+	
+	!!testRun #testSelector ERROR!!
+	"
+	testClass run: #testError.
+
+	self assertIsLoggedOnce: '!!testRun: #testError ERROR!!'.
+
+! !
+
+!LogChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 2/3/2019 15:36:26'!
+test09RunningATestSuiteShouldBeLogged
+	" Log format expected:
+	
+	!!testRun: #testPassed PASSED!!
+	!!testRun: #testFailure FAILURE!!
+	!!testRun #testSelector ERROR!!
+	"
+	testClass buildSuiteFromAllSelectors run.
+
+	self assertIsLoggedOnce: '!!testRun: #testPassed PASSED!!'.
+	self assertIsLoggedOnce: '!!testRun: #testFailure FAILURE!!'.
+	self assertIsLoggedOnce: '!!testRun: #testError ERROR!!'.
+
+! !
+
+!ScanChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 1/18/2019 20:45:17'!
 scanChangesFromFile
 	| fileStream changeList |
 	
@@ -172,18 +250,18 @@ scanChangesFromFile
 	^ changeList changeList.
 ! !
 
-!ScanChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 1/4/2019 09:31:44'!
+!ScanChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 2/4/2019 17:21:33'!
 setUp
-	
-	super setUp.
-	testClass := Object subclass: #TestClass instanceVariableNames: '' classVariableNames: '' poolDictionaries: '' category: 'Tests-Changes'.
-	! !
 
-!ScanChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 1/4/2019 09:31:54'!
+	super setUp.
+	mockClass := Object subclass: #TestClass instanceVariableNames: '' classVariableNames: '' poolDictionaries: '' category: 'Tests-Changes'.
+! !
+
+!ScanChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 2/4/2019 17:21:58'!
 tearDown
 	
 	super tearDown.	
-	testClass removeFromSystem.! !
+	mockClass removeFromSystem.! !
 
 !ScanChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 1/4/2019 09:48:12'!
 test01ScanNewClassChange
@@ -200,42 +278,65 @@ test01ScanNewClassChange
 	]
 ! !
 
-!ScanChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 1/4/2019 09:55:11'!
+!ScanChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 2/4/2019 17:22:45'!
 test02ScanNewMethodChange
 	| newMethodChange | 
 
-	testClass compile: 'm1 ^ 1' classified: 'a-category'.
+	mockClass compile: 'm1 ^ 1' classified: 'a-category'.
 
 	newMethodChange := self scanChangesFromFile last.
 		
 	self assert: newMethodChange changeType equals: #method.
 	self assert: newMethodChange methodSelector equals: #m1.
-	self assert: newMethodChange changeClass equals: testClass.
+	self assert: newMethodChange changeClass equals: mockClass.
 ! !
 
-!ScanChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 1/4/2019 09:54:50'!
+!ScanChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 2/4/2019 17:22:51'!
 test03ScanMethodModifiedChange
 	| methodModifiedChange | 
 
-	testClass compile: 'm1 ^ 1' classified: 'a-category'.
-	testClass compile: 'm1 ^ 2' classified: 'a-category'.
+	mockClass compile: 'm1 ^ 1' classified: 'a-category'.
+	mockClass compile: 'm1 ^ 2' classified: 'a-category'.
 
 	methodModifiedChange := self scanChangesFromFile last.
 		
 	self assert: methodModifiedChange changeType equals: #method.
 	self assert: methodModifiedChange methodSelector equals: #m1.
-	self assert: methodModifiedChange changeClass equals: testClass.
+	self assert: methodModifiedChange changeClass equals: mockClass.
 ! !
 
-!ScanChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 1/4/2019 09:50:07'!
+!ScanChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 2/4/2019 17:22:04'!
 test04ScanMethodRemovalChange
 	| methodRemovalChange | 
 
-	testClass compile: 'm1 ^ 1' classified: 'a-category'.
-	testClass removeSelector: #m1.
+	mockClass compile: 'm1 ^ 1' classified: 'a-category'.
+	mockClass removeSelector: #m1.
 
 	methodRemovalChange := self scanChangesFromFile last.
 		
 	self assert: methodRemovalChange isMethodDeletion.
 	self assert: methodRemovalChange methodSelector equals: #m1.
 ! !
+
+!ScanChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 2/4/2019 17:22:06'!
+test05ScanClassRemovalChange
+	| classRemovalChange | 
+
+	mockClass removeFromSystem.
+
+	classRemovalChange := self scanChangesFromFile last.
+		
+	self assert: classRemovalChange isClassDeletion.
+
+! !
+
+!ScanChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 2/5/2019 08:24:50'!
+test06ScanPassingTestChange
+	| testRunChange | 
+
+	testClass run: #testPassed.
+
+	testRunChange := self scanChangesFromFile last.
+
+	self assert: testRunChange changeType equals: #testRun.	
+	self assert: testRunChange selector equals: #testPassed.! !

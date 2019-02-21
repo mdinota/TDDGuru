@@ -1,12 +1,12 @@
-'From Cuis 5.0 of 7 November 2016 [latest update: #3430] on 19 February 2019 at 9:04:20 am'!
+'From Cuis 5.0 of 7 November 2016 [latest update: #3431] on 21 February 2019 at 5:28:24 pm'!
 'Description Please enter a description for this package'!
-!provides: 'Tests-Changes' 1 0!
+!provides: 'Tests-Changes' 1 1!
 SystemOrganization addCategory: #'Tests-Changes'!
 
 
 !classDefinition: #ChangesTest category: #'Tests-Changes'!
 TestCase subclass: #ChangesTest
-	instanceVariableNames: 'testClass'
+	instanceVariableNames: 'testClass author'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Tests-Changes'!
@@ -39,10 +39,13 @@ ScanChangesTest class
 changesFileForTests
 	^ 'test.changes'! !
 
-!ChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 2/4/2019 17:32:08'!
+!ChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 2/21/2019 17:27:52'!
 setUp
-	Preferences setPreference: #userChangesFileName toValue: self changesFileForTests.
 	
+	author := Utilities authorName.
+	
+	Preferences setPreference: #userChangesFileName toValue: self changesFileForTests.
+		
 	testClass := TestCase subclass: #NewTestCase instanceVariableNames: '' classVariableNames: '' poolDictionaries: '' category: 'Tests-Changes'.
 	
 	testClass compile: 'testPassed self assert: true'.

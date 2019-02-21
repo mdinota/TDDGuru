@@ -1,6 +1,6 @@
-'From Cuis 5.0 of 7 November 2016 [latest update: #3430] on 18 December 2018 at 8:22:24 am'!
+'From Cuis 5.0 of 7 November 2016 [latest update: #3430] on 21 February 2019 at 5:07:46 pm'!
 'Description Please enter a description for this package'!
-!provides: 'TDDGuru' 1 2!
+!provides: 'TDDGuru' 1 7!
 SystemOrganization addCategory: #'TDDGuru-Tests'!
 SystemOrganization addCategory: #'TDDGuru-Model'!
 
@@ -59,7 +59,7 @@ test02WriteModelClassBeforeTest
 	self assert: result errors size equals: 1.
 	self assert: result errors first equals: (TDDGuru classAddedBeforeTestMessage: #ModelClass).! !
 
-!TDDGuruTests methodsFor: 'testing' stamp: 'MGD 12/18/2018 07:53:39'!
+!TDDGuruTests methodsFor: 'testing' stamp: 'MGD 2/19/2019 09:22:15'!
 test03WriteTestClassBeforeProductionCode
 	"Result should not contain errors when test class is written before production code"
 	| result |
@@ -151,7 +151,7 @@ initialize
 changesFile: aFileName 
 	changesFile := aFileName! !
 
-!TDDGuru methodsFor: 'initialization' stamp: 'MGD 12/3/2018 10:03:35'!
+!TDDGuru methodsFor: 'initialization' stamp: 'MGD 1/4/2019 09:40:26'!
 initializeChangeLog
 	| fileStream changeList file |
 	
@@ -175,7 +175,7 @@ changeLog
 
 	^ changeLog! !
 
-!TDDGuru methodsFor: 'running' stamp: 'MGD 12/13/2018 08:50:11'!
+!TDDGuru methodsFor: 'running' stamp: 'MGD 2/19/2019 09:16:13'!
 run
 	| result changeRecord changedClass |
 	
@@ -195,7 +195,7 @@ run
 	(changeRecord changeType = #method) ifTrue: [
 		result addError: (self class methodAddedOrChangedBeforeTestMessage: changeRecord methodSelector).
 	].
-	
+
 	^ result! !
 
 !TDDGuru class methodsFor: 'instance creation' stamp: 'MGD 12/1/2018 10:55:10'!
@@ -209,23 +209,3 @@ classAddedBeforeTestMessage: className
 !TDDGuru class methodsFor: 'error messages' stamp: 'MGD 12/3/2018 10:35:07'!
 methodAddedOrChangedBeforeTestMessage: aSymbol 
 	^ 'El método ',aSymbol,' fue definido antes de escribir un test'! !
-
-!SystemDictionary methodsFor: '*TDDGuru' stamp: 'MGD 12/17/2018 16:27:05'!
-defaultUserChangesName
-	"Answer the default full path to the changes file corresponding to the image file name."
-	"
-	Smalltalk defaultUserChangesName
-	"
-	^ Preferences userChangesFileName.! !
-
-!Preferences class methodsFor: '*TDDGuru' stamp: 'MGD 11/30/2018 12:38:52'!
-defaultUserChangesFileName
-	"Answer the default full path to the changes file corresponding to the image file name."
-
-	^(FileIOAccessor default baseNameFor: Smalltalk imageName), '.changes'! !
-
-!Preferences class methodsFor: '*TDDGuru' stamp: 'MGD 12/18/2018 08:18:12'!
-userChangesFileName
-	^ self
-		valueOfFlag: #userChangesFileName
-		ifAbsent: [ self defaultUserChangesFileName ].! !

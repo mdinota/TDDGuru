@@ -1,6 +1,6 @@
-'From Cuis 5.0 of 7 November 2016 [latest update: #3431] on 21 February 2019 at 5:28:24 pm'!
+'From Cuis 5.0 of 7 November 2016 [latest update: #3430] on 14 March 2019 at 11:04:58 am'!
 'Description Please enter a description for this package'!
-!provides: 'Tests-Changes' 1 1!
+!provides: 'Tests-Changes' 1 2!
 SystemOrganization addCategory: #'Tests-Changes'!
 
 
@@ -39,10 +39,11 @@ ScanChangesTest class
 changesFileForTests
 	^ 'test.changes'! !
 
-!ChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 2/21/2019 17:27:52'!
-setUp
-	
+!ChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 3/14/2019 10:01:20'!
+setUp	
 	author := Utilities authorName.
+	
+	self changesFileForTests asFileEntry delete.
 	
 	Preferences setPreference: #userChangesFileName toValue: self changesFileForTests.
 		
@@ -191,55 +192,61 @@ test05RemovingAClassShouldBeLogged
 
 ! !
 
-!LogChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 2/3/2019 15:19:39'!
+!LogChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 3/14/2019 09:33:36'!
 test06RunningAPassingTestShouldBeLogged
 	" Log format expected:
 	
-	!!testRun #testSelector PASSED!!
+	!!testRun: #TestCase #testSelector!!
+	PASSED
 	"
 	testClass run: #testPassed.
 
-	self assertIsLoggedOnce: '!!testRun: #testPassed PASSED!!'.
+	self assertIsLoggedOnce: '!!testRun: #NewTestCase #testPassed!!', String newLineString, 'PASSED!!'.
 
 ! !
 
-!LogChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 2/3/2019 15:19:37'!
+!LogChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 3/14/2019 09:48:48'!
 test07RunningAFailingTestShouldBeLogged
 	" Log format expected:
 	
-	!!testRun #testSelector FAILURE!!
+	!!testRun #NewTestCase #testSelector!!
+	FAILURE
 	"
 	testClass run: #testFailure.
 
-	self assertIsLoggedOnce: '!!testRun: #testFailure FAILURE!!'.
+	self assertIsLoggedOnce: '!!testRun: #NewTestCase #testFailure!!', String newLineString, 'FAILURE!!'.
 
 ! !
 
-!LogChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 2/3/2019 15:32:37'!
+!LogChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 3/14/2019 09:57:47'!
 test08RunningATestWithAnErrorShouldBeLogged
 	" Log format expected:
 	
-	!!testRun #testSelector ERROR!!
+	!!testRun #NewTestCase #testSelector!!
+	ERROR
 	"
 	testClass run: #testError.
 
-	self assertIsLoggedOnce: '!!testRun: #testError ERROR!!'.
+	self assertIsLoggedOnce: '!!testRun: #NewTestCase #testError!!', String newLineString, 'ERROR!!'.
 
 ! !
 
-!LogChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 2/3/2019 15:36:26'!
+!LogChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 3/14/2019 10:08:33'!
 test09RunningATestSuiteShouldBeLogged
 	" Log format expected:
 	
-	!!testRun: #testPassed PASSED!!
-	!!testRun: #testFailure FAILURE!!
-	!!testRun #testSelector ERROR!!
+	!!testRun: #TestCase #testSelector!!
+	PASSED
+	!!testRun #NewTestCase #testSelector!!
+	FAILURE
+	!!testRun #NewTestCase #testSelector!!
+	ERROR
 	"
 	testClass buildSuiteFromAllSelectors run.
 
-	self assertIsLoggedOnce: '!!testRun: #testPassed PASSED!!'.
-	self assertIsLoggedOnce: '!!testRun: #testFailure FAILURE!!'.
-	self assertIsLoggedOnce: '!!testRun: #testError ERROR!!'.
+	self assertIsLoggedOnce: '!!testRun: #NewTestCase #testPassed!!', String newLineString, 'PASSED!!'.
+	self assertIsLoggedOnce: '!!testRun: #NewTestCase #testFailure!!', String newLineString, 'FAILURE!!'.
+	self assertIsLoggedOnce: '!!testRun: #NewTestCase #testError!!', String newLineString, 'ERROR!!'.
 
 ! !
 
@@ -333,7 +340,7 @@ test05ScanClassRemovalChange
 
 ! !
 
-!ScanChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 2/5/2019 08:24:50'!
+!ScanChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 3/14/2019 10:41:55'!
 test06ScanPassingTestChange
 	| testRunChange | 
 
@@ -342,4 +349,5 @@ test06ScanPassingTestChange
 	testRunChange := self scanChangesFromFile last.
 
 	self assert: testRunChange changeType equals: #testRun.	
+	self assert: testRunChange testClass equals: #NewTestCase.
 	self assert: testRunChange selector equals: #testPassed.! !

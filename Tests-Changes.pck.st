@@ -1,36 +1,36 @@
-'From Cuis 5.0 of 7 November 2016 [latest update: #3671] on 20 May 2019 at 7:05:37 pm'!
+'From Cuis 5.0 of 7 November 2016 [latest update: #3671] on 17 June 2019 at 4:46:10 pm'!
 'Description Please enter a description for this package'!
-!provides: 'Tests-Changes' 1 3!
+!provides: 'Tests-Changes' 1 4!
 SystemOrganization addCategory: #'Tests-Changes'!
 
 
-!testClassDefinition: #ChangesTest category: #'Tests-Changes'!
+!testClassDefinition: #ChangesTest category: #'Tests-Changes' stamp: 'MGD 6/17/2019 16:46:11'!
 TestCase subclass: #ChangesTest
 	instanceVariableNames: 'testClass author'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Tests-Changes'!
-!classDefinition: 'ChangesTest class' category: #'Tests-Changes'!
+!classDefinition: 'ChangesTest class' category: #'Tests-Changes' stamp: 'MGD 6/17/2019 16:46:11'!
 ChangesTest class
 	instanceVariableNames: ''!
 
-!testClassDefinition: #LogChangesTest category: #'Tests-Changes'!
+!testClassDefinition: #LogChangesTest category: #'Tests-Changes' stamp: 'MGD 6/17/2019 16:46:11'!
 ChangesTest subclass: #LogChangesTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Tests-Changes'!
-!classDefinition: 'LogChangesTest class' category: #'Tests-Changes'!
+!classDefinition: 'LogChangesTest class' category: #'Tests-Changes' stamp: 'MGD 6/17/2019 16:46:11'!
 LogChangesTest class
 	instanceVariableNames: ''!
 
-!testClassDefinition: #ScanChangesTest category: #'Tests-Changes'!
+!testClassDefinition: #ScanChangesTest category: #'Tests-Changes' stamp: 'MGD 6/17/2019 16:46:11'!
 ChangesTest subclass: #ScanChangesTest
 	instanceVariableNames: 'mockClass'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Tests-Changes'!
-!classDefinition: 'ScanChangesTest class' category: #'Tests-Changes'!
+!classDefinition: 'ScanChangesTest class' category: #'Tests-Changes' stamp: 'MGD 6/17/2019 16:46:11'!
 ScanChangesTest class
 	instanceVariableNames: ''!
 
@@ -65,7 +65,7 @@ tearDown
 userChangesFile
 	^ Smalltalk defaultUserChangesName asFileEntry! !
 
-!LogChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 12/30/2018 16:03:57'!
+!LogChangesTest methodsFor: 'tests' stamp: 'MGD 12/30/2018 16:03:57'!
 assertIsLogged: aString times: stringCount 
 	| logContent startPosition indexOfSubstring |
 
@@ -87,19 +87,19 @@ assertIsLogged: aString times: stringCount
 	
 	! !
 
-!LogChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 12/30/2018 16:04:58'!
+!LogChangesTest methodsFor: 'tests' stamp: 'MGD 12/30/2018 16:04:58'!
 assertIsLoggedOnce: aString 
 	self assertIsLogged: aString times: 1.! !
 
-!LogChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 12/30/2018 16:44:01'!
+!LogChangesTest methodsFor: 'tests' stamp: 'MGD 12/30/2018 16:44:01'!
 assertIsLoggedTwice: aString 
 	self assertIsLogged: aString times: 2.! !
 
-!LogChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 1/2/2019 19:09:15'!
+!LogChangesTest methodsFor: 'tests' stamp: 'MGD 5/23/2019 09:25:08'!
 test01AddingAClassShouldBeLogged
 	" Log format expected:
 	
-	!!classDefinition: #ClassName category: #'Category'!!
+	!!classDefinition: #ClassName category: #'Category' stamp: changeStamp!!
 	Object subclass: #ClassName
 		instanceVariableNames: '...'
 		classVariableNames: '...'
@@ -110,14 +110,14 @@ test01AddingAClassShouldBeLogged
 	[
 		newClass := Object subclass: #NewClass instanceVariableNames: '' classVariableNames: '' poolDictionaries: '' category: 'Tests-Changes'.
 		
-		self assertIsLoggedOnce: '!!classDefinition: #NewClass category: #''Tests-Changes'''.
+		self assertIsLoggedOnce: '!!classDefinition: #NewClass category: #''Tests-Changes'' stamp:'.
 		self assertIsLoggedOnce: newClass definition.
 	] ensure: [
 		newClass removeFromSystem 
 	]
 ! !
 
-!LogChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 1/2/2019 19:48:25'!
+!LogChangesTest methodsFor: 'tests' stamp: 'MGD 1/2/2019 19:48:25'!
 test02AddingANewMethodShouldBeLogged
 	" Log format expected:
 	
@@ -136,7 +136,7 @@ test02AddingANewMethodShouldBeLogged
 	]
 ! !
 
-!LogChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 1/2/2019 19:48:36'!
+!LogChangesTest methodsFor: 'tests' stamp: 'MGD 5/24/2019 10:20:47'!
 test03ChangingAMethodShouldBeLogged
 	" Log format expected:
 	
@@ -150,17 +150,18 @@ test03ChangingAMethodShouldBeLogged
 		aClass compile: 'm1 ^ 2' classified: 'a-category'.
 		
 		self assertIsLoggedTwice: '!!NewClass methodsFor: ''a-category'' stamp:'.
+		self assertIsLoggedOnce: 'prior: '.
 		self assertIsLoggedOnce: 'm1 ^ 2'.
 	] ensure: [
 		aClass removeFromSystem 
 	]
 ! !
 
-!LogChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 1/2/2019 19:44:53'!
+!LogChangesTest methodsFor: 'tests' stamp: 'MGD 5/23/2019 09:44:13'!
 test04RemovingAMethodShouldBeLogged
 	" Log format expected:
 	
-	!!methodRemoval: #ClassName selector!!
+	!!methodRemoval: #ClassName selector stamp: changeStamp!!
 	methodSourceCode
 	"
 	| aClass |
@@ -169,17 +170,18 @@ test04RemovingAMethodShouldBeLogged
 		aClass compile: 'm1 ^ 1' classified: 'a-category'.
 		aClass removeSelector: #m1.
 
-		self assertIsLoggedOnce: '!!methodRemoval: #NewClass m1!!', String newLineString, 'm1 ^ 1'.
+		self assertIsLoggedOnce: '!!methodRemoval: #NewClass m1 stamp:'.
+		self assertIsLoggedOnce: 'm1 ^ 1'.
 	] ensure: [
 		aClass removeFromSystem 
 	]
 ! !
 
-!LogChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 1/7/2019 09:42:44'!
+!LogChangesTest methodsFor: 'tests' stamp: 'MGD 5/23/2019 10:36:28'!
 test05RemovingAClassShouldBeLogged
 	" Log format expected:
 	
-	!!classRemoval: #ClassName!!
+	!!classRemoval: #ClassName stamp: changeStamp!!
 	classDefinitionMessage
 	"
 	| aClass definition |
@@ -188,73 +190,77 @@ test05RemovingAClassShouldBeLogged
 	definition := aClass definition.
 	aClass removeFromSystem.
 
-	self assertIsLoggedOnce: '!!classRemoval: #NewClass!!', String newLineString, definition.
+	self assertIsLoggedOnce: '!!classRemoval: #NewClass stamp:'.
+	self assertIsLoggedOnce: definition.
 
 ! !
 
-!LogChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 3/14/2019 09:33:36'!
+!LogChangesTest methodsFor: 'tests' stamp: 'MGD 5/23/2019 10:45:35'!
 test06RunningAPassingTestShouldBeLogged
 	" Log format expected:
 	
-	!!testRun: #TestCase #testSelector!!
+	!!testRun: #TestCase #testSelector stamp: changeStamp!!
 	PASSED
 	"
 	testClass run: #testPassed.
 
-	self assertIsLoggedOnce: '!!testRun: #NewTestCase #testPassed!!', String newLineString, 'PASSED!!'.
+	self assertIsLoggedOnce: '!!testRun: #NewTestCase #testPassed stamp:'.
+	self assertIsLoggedOnce: 'PASSED!!'.
 
 ! !
 
-!LogChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 3/14/2019 09:48:48'!
+!LogChangesTest methodsFor: 'tests' stamp: 'MGD 5/23/2019 10:47:02'!
 test07RunningAFailingTestShouldBeLogged
 	" Log format expected:
 	
-	!!testRun #NewTestCase #testSelector!!
+	!!testRun #NewTestCase #testSelector stamp: changeStamp!!
 	FAILURE
 	"
 	testClass run: #testFailure.
 
-	self assertIsLoggedOnce: '!!testRun: #NewTestCase #testFailure!!', String newLineString, 'FAILURE!!'.
+	self assertIsLoggedOnce: '!!testRun: #NewTestCase #testFailure stamp:'.
+	self assertIsLoggedOnce: 'FAILURE!!'.
 
 ! !
 
-!LogChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 3/14/2019 09:57:47'!
+!LogChangesTest methodsFor: 'tests' stamp: 'MGD 5/23/2019 10:47:23'!
 test08RunningATestWithAnErrorShouldBeLogged
 	" Log format expected:
 	
-	!!testRun #NewTestCase #testSelector!!
+	!!testRun #NewTestCase #testSelector stamp: changeStamp!!
 	ERROR
 	"
 	testClass run: #testError.
 
-	self assertIsLoggedOnce: '!!testRun: #NewTestCase #testError!!', String newLineString, 'ERROR!!'.
+	self assertIsLoggedOnce: '!!testRun: #NewTestCase #testError stamp:'. 
+	self assertIsLoggedOnce: 'ERROR!!'.
 
 ! !
 
-!LogChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 3/14/2019 10:08:33'!
+!LogChangesTest methodsFor: 'tests' stamp: 'MGD 5/23/2019 10:49:14'!
 test09RunningATestSuiteShouldBeLogged
 	" Log format expected:
 	
-	!!testRun: #TestCase #testSelector!!
+	!!testRun: #TestCase #testSelector stamp: changeStamp!!
 	PASSED
-	!!testRun #NewTestCase #testSelector!!
+	!!testRun #NewTestCase #testSelector stamp: changeStamp!!
 	FAILURE
-	!!testRun #NewTestCase #testSelector!!
+	!!testRun #NewTestCase #testSelector stamp: changeStamp!!
 	ERROR
 	"
 	testClass buildSuiteFromAllSelectors run.
 
-	self assertIsLoggedOnce: '!!testRun: #NewTestCase #testPassed!!', String newLineString, 'PASSED!!'.
-	self assertIsLoggedOnce: '!!testRun: #NewTestCase #testFailure!!', String newLineString, 'FAILURE!!'.
-	self assertIsLoggedOnce: '!!testRun: #NewTestCase #testError!!', String newLineString, 'ERROR!!'.
+	self assertIsLoggedOnce: '!!testRun: #NewTestCase #testPassed'.
+	self assertIsLoggedOnce: '!!testRun: #NewTestCase #testFailure'.
+	self assertIsLoggedOnce: '!!testRun: #NewTestCase #testError'.
 
 ! !
 
-!LogChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 5/1/2019 12:42:36'!
+!LogChangesTest methodsFor: 'tests' stamp: 'MGD 5/23/2019 10:49:42'!
 test10AddingATestClassShouldBeLogged
 	" Log format expected:
 	
-	!!testClassDefinition: #ClassName category: #'Category'!!
+	!!testClassDefinition: #ClassName category: #'Category' stamp: changeStamp!!
 	Object subclass: #ClassName
 		instanceVariableNames: '...'
 		classVariableNames: '...'
@@ -265,7 +271,7 @@ test10AddingATestClassShouldBeLogged
 	[
 		newClass := TestCase subclass: #NewClass instanceVariableNames: '' classVariableNames: '' poolDictionaries: '' category: 'Tests-Changes'.
 		
-		self assertIsLoggedOnce: '!!testClassDefinition: #NewClass category: #''Tests-Changes'''.
+		self assertIsLoggedOnce: '!!testClassDefinition: #NewClass category: #''Tests-Changes'' stamp:'.
 		self assertIsLoggedOnce: newClass definition.
 	] ensure: [
 		newClass removeFromSystem 
@@ -273,7 +279,7 @@ test10AddingATestClassShouldBeLogged
 
 ! !
 
-!ScanChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 1/18/2019 20:45:17'!
+!ScanChangesTest methodsFor: 'tests' stamp: 'MGD 1/18/2019 20:45:17'!
 scanChangesFromFile
 	| fileStream changeList |
 	
@@ -283,20 +289,20 @@ scanChangesFromFile
 	^ changeList changeList.
 ! !
 
-!ScanChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 2/4/2019 17:21:33'!
+!ScanChangesTest methodsFor: 'tests' stamp: 'MGD 2/4/2019 17:21:33'!
 setUp
 
 	super setUp.
 	mockClass := Object subclass: #TestClass instanceVariableNames: '' classVariableNames: '' poolDictionaries: '' category: 'Tests-Changes'.
 ! !
 
-!ScanChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 2/4/2019 17:21:58'!
+!ScanChangesTest methodsFor: 'tests' stamp: 'MGD 2/4/2019 17:21:58'!
 tearDown
 	
 	super tearDown.	
 	mockClass removeFromSystem.! !
 
-!ScanChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 5/1/2019 13:41:25'!
+!ScanChangesTest methodsFor: 'tests' stamp: 'MGD 5/23/2019 09:06:54'!
 test01ScanNewClassChange
 	| newClass newClassChange |
 	[
@@ -306,13 +312,14 @@ test01ScanNewClassChange
 		
 		self assert: newClassChange changeType equals: #classDefinition.
 		self assert: newClassChange changeClass equals: newClass.
+		self deny: newClassChange stamp isNil.
 		self deny: newClassChange isTestClassChange.
 	] ensure: [
 		newClass removeFromSystem 
 	]
 ! !
 
-!ScanChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 2/4/2019 17:22:45'!
+!ScanChangesTest methodsFor: 'tests' stamp: 'MGD 5/24/2019 10:49:37'!
 test02ScanNewMethodChange
 	| newMethodChange | 
 
@@ -323,9 +330,11 @@ test02ScanNewMethodChange
 	self assert: newMethodChange changeType equals: #method.
 	self assert: newMethodChange methodSelector equals: #m1.
 	self assert: newMethodChange changeClass equals: mockClass.
+	self assert: newMethodChange priorMethod isNil.
+	self deny: newMethodChange stamp isNil.
 ! !
 
-!ScanChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 2/4/2019 17:22:51'!
+!ScanChangesTest methodsFor: 'tests' stamp: 'MGD 5/24/2019 10:52:51'!
 test03ScanMethodModifiedChange
 	| methodModifiedChange | 
 
@@ -337,9 +346,11 @@ test03ScanMethodModifiedChange
 	self assert: methodModifiedChange changeType equals: #method.
 	self assert: methodModifiedChange methodSelector equals: #m1.
 	self assert: methodModifiedChange changeClass equals: mockClass.
+	self deny: methodModifiedChange priorMethod isNil.
+	self deny: methodModifiedChange stamp isNil.
 ! !
 
-!ScanChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 2/4/2019 17:22:04'!
+!ScanChangesTest methodsFor: 'tests' stamp: 'MGD 5/23/2019 09:32:29'!
 test04ScanMethodRemovalChange
 	| methodRemovalChange | 
 
@@ -350,9 +361,10 @@ test04ScanMethodRemovalChange
 		
 	self assert: methodRemovalChange isMethodDeletion.
 	self assert: methodRemovalChange methodSelector equals: #m1.
+	self deny: methodRemovalChange stamp isNil.
 ! !
 
-!ScanChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 5/1/2019 12:00:49'!
+!ScanChangesTest methodsFor: 'tests' stamp: 'MGD 5/23/2019 10:34:43'!
 test05ScanClassRemovalChange
 	| classRemovalChange | 
 
@@ -363,10 +375,11 @@ test05ScanClassRemovalChange
 	self assert: classRemovalChange changeType equals: #classRemoval.	
 	self assert: classRemovalChange changeClassName equals: #TestClass.
 	self assert: classRemovalChange isClassDeletion.
+	self deny: classRemovalChange stamp isNil.
 
 ! !
 
-!ScanChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 4/6/2019 16:46:10'!
+!ScanChangesTest methodsFor: 'tests' stamp: 'MGD 5/23/2019 10:41:55'!
 test06ScanPassingTestChange
 	| testRunChange | 
 
@@ -377,9 +390,10 @@ test06ScanPassingTestChange
 	self assert: testRunChange changeType equals: #testRun.	
 	self assert: testRunChange testClass equals: #NewTestCase.
 	self assert: testRunChange methodSelector equals: #testPassed.
-	self assert: testRunChange isPassed.! !
+	self assert: testRunChange isPassed.
+	self deny: testRunChange stamp isNil.! !
 
-!ScanChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 4/6/2019 18:35:27'!
+!ScanChangesTest methodsFor: 'tests' stamp: 'MGD 4/6/2019 18:35:27'!
 test07ScanFailedTestChange
 	| testRunChange | 
 
@@ -392,7 +406,7 @@ test07ScanFailedTestChange
 	self assert: testRunChange methodSelector equals: #testFailure.
 	self assert: testRunChange isFailure.! !
 
-!ScanChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 5/1/2019 13:41:30'!
+!ScanChangesTest methodsFor: 'tests' stamp: 'MGD 5/23/2019 10:44:17'!
 test08ScanNewTestClass
 	| newClass newClassChange |
 	[
@@ -404,6 +418,7 @@ test08ScanNewTestClass
 		self assert: newClassChange changeClassName equals: #NewClass.
 		self assert: newClassChange changeClass equals: newClass.
 		self assert: newClassChange isTestClassChange.
+		self deny: newClassChange stamp isNil.
 	] ensure: [
 		newClass removeFromSystem 
 	]

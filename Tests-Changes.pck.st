@@ -1,36 +1,36 @@
-'From Cuis 5.0 of 7 November 2016 [latest update: #3671] on 17 June 2019 at 4:46:10 pm'!
+'From Cuis 5.0 of 7 November 2016 [latest update: #3784] on 15 August 2019 at 8:10:53 pm'!
 'Description Please enter a description for this package'!
-!provides: 'Tests-Changes' 1 4!
+!provides: 'Tests-Changes' 1 5!
 SystemOrganization addCategory: #'Tests-Changes'!
 
 
-!testClassDefinition: #ChangesTest category: #'Tests-Changes' stamp: 'MGD 6/17/2019 16:46:11'!
+!testClassDefinition: #ChangesTest category: #'Tests-Changes' stamp: 'MGD 8/15/2019 20:10:53'!
 TestCase subclass: #ChangesTest
 	instanceVariableNames: 'testClass author'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Tests-Changes'!
-!classDefinition: 'ChangesTest class' category: #'Tests-Changes' stamp: 'MGD 6/17/2019 16:46:11'!
+!classDefinition: 'ChangesTest class' category: #'Tests-Changes' stamp: 'MGD 8/15/2019 20:10:53'!
 ChangesTest class
 	instanceVariableNames: ''!
 
-!testClassDefinition: #LogChangesTest category: #'Tests-Changes' stamp: 'MGD 6/17/2019 16:46:11'!
+!testClassDefinition: #LogChangesTest category: #'Tests-Changes' stamp: 'MGD 8/15/2019 20:10:53'!
 ChangesTest subclass: #LogChangesTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Tests-Changes'!
-!classDefinition: 'LogChangesTest class' category: #'Tests-Changes' stamp: 'MGD 6/17/2019 16:46:11'!
+!classDefinition: 'LogChangesTest class' category: #'Tests-Changes' stamp: 'MGD 8/15/2019 20:10:53'!
 LogChangesTest class
 	instanceVariableNames: ''!
 
-!testClassDefinition: #ScanChangesTest category: #'Tests-Changes' stamp: 'MGD 6/17/2019 16:46:11'!
+!testClassDefinition: #ScanChangesTest category: #'Tests-Changes' stamp: 'MGD 8/15/2019 20:10:53'!
 ChangesTest subclass: #ScanChangesTest
 	instanceVariableNames: 'mockClass'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Tests-Changes'!
-!classDefinition: 'ScanChangesTest class' category: #'Tests-Changes' stamp: 'MGD 6/17/2019 16:46:11'!
+!classDefinition: 'ScanChangesTest class' category: #'Tests-Changes' stamp: 'MGD 8/15/2019 20:10:53'!
 ScanChangesTest class
 	instanceVariableNames: ''!
 
@@ -223,7 +223,7 @@ test07RunningAFailingTestShouldBeLogged
 
 ! !
 
-!LogChangesTest methodsFor: 'tests' stamp: 'MGD 5/23/2019 10:47:23'!
+!LogChangesTest methodsFor: 'tests' stamp: 'MGD 7/28/2019 16:49:51'!
 test08RunningATestWithAnErrorShouldBeLogged
 	" Log format expected:
 	

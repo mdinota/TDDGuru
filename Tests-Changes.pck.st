@@ -1,36 +1,36 @@
-'From Cuis 5.0 [latest update: #3839] on 8 September 2019 at 5:38:00 pm'!
+'From Cuis 5.0 [latest update: #3839] on 7 October 2019 at 11:16:30 am'!
 'Description Please enter a description for this package'!
-!provides: 'Tests-Changes' 1 6!
+!provides: 'Tests-Changes' 1 7!
 SystemOrganization addCategory: #'Tests-Changes'!
 
 
-!testClassDefinition: #ChangesTest category: #'Tests-Changes' stamp: 'MGD 9/8/2019 17:38:01'!
+!testClassDefinition: #ChangesTest category: #'Tests-Changes' stamp: 'MGD 10/7/2019 11:16:30'!
 TestCase subclass: #ChangesTest
-	instanceVariableNames: 'testClass author'
+	instanceVariableNames: 'testClass author previousUserChangesFile'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Tests-Changes'!
-!classDefinition: 'ChangesTest class' category: #'Tests-Changes' stamp: 'MGD 9/8/2019 17:38:01'!
+!classDefinition: 'ChangesTest class' category: #'Tests-Changes' stamp: 'MGD 10/7/2019 11:16:30'!
 ChangesTest class
 	instanceVariableNames: ''!
 
-!testClassDefinition: #LogChangesTest category: #'Tests-Changes' stamp: 'MGD 9/8/2019 17:38:01'!
+!testClassDefinition: #LogChangesTest category: #'Tests-Changes' stamp: 'MGD 10/7/2019 11:16:30'!
 ChangesTest subclass: #LogChangesTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Tests-Changes'!
-!classDefinition: 'LogChangesTest class' category: #'Tests-Changes' stamp: 'MGD 9/8/2019 17:38:01'!
+!classDefinition: 'LogChangesTest class' category: #'Tests-Changes' stamp: 'MGD 10/7/2019 11:16:30'!
 LogChangesTest class
 	instanceVariableNames: ''!
 
-!testClassDefinition: #ScanChangesTest category: #'Tests-Changes' stamp: 'MGD 9/8/2019 17:38:01'!
+!testClassDefinition: #ScanChangesTest category: #'Tests-Changes' stamp: 'MGD 10/7/2019 11:16:30'!
 ChangesTest subclass: #ScanChangesTest
 	instanceVariableNames: 'mockClass'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Tests-Changes'!
-!classDefinition: 'ScanChangesTest class' category: #'Tests-Changes' stamp: 'MGD 9/8/2019 17:38:01'!
+!classDefinition: 'ScanChangesTest class' category: #'Tests-Changes' stamp: 'MGD 10/7/2019 11:16:30'!
 ScanChangesTest class
 	instanceVariableNames: ''!
 
@@ -39,9 +39,10 @@ ScanChangesTest class
 changesFileForTests
 	^ 'test.changes'! !
 
-!ChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 3/14/2019 10:01:20'!
+!ChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 10/1/2019 20:18:37'!
 setUp	
 	author := Utilities authorName.
+	previousUserChangesFile := Preferences userChangesFileName.
 	
 	self changesFileForTests asFileEntry delete.
 	
@@ -53,9 +54,9 @@ setUp
 	testClass compile: 'testFailure self assert: false'.
 	testClass compile: 'testError self error: ''Unexpected error'''.! !
 
-!ChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 2/4/2019 17:32:48'!
+!ChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 10/1/2019 20:18:46'!
 tearDown
-	Preferences setPreference: #userChangesFileName toValue: Preferences defaultUserChangesFileName.
+	Preferences setPreference: #userChangesFileName toValue: previousUserChangesFile.
 	self changesFileForTests asFileEntry delete.
 	
 	testClass removeFromSystem.
@@ -364,7 +365,7 @@ test04ScanMethodRemovalChange
 	self deny: methodRemovalChange stamp isNil.
 ! !
 
-!ScanChangesTest methodsFor: 'tests' stamp: 'MGD 5/23/2019 10:34:43'!
+!ScanChangesTest methodsFor: 'tests' stamp: 'MGD 10/1/2019 20:30:52'!
 test05ScanClassRemovalChange
 	| classRemovalChange | 
 

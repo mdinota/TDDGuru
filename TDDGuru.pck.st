@@ -1,489 +1,499 @@
-'From Cuis 5.0 [latest update: #3839] on 10 October 2019 at 8:18:43 pm'!
+'From Cuis 5.0 [latest update: #3839] on 14 October 2019 at 4:31:44 pm'!
 'Description Please enter a description for this package'!
-!provides: 'TDDGuru' 1 16!
+!provides: 'TDDGuru' 1 18!
 SystemOrganization addCategory: #'TDDGuru-Tests'!
 SystemOrganization addCategory: #'TDDGuru-Sandbox'!
 SystemOrganization addCategory: #'TDDGuru-Model'!
 SystemOrganization addCategory: #'TDDGuru-Tools'!
 
 
-!classDefinition: #ChangeListMorph category: #'TDDGuru-Tools' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: #ChangeListMorph category: #'TDDGuru-Tools' stamp: 'MGD 10/14/2019 16:31:45'!
 PluggableListMorph subclass: #ChangeListMorph
 	instanceVariableNames: 'analysisResult'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Tools'!
-!classDefinition: 'ChangeListMorph class' category: #'TDDGuru-Tools' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: 'ChangeListMorph class' category: #'TDDGuru-Tools' stamp: 'MGD 10/14/2019 16:31:45'!
 ChangeListMorph class
 	instanceVariableNames: ''!
 
-!classDefinition: #PickAChangeWindow category: #'TDDGuru-Tools' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: #PickAChangeWindow category: #'TDDGuru-Tools' stamp: 'MGD 10/14/2019 16:31:45'!
 ChangeListWindow subclass: #PickAChangeWindow
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Tools'!
-!classDefinition: 'PickAChangeWindow class' category: #'TDDGuru-Tools' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: 'PickAChangeWindow class' category: #'TDDGuru-Tools' stamp: 'MGD 10/14/2019 16:31:45'!
 PickAChangeWindow class
 	instanceVariableNames: ''!
 
-!classDefinition: #AnalysisResultWindow category: #'TDDGuru-Tools' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: #AnalysisResultWindow category: #'TDDGuru-Tools' stamp: 'MGD 10/14/2019 16:31:45'!
 SystemWindow subclass: #AnalysisResultWindow
 	instanceVariableNames: 'changeDetail index changeDetailTitle changeCode'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Tools'!
-!classDefinition: 'AnalysisResultWindow class' category: #'TDDGuru-Tools' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: 'AnalysisResultWindow class' category: #'TDDGuru-Tools' stamp: 'MGD 10/14/2019 16:31:45'!
 AnalysisResultWindow class
 	instanceVariableNames: ''!
 
-!classDefinition: #InnerChangeListMorph category: #'TDDGuru-Tools' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: #InnerChangeListMorph category: #'TDDGuru-Tools' stamp: 'MGD 10/14/2019 16:31:45'!
 InnerListMorph subclass: #InnerChangeListMorph
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Tools'!
-!classDefinition: 'InnerChangeListMorph class' category: #'TDDGuru-Tools' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: 'InnerChangeListMorph class' category: #'TDDGuru-Tools' stamp: 'MGD 10/14/2019 16:31:45'!
 InnerChangeListMorph class
 	instanceVariableNames: ''!
 
-!classDefinition: #TDDStateIcon category: #'TDDGuru-Tools' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: #TDDStateIcon category: #'TDDGuru-Tools' stamp: 'MGD 10/14/2019 16:31:45'!
 RectangleLikeMorph subclass: #TDDStateIcon
 	instanceVariableNames: 'tddState width height'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Tools'!
-!classDefinition: 'TDDStateIcon class' category: #'TDDGuru-Tools' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: 'TDDStateIcon class' category: #'TDDGuru-Tools' stamp: 'MGD 10/14/2019 16:31:45'!
 TDDStateIcon class
 	instanceVariableNames: ''!
 
-!testClassDefinition: #TDDGuruTest category: #'TDDGuru-Tests' stamp: 'MGD 10/10/2019 20:18:44'!
+!testClassDefinition: #TDDGuruTest category: #'TDDGuru-Tests' stamp: 'MGD 10/14/2019 16:31:45'!
 TestCase subclass: #TDDGuruTest
 	instanceVariableNames: 'tddGuru classesByName previousUserChangesFile'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Tests'!
-!classDefinition: 'TDDGuruTest class' category: #'TDDGuru-Tests' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: 'TDDGuruTest class' category: #'TDDGuru-Tests' stamp: 'MGD 10/14/2019 16:31:45'!
 TDDGuruTest class
 	instanceVariableNames: ''!
 
-!testClassDefinition: #GreenTest category: #'TDDGuru-Tests' stamp: 'MGD 10/10/2019 20:18:44'!
+!testClassDefinition: #GreenTest category: #'TDDGuru-Tests' stamp: 'MGD 10/14/2019 16:31:45'!
 TDDGuruTest subclass: #GreenTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Tests'!
-!classDefinition: 'GreenTest class' category: #'TDDGuru-Tests' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: 'GreenTest class' category: #'TDDGuru-Tests' stamp: 'MGD 10/14/2019 16:31:45'!
 GreenTest class
 	instanceVariableNames: ''!
 
-!testClassDefinition: #MiscTest category: #'TDDGuru-Tests' stamp: 'MGD 10/10/2019 20:18:44'!
+!testClassDefinition: #MiscTest category: #'TDDGuru-Tests' stamp: 'MGD 10/14/2019 16:31:45'!
 TDDGuruTest subclass: #MiscTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Tests'!
-!classDefinition: 'MiscTest class' category: #'TDDGuru-Tests' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: 'MiscTest class' category: #'TDDGuru-Tests' stamp: 'MGD 10/14/2019 16:31:45'!
 MiscTest class
 	instanceVariableNames: ''!
 
-!testClassDefinition: #MoreThanOneTestWrittenTest category: #'TDDGuru-Tests' stamp: 'MGD 10/10/2019 20:18:44'!
+!testClassDefinition: #MoreThanOneTestWrittenTest category: #'TDDGuru-Tests' stamp: 'MGD 10/14/2019 16:31:45'!
 TDDGuruTest subclass: #MoreThanOneTestWrittenTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Tests'!
-!classDefinition: 'MoreThanOneTestWrittenTest class' category: #'TDDGuru-Tests' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: 'MoreThanOneTestWrittenTest class' category: #'TDDGuru-Tests' stamp: 'MGD 10/14/2019 16:31:45'!
 MoreThanOneTestWrittenTest class
 	instanceVariableNames: ''!
 
-!testClassDefinition: #NotDoingTDDTest category: #'TDDGuru-Tests' stamp: 'MGD 10/10/2019 20:18:44'!
+!testClassDefinition: #NotDoingTDDTest category: #'TDDGuru-Tests' stamp: 'MGD 10/14/2019 16:31:45'!
 TDDGuruTest subclass: #NotDoingTDDTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Tests'!
-!classDefinition: 'NotDoingTDDTest class' category: #'TDDGuru-Tests' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: 'NotDoingTDDTest class' category: #'TDDGuru-Tests' stamp: 'MGD 10/14/2019 16:31:45'!
 NotDoingTDDTest class
 	instanceVariableNames: ''!
 
-!testClassDefinition: #NotStartedTest category: #'TDDGuru-Tests' stamp: 'MGD 10/10/2019 20:18:44'!
+!testClassDefinition: #NotStartedTest category: #'TDDGuru-Tests' stamp: 'MGD 10/14/2019 16:31:45'!
 TDDGuruTest subclass: #NotStartedTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Tests'!
-!classDefinition: 'NotStartedTest class' category: #'TDDGuru-Tests' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: 'NotStartedTest class' category: #'TDDGuru-Tests' stamp: 'MGD 10/14/2019 16:31:45'!
 NotStartedTest class
 	instanceVariableNames: ''!
 
-!testClassDefinition: #RedTest category: #'TDDGuru-Tests' stamp: 'MGD 10/10/2019 20:18:44'!
+!testClassDefinition: #RedTest category: #'TDDGuru-Tests' stamp: 'MGD 10/14/2019 16:31:45'!
 TDDGuruTest subclass: #RedTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Tests'!
-!classDefinition: 'RedTest class' category: #'TDDGuru-Tests' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: 'RedTest class' category: #'TDDGuru-Tests' stamp: 'MGD 10/14/2019 16:31:45'!
 RedTest class
 	instanceVariableNames: ''!
 
-!testClassDefinition: #RefactorTest category: #'TDDGuru-Tests' stamp: 'MGD 10/10/2019 20:18:44'!
+!testClassDefinition: #RefactorTest category: #'TDDGuru-Tests' stamp: 'MGD 10/14/2019 16:31:45'!
 TDDGuruTest subclass: #RefactorTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Tests'!
-!classDefinition: 'RefactorTest class' category: #'TDDGuru-Tests' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: 'RefactorTest class' category: #'TDDGuru-Tests' stamp: 'MGD 10/14/2019 16:31:45'!
 RefactorTest class
 	instanceVariableNames: ''!
 
-!testClassDefinition: #WritingAFailingTestTest category: #'TDDGuru-Tests' stamp: 'MGD 10/10/2019 20:18:44'!
+!testClassDefinition: #WritingAFailingTestTest category: #'TDDGuru-Tests' stamp: 'MGD 10/14/2019 16:31:45'!
 TDDGuruTest subclass: #WritingAFailingTestTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Tests'!
-!classDefinition: 'WritingAFailingTestTest class' category: #'TDDGuru-Tests' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: 'WritingAFailingTestTest class' category: #'TDDGuru-Tests' stamp: 'MGD 10/14/2019 16:31:45'!
 WritingAFailingTestTest class
 	instanceVariableNames: ''!
 
-!testClassDefinition: #TestA category: #'TDDGuru-Sandbox' stamp: 'MGD 10/10/2019 20:18:44'!
-TestCase subclass: #TestA
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'TDDGuru-Sandbox'!
-!classDefinition: 'TestA class' category: #'TDDGuru-Sandbox' stamp: 'MGD 10/10/2019 20:18:44'!
-TestA class
-	instanceVariableNames: ''!
-
-!classDefinition: #ClassA category: #'TDDGuru-Sandbox' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: #ClassA category: #'TDDGuru-Sandbox' stamp: 'MGD 10/14/2019 16:31:45'!
 Object subclass: #ClassA
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Sandbox'!
-!classDefinition: 'ClassA class' category: #'TDDGuru-Sandbox' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: 'ClassA class' category: #'TDDGuru-Sandbox' stamp: 'MGD 10/14/2019 16:31:45'!
 ClassA class
 	instanceVariableNames: ''!
 
-!classDefinition: #AnalysisResult category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: #AnalysisResult category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 Object subclass: #AnalysisResult
 	instanceVariableNames: 'errors changes currentSelection selectedChange timeline'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'AnalysisResult class' category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: 'AnalysisResult class' category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 AnalysisResult class
 	instanceVariableNames: ''!
 
-!classDefinition: #Change category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: #Change category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 Object subclass: #Change
 	instanceVariableNames: 'changeRecord'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'Change class' category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: 'Change class' category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 Change class
 	instanceVariableNames: ''!
 
-!classDefinition: #ClassRemoved category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: #ClassRemoved category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 Change subclass: #ClassRemoved
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'ClassRemoved class' category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: 'ClassRemoved class' category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 ClassRemoved class
 	instanceVariableNames: ''!
 
-!classDefinition: #MethodRemoved category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: #MethodRemoved category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 Change subclass: #MethodRemoved
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'MethodRemoved class' category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: 'MethodRemoved class' category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 MethodRemoved class
 	instanceVariableNames: ''!
 
-!classDefinition: #ModelMethodChanged category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: #ModelMethodChanged category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 Change subclass: #ModelMethodChanged
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'ModelMethodChanged class' category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: 'ModelMethodChanged class' category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 ModelMethodChanged class
 	instanceVariableNames: ''!
 
-!classDefinition: #NewModelClass category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: #NewModelClass category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 Change subclass: #NewModelClass
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'NewModelClass class' category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: 'NewModelClass class' category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 NewModelClass class
 	instanceVariableNames: ''!
 
-!classDefinition: #NewModelMethod category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: #NewModelMethod category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 Change subclass: #NewModelMethod
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'NewModelMethod class' category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: 'NewModelMethod class' category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 NewModelMethod class
 	instanceVariableNames: ''!
 
-!classDefinition: #NewTest category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: #NewTest category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 Change subclass: #NewTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'NewTest class' category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: 'NewTest class' category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 NewTest class
 	instanceVariableNames: ''!
 
-!classDefinition: #NewTestClass category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: #NewTestClass category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 Change subclass: #NewTestClass
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'NewTestClass class' category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: 'NewTestClass class' category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 NewTestClass class
 	instanceVariableNames: ''!
 
-!classDefinition: #TestChanged category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: #TestChanged category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 Change subclass: #TestChanged
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'TestChanged class' category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: 'TestChanged class' category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 TestChanged class
 	instanceVariableNames: ''!
 
-!classDefinition: #TestFailed category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: #TestClassRemoved category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
+Change subclass: #TestClassRemoved
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TDDGuru-Model'!
+!classDefinition: 'TestClassRemoved class' category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
+TestClassRemoved class
+	instanceVariableNames: ''!
+
+!classDefinition: #TestFailed category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 Change subclass: #TestFailed
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'TestFailed class' category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: 'TestFailed class' category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 TestFailed class
 	instanceVariableNames: ''!
 
-!classDefinition: #TestPassed category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: #TestPassed category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 Change subclass: #TestPassed
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'TestPassed class' category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: 'TestPassed class' category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 TestPassed class
 	instanceVariableNames: ''!
 
-!classDefinition: #TestRenamed category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: #TestRemoved category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
+Change subclass: #TestRemoved
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TDDGuru-Model'!
+!classDefinition: 'TestRemoved class' category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
+TestRemoved class
+	instanceVariableNames: ''!
+
+!classDefinition: #TestRenamed category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 Change subclass: #TestRenamed
 	instanceVariableNames: 'newTestChangeRecord testRemovedChangeRecord'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'TestRenamed class' category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: 'TestRenamed class' category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 TestRenamed class
 	instanceVariableNames: ''!
 
-!classDefinition: #TestUtilityChanged category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: #TestUtilityChanged category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 Change subclass: #TestUtilityChanged
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'TestUtilityChanged class' category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: 'TestUtilityChanged class' category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 TestUtilityChanged class
 	instanceVariableNames: ''!
 
-!classDefinition: #UnknownChange category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: #UnknownChange category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 Change subclass: #UnknownChange
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'UnknownChange class' category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: 'UnknownChange class' category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 UnknownChange class
 	instanceVariableNames: ''!
 
-!classDefinition: #ChangeDetector category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: #ChangeDetector category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 Object subclass: #ChangeDetector
 	instanceVariableNames: 'changeClass lookahead changeDetectedBlock detectBlock'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'ChangeDetector class' category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: 'ChangeDetector class' category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 ChangeDetector class
 	instanceVariableNames: ''!
 
-!classDefinition: #ChangeLog category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: #ChangeLog category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 Object subclass: #ChangeLog
 	instanceVariableNames: 'changeList inventory changeDetectors'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'ChangeLog class' category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: 'ChangeLog class' category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 ChangeLog class
 	instanceVariableNames: ''!
 
-!classDefinition: #CodeInventory category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
-Object subclass: #CodeInventory
-	instanceVariableNames: 'testClasses tests'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'TDDGuru-Model'!
-!classDefinition: 'CodeInventory class' category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
-CodeInventory class
-	instanceVariableNames: ''!
-
-!classDefinition: #TDDGuru category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: #TDDGuru category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 Object subclass: #TDDGuru
 	instanceVariableNames: 'changeLog changesFile state analysisResult currentChange inventory initialState initialTestClasses startingPoint previousChange'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'TDDGuru class' category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: 'TDDGuru class' category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 TDDGuru class
 	instanceVariableNames: ''!
 
-!classDefinition: #TDDState category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: #TDDState category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 Object subclass: #TDDState
 	instanceVariableNames: 'context passedTests'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'TDDState class' category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: 'TDDState class' category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 TDDState class
 	instanceVariableNames: ''!
 
-!classDefinition: #Green category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: #Green category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 TDDState subclass: #Green
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'Green class' category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: 'Green class' category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 Green class
 	instanceVariableNames: ''!
 
-!classDefinition: #MoreThanOneTestWritten category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: #MoreThanOneTestWritten category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 TDDState subclass: #MoreThanOneTestWritten
 	instanceVariableNames: 'firstTest secondTest errorWasReported testAddedChange'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'MoreThanOneTestWritten class' category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: 'MoreThanOneTestWritten class' category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 MoreThanOneTestWritten class
 	instanceVariableNames: ''!
 
-!classDefinition: #NotDoingTDD category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: #NotDoingTDD category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 TDDState subclass: #NotDoingTDD
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'NotDoingTDD class' category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: 'NotDoingTDD class' category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 NotDoingTDD class
 	instanceVariableNames: ''!
 
-!classDefinition: #NotStarted category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: #NotStarted category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 TDDState subclass: #NotStarted
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'NotStarted class' category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: 'NotStarted class' category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 NotStarted class
 	instanceVariableNames: ''!
 
-!classDefinition: #Red category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: #Red category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 TDDState subclass: #Red
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'Red class' category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: 'Red class' category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 Red class
 	instanceVariableNames: ''!
 
-!classDefinition: #Refactor category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: #Refactor category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 TDDState subclass: #Refactor
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'Refactor class' category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: 'Refactor class' category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 Refactor class
 	instanceVariableNames: ''!
 
-!classDefinition: #WritingAFailingTest category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: #WritingAFailingTest category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 TDDState subclass: #WritingAFailingTest
 	instanceVariableNames: 'test'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'WritingAFailingTest class' category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: 'WritingAFailingTest class' category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 WritingAFailingTest class
 	instanceVariableNames: ''!
 
-!classDefinition: #TimeLine category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: #TestInventory category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
+Object subclass: #TestInventory
+	instanceVariableNames: 'testClasses tests'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TDDGuru-Model'!
+!classDefinition: 'TestInventory class' category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
+TestInventory class
+	instanceVariableNames: ''!
+
+!classDefinition: #TimeLine category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 Object subclass: #TimeLine
 	instanceVariableNames: 'events selectedEvent changes'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'TimeLine class' category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: 'TimeLine class' category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 TimeLine class
 	instanceVariableNames: ''!
 
-!classDefinition: #TimeLineEvent category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: #TimeLineEvent category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 Object subclass: #TimeLineEvent
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'TimeLineEvent class' category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: 'TimeLineEvent class' category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 TimeLineEvent class
 	instanceVariableNames: ''!
 
-!classDefinition: #ChangeEvent category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: #ChangeEvent category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 TimeLineEvent subclass: #ChangeEvent
 	instanceVariableNames: 'change'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'ChangeEvent class' category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: 'ChangeEvent class' category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 ChangeEvent class
 	instanceVariableNames: ''!
 
-!classDefinition: #StateTransitionEvent category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: #StateTransitionEvent category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 TimeLineEvent subclass: #StateTransitionEvent
 	instanceVariableNames: 'fromState toState'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'StateTransitionEvent class' category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: 'StateTransitionEvent class' category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 StateTransitionEvent class
 	instanceVariableNames: ''!
 
-!classDefinition: #UninstalledMethodReference category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: #UninstalledMethodReference category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 Object subclass: #UninstalledMethodReference
 	instanceVariableNames: 'selector className'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'UninstalledMethodReference class' category: #'TDDGuru-Model' stamp: 'MGD 10/10/2019 20:18:44'!
+!classDefinition: 'UninstalledMethodReference class' category: #'TDDGuru-Model' stamp: 'MGD 10/14/2019 16:31:45'!
 UninstalledMethodReference class
 	instanceVariableNames: ''!
 
@@ -528,6 +538,10 @@ category
 category
 	^ #testChanged! !
 
+!TestClassRemoved methodsFor: 'accessing' stamp: 'MGD 10/14/2019 16:19:30'!
+category
+	^ #testClassRemoved! !
+
 !TestFailed methodsFor: 'accessing' stamp: 'MGD 5/16/2019 20:16:02'!
 category
 	^ #testRun! !
@@ -535,6 +549,10 @@ category
 !TestPassed methodsFor: 'accessing' stamp: 'MGD 5/31/2019 07:29:27'!
 category
 	^ #testRun! !
+
+!TestRemoved methodsFor: 'accessing' stamp: 'MGD 10/14/2019 13:18:52'!
+category
+	^ #testRemoved! !
 
 !TestRenamed methodsFor: 'accessing' stamp: 'MGD 8/8/2019 19:39:34'!
 category
@@ -547,6 +565,10 @@ category
 !UnknownChange methodsFor: 'accessing' stamp: 'MGD 6/27/2019 11:51:17'!
 category
 	^ #unknown! !
+
+!TDDState methodsFor: 'accessing' stamp: 'MGD 10/12/2019 12:43:32'!
+name
+	^ self className ! !
 
 !UninstalledMethodReference methodsFor: 'printing' stamp: 'MGD 9/4/2019 21:07:02'!
 printOn: aStream
@@ -566,15 +588,6 @@ analysisResult: anAnalysisResult
 !ChangeListMorph methodsFor: 'as yet unclassified' stamp: 'MGD 6/17/2019 19:40:25'!
 innerMorphClass
 	^ InnerChangeListMorph ! !
-
-!ChangeListMorph methodsFor: 'as yet unclassified' stamp: 'MGD 8/21/2019 17:42:19'!
-mouseScroll: aMouseEvent localPosition: localEventPosition
-	super mouseScroll: aMouseEvent localPosition: localEventPosition.
-	self triggerEvent: #scroll withArguments: { aMouseEvent . localEventPosition }.! !
-
-!ChangeListMorph methodsFor: 'as yet unclassified' stamp: 'MGD 8/22/2019 20:19:23'!
-scroll: aMouseEvent to: localEventPosition
-	super mouseScroll: aMouseEvent localPosition: localEventPosition.! !
 
 !ChangeListMorph methodsFor: 'as yet unclassified' stamp: 'MGD 6/25/2019 09:16:57'!
 update: aSection
@@ -718,7 +731,7 @@ startAnalysis
 	selected = #all ifTrue: [ (TDDGuru on: userChangesFileName) run; showAnalysisResult ].
 	! !
 
-!AnalysisResultWindow class methodsFor: 'colors' stamp: 'MGD 10/9/2019 16:40:25'!
+!AnalysisResultWindow class methodsFor: 'colors' stamp: 'MGD 10/13/2019 11:45:00'!
 stateTransitionColor: aTDDState
 	aTDDState = Green ifTrue: [ ^ Color fromString: '#28a745' ].
 	aTDDState = Red ifTrue: [ ^ Color fromString: '#dc3545' ].
@@ -1920,6 +1933,24 @@ test12WhenATestIsChangedThenIsWritingAFailingTest
 	self assertHasNoErrors: result.
 	self assert: tddGuru currentState equals: WritingAFailingTest.! !
 
+!NotStartedTest methodsFor: 'tests' stamp: 'MGD 10/14/2019 11:17:15'!
+test13WhenATestIsRenamedThenIsNotDoingTDD
+	| result |
+	
+	self newClassNamed: #TestSomething subclassOf: TestCase.
+	self compileMethod: 'test01 self assert: true' in: #TestSomething.
+	
+	tddGuru initialTestClasses: { self classNamed: #TestSomething}.
+	
+	self logChangesWhile: [ 
+		self compileMethod: 'test01A self assert: false' in: #TestSomething. 
+		self removeMethodWithSelector: #test01 from: #TestSomething ].
+		
+	result _ tddGuru run.
+		
+	self assert: tddGuru currentState equals: NotDoingTDD.
+	self assert: result hasErrorWithDescription: (TDDGuru testRenamedBeforeRunningTheTests: #test01 class: #TestSomething)! !
+
 !RedTest methodsFor: 'tests' stamp: 'MGD 9/14/2019 12:05:49'!
 test01WhenAProductionClassIsAddedIsStillInRed
 	| result  |
@@ -2120,8 +2151,8 @@ test11WhenAModelClassIsRemovedIsStillInRed
 	self assertCurrentStateIs: Red.
 	self assertHasNoErrors: result.! !
 
-!RedTest methodsFor: 'tests' stamp: 'MGD 10/3/2019 20:25:25'!
-test12WhenATestIsChangedIsStillInRed
+!RedTest methodsFor: 'tests' stamp: 'MGD 10/14/2019 14:51:26'!
+test12WhenTheTestIsChangedIsStillInRed
 	| result |
 	
 	self newClassNamed: #ModelClass subclassOf: Object. 
@@ -2136,6 +2167,61 @@ test12WhenATestIsChangedIsStillInRed
 		
 	self assertCurrentStateIs: Red.
 	self assertHasNoErrors: result.! !
+
+!RedTest methodsFor: 'tests' stamp: 'MGD 10/14/2019 14:59:48'!
+test13WhenAnotherTestIsChangedIsStillInRed
+	| result |
+	
+	self newClassNamed: #TestSomething subclassOf: TestCase.
+	self compileMethod: 'test01 self assert: true.' in: #TestSomething.
+	tddGuru initialTestClasses: { self classNamed: #TestSomething }.
+		
+	self logChangesWhile: [ 
+		self compileMethod: 'test02 self assert: false.' in: #TestSomething. 
+		self runTest: #test02 class: #TestSomething.
+		self compileMethod: 'test01 self assert: true.' in: #TestSomething. ].
+		
+	result _ tddGuru run.
+		
+	self assertCurrentStateIs: Red.
+	self assertHasNoErrors: result.! !
+
+!RedTest methodsFor: 'tests' stamp: 'MGD 10/14/2019 15:44:52'!
+test14WhenATestIsRemovedResultShouldHaveAnErrorAndIsStillInRed
+	| result |
+	
+	self newClassNamed: #TestSomething subclassOf: TestCase.
+	self compileMethod: 'test01 self assert: true.' in: #TestSomething.
+	tddGuru initialTestClasses: { self classNamed: #TestSomething }.
+		
+	self logChangesWhile: [ 
+		self compileMethod: 'test02 self assert: false.' in: #TestSomething. 
+		self runTest: #test02 class: #TestSomething.
+		self removeMethodWithSelector: #test01 from: #TestSomething. ].
+		
+	result _ tddGuru run.
+		
+	self assertCurrentStateIs: Red.
+	self assert: result hasErrorWithDescription: (TDDGuru testRemovedWhileInRed: #test01 class: #TestSomething)! !
+
+!RedTest methodsFor: 'tests' stamp: 'MGD 10/14/2019 16:13:31'!
+test15WhenATestClassIsRemovedResultShouldHaveAnErrorAndIsStillInRed
+	| result |
+	
+	self newClassNamed: #TestA subclassOf: TestCase.
+	self newClassNamed: #TestB subclassOf: TestCase.
+	self compileMethod: 'test01 self assert: true.' in: #TestA.
+	self compileMethod: 'test01 self assert: true.' in: #TestB.
+	tddGuru initialTestClasses: { self classNamed: #TestA . self classNamed: #TestB }.
+	tddGuru initialState: Red new.
+		
+	self logChangesWhile: [ self removeClass: #TestB ].
+		
+	result _ tddGuru run.
+		
+	self assertCurrentStateIs: Red.
+	self assert: result hasNErrors: 1.
+	self assert: result hasErrorWithDescription: (TDDGuru testClassRemovedWhileInRed: #TestB)! !
 
 !RefactorTest methodsFor: 'as yet unclassified' stamp: 'MGD 9/14/2019 12:32:05'!
 test01WhenAProductionMethodIsChangedIsStillRefactoring
@@ -2542,7 +2628,7 @@ test13WhenATestWithTheSameNameIsAddedInOtherClassThenIsInMoreThanOneTestWritten
 	self assertHasNoErrors: result.
 ! !
 
-!WritingAFailingTestTest methodsFor: 'tests' stamp: 'MGD 10/10/2019 17:06:08'!
+!WritingAFailingTestTest methodsFor: 'tests' stamp: 'MGD 10/14/2019 12:16:54'!
 test14WhenAModelMethodIsRemovedIsNotDoingTDD
 	| result |
 	
@@ -2559,7 +2645,7 @@ test14WhenAModelMethodIsRemovedIsNotDoingTDD
 		
 	self assertCurrentStateIs: NotDoingTDD.
 	self assert: result hasNErrors: 1.
-	self assert: result hasErrorWithDescription: (TDDGuru modelMethodRemovedWhileWriting: #m1 in: #ModelClassA).
+	self assert: result hasErrorWithDescription: (TDDGuru methodRemovedWhileWritingATest: #m1 class: #ModelClassA).
 ! !
 
 !WritingAFailingTestTest methodsFor: 'tests' stamp: 'MGD 10/10/2019 19:16:14'!
@@ -2599,8 +2685,8 @@ test16WhenATestIsRenamedThenIsStillWritingAFailingTest
 	self assertHasNoErrors: result.
 ! !
 
-!WritingAFailingTestTest methodsFor: 'tests' stamp: 'MGD 10/3/2019 16:39:29'!
-test17WhenAClassIsRemovedThenIsNotDoingTDD
+!WritingAFailingTestTest methodsFor: 'tests' stamp: 'MGD 10/14/2019 15:59:47'!
+test17WhenAModelClassIsRemovedThenIsNotDoingTDD
 	| result |
 	self newClassNamed: #ModelClassA subclassOf: Object.
 	
@@ -2631,34 +2717,26 @@ test18WhenTheTestPassesAnErrorIsReportedAndGoesToGreen
 	self assert: result hasErrorWithDescription: (TDDGuru testDidNotFail: #test01 class: #TestSomething).
 	self assert: tddGuru currentState equals: Green.! !
 
-!WritingAFailingTestTest methodsFor: 'tests' stamp: 'MGD 10/10/2019 20:12:08'!
-test19WhenAnotherTestIsRenamedThenIsStillWritingAFailingTest
+!WritingAFailingTestTest methodsFor: 'tests' stamp: 'MGD 10/14/2019 12:46:40'!
+test19AnotherTestIsRemovedAnErrorIsReportedAndIsStillWritingAFailingTest
 	| result |
 	
 	self newClassNamed: #TestSomething subclassOf: TestCase.
-	self compileMethod: 'test01 self assert: false' in: #TestSomething.
+	self compileMethod: 'test01 self assert: true.' in: #TestSomething.
 	tddGuru initialTestClasses: { self classNamed: #TestSomething }.
 	
 	self logChangesWhile: [ 
-		self compileMethod: 'test02 self assert: false' in: #TestSomething.
-		self compileMethod: 'test01A self assert: false' in: #TestSomething.
+		self compileMethod: 'test02 self assert: false.' in: #TestSomething.
+		(Delay forMilliseconds: 1000) wait.
 		self removeMethodWithSelector: #test01 from: #TestSomething ].
 		
 	result _ tddGuru run.
 		
-	self assertHasNoErrors: result.
-	self assertCurrentStateIs: WritingAFailingTest.
-	! !
+	self assert: result hasNErrors: 1.
+	self assert: result hasErrorWithDescription: (TDDGuru methodRemovedWhileWritingATest: #test01 class: #TestSomething).
+	self assert: tddGuru currentState equals: WritingAFailingTest.! !
 
-!TestA methodsFor: 'as yet unclassified' stamp: 'MGD 10/3/2019 19:03:50'!
-test01
-	self assert: ClassA new m1 equals: 1! !
-
-!TestA methodsFor: 'as yet unclassified' stamp: 'MGD 10/3/2019 19:04:20'!
-test02
-	self assert: true! !
-
-!ClassA methodsFor: 'as yet unclassified' stamp: 'MGD 10/3/2019 19:04:05'!
+!ClassA methodsFor: 'as yet unclassified' stamp: 'MGD 10/14/2019 11:03:48'!
 m1
 	^ 1! !
 
@@ -2775,9 +2853,9 @@ newFor: aChangeRecord
 description
 	^ self changeClassName, ' was removed'! !
 
-!ClassRemoved methodsFor: 'reporting' stamp: 'MGD 5/1/2019 16:10:41'!
+!ClassRemoved methodsFor: 'reporting' stamp: 'MGD 10/14/2019 16:24:29'!
 reportChangeTo: tddGuru
-	tddGuru classRemoved: changeRecord changeClassName! !
+	tddGuru modelClassRemoved: changeRecord changeClassName! !
 
 !MethodRemoved methodsFor: 'accessing' stamp: 'MGD 6/26/2019 19:12:58'!
 description
@@ -2787,9 +2865,9 @@ description
 methodSelector
 	^ changeRecord methodSelector ! !
 
-!MethodRemoved methodsFor: 'reporting' stamp: 'MGD 9/3/2019 11:12:14'!
+!MethodRemoved methodsFor: 'reporting' stamp: 'MGD 10/14/2019 16:25:48'!
 reportChangeTo: tddGuru
-	tddGuru methodRemoved: self methodSelector of: self changeClassName! !
+	tddGuru modelMethodRemoved: self methodSelector of: self changeClassName! !
 
 !ModelMethodChanged methodsFor: 'accessing' stamp: 'MGD 9/18/2019 20:41:16'!
 code
@@ -2809,9 +2887,9 @@ description
 methodSelector
 	^ changeRecord methodSelector ! !
 
-!ModelMethodChanged methodsFor: 'reporting' stamp: 'MGD 9/3/2019 11:23:38'!
+!ModelMethodChanged methodsFor: 'reporting' stamp: 'MGD 10/14/2019 16:25:32'!
 reportChangeTo: tddGuru
-	tddGuru productionMethodChanged: self methodSelector in: self changeClassName ! !
+	tddGuru modelMethodChanged: self methodSelector in: self changeClassName ! !
 
 !NewModelClass methodsFor: 'accessing' stamp: 'MGD 5/17/2019 07:43:16'!
 changeClassName
@@ -2821,9 +2899,9 @@ changeClassName
 description
 	^ 'New model class ', self changeClassName! !
 
-!NewModelClass methodsFor: 'reporting' stamp: 'MGD 5/1/2019 16:17:53'!
+!NewModelClass methodsFor: 'reporting' stamp: 'MGD 10/14/2019 14:25:50'!
 reportChangeTo: tddGuru
-	tddGuru newProductionClass: changeRecord changeClass name! !
+	tddGuru newModelClass: changeRecord changeClass name! !
 
 !NewModelMethod methodsFor: 'accessing' stamp: 'MGD 9/18/2019 20:41:35'!
 code
@@ -2843,9 +2921,9 @@ description
 methodSelector
 	^ changeRecord methodSelector! !
 
-!NewModelMethod methodsFor: 'reporting' stamp: 'MGD 9/3/2019 11:23:07'!
+!NewModelMethod methodsFor: 'reporting' stamp: 'MGD 10/14/2019 16:25:16'!
 reportChangeTo: tddGuru
-	tddGuru productionMethodAdded: self methodSelector in: self changeClassName! !
+	tddGuru modelMethodAdded: self methodSelector in: self changeClassName! !
 
 !NewTest methodsFor: 'accessing' stamp: 'MGD 9/18/2019 20:41:29'!
 code
@@ -2903,6 +2981,14 @@ methodSelector
 reportChangeTo: tddGuru
 	tddGuru testChanged: self methodSelector in: self changeClassName ! !
 
+!TestClassRemoved methodsFor: 'printing' stamp: 'MGD 10/14/2019 16:19:44'!
+description
+	^ self changeClassName, ' was removed'! !
+
+!TestClassRemoved methodsFor: 'reporting' stamp: 'MGD 10/14/2019 16:16:48'!
+reportChangeTo: aTDDGuru 
+	aTDDGuru testClassRemoved: self changeClassName ! !
+
 !TestFailed methodsFor: 'accessing' stamp: 'MGD 5/16/2019 20:14:23'!
 description
 	^ self testSelector, ' FAILED'! !
@@ -2926,6 +3012,22 @@ description
 !TestPassed methodsFor: 'reporting' stamp: 'MGD 9/3/2019 11:56:24'!
 reportChangeTo: tddGuru
 	tddGuru testPassed: self testSelector class: self changeClassName ! !
+
+!TestRemoved methodsFor: 'reporting' stamp: 'MGD 10/14/2019 13:18:24'!
+reportChangeTo: tddGuru
+	tddGuru testRemoved: self testSelector class: self changeClassName ! !
+
+!TestRemoved methodsFor: 'accessing' stamp: 'MGD 10/14/2019 13:20:17'!
+description
+	^ self testClass, '>>', self testSelector, ' was removed'! !
+
+!TestRemoved methodsFor: 'accessing' stamp: 'MGD 10/14/2019 13:20:35'!
+testClass
+	^ changeRecord changeClassName! !
+
+!TestRemoved methodsFor: 'accessing' stamp: 'MGD 10/14/2019 13:20:45'!
+testSelector
+	^ changeRecord methodSelector ! !
 
 !TestRenamed methodsFor: 'accessing' stamp: 'MGD 9/5/2019 08:58:43'!
 changeClassName
@@ -3045,13 +3147,15 @@ for: aChangeClass withLookahead: lookahead detectsWhen: aBlock
 changeList: anOrderedCollection 
 	changeList := anOrderedCollection .! !
 
-!ChangeLog methodsFor: 'initialization' stamp: 'MGD 10/10/2019 18:55:13'!
+!ChangeLog methodsFor: 'initialization' stamp: 'MGD 10/14/2019 16:14:10'!
 initialize
 	changeDetectors := OrderedCollection new.
 	
 	changeDetectors add: self testRenamedDetector.
+	changeDetectors add: self testClassRemovedDetector.
 	changeDetectors add: self classRemovedDetector.
-	changeDetectors add: self methodRemovedDetector.
+	changeDetectors add: self testRemovedDetector.
+	changeDetectors add: self modelMethodRemovedDetector.
 	changeDetectors add: self newProductionClassDetector.
 	changeDetectors add: self newProductionMethodDetector.
 	changeDetectors add: self newTestDetector.
@@ -3091,8 +3195,8 @@ nextChange: aChangeList
 classRemovedDetector
 	^ ChangeDetector for: ClassRemoved withLookahead: 1 detectsWhen: [ :aChangeRecord | aChangeRecord isClassDeletion ]! !
 
-!ChangeLog methodsFor: 'detectors' stamp: 'MGD 7/17/2019 11:44:25'!
-methodRemovedDetector
+!ChangeLog methodsFor: 'detectors' stamp: 'MGD 10/14/2019 13:12:59'!
+modelMethodRemovedDetector
 	^ ChangeDetector for: MethodRemoved withLookahead: 1 detectsWhen: [ :aChangeRecord | aChangeRecord isMethodDeletion ]! !
 
 !ChangeLog methodsFor: 'detectors' stamp: 'MGD 8/16/2019 09:58:01'!
@@ -3132,6 +3236,12 @@ testChangedDetector
 		and: [ aChangeRecord methodSelector beginsWith: 'test' ]
 		and: [ aChangeRecord priorMethod isNil not ]]! !
 
+!ChangeLog methodsFor: 'detectors' stamp: 'MGD 10/14/2019 16:14:55'!
+testClassRemovedDetector
+	^ ChangeDetector for: TestClassRemoved withLookahead: 1 detectsWhen: [ :aChangeRecord | 
+		aChangeRecord isClassDeletion 
+		and: [ inventory hasATestClassNamed: aChangeRecord changeClassName ] ]! !
+
 !ChangeLog methodsFor: 'detectors' stamp: 'MGD 7/17/2019 11:48:03'!
 testFailedDetector
 	^ ChangeDetector for: TestFailed withLookahead: 1 detectsWhen: [ :aChangeRecord | aChangeRecord changeType = #testRun and: [ aChangeRecord isFailure or: aChangeRecord isError ]]! !
@@ -3140,9 +3250,16 @@ testFailedDetector
 testPassedDetector
 	^ ChangeDetector for: TestPassed withLookahead: 1 detectsWhen: [ :aChangeRecord | aChangeRecord changeType = #testRun and: [ aChangeRecord isPassed ]]! !
 
-!ChangeLog methodsFor: 'detectors' stamp: 'MGD 10/6/2019 19:20:48'!
+!ChangeLog methodsFor: 'detectors' stamp: 'MGD 10/14/2019 13:16:45'!
+testRemovedDetector
+	| isATest |
+	isATest := [ :changeRecord | inventory hasTest: (UninstalledMethodReference selector: changeRecord methodSelector class: changeRecord changeClassName)].
+	
+	^ ChangeDetector for: TestRemoved withLookahead: 1 detectsWhen: [ :aChangeRecord | aChangeRecord isMethodDeletion and: [ isATest value: aChangeRecord ]]! !
+
+!ChangeLog methodsFor: 'detectors' stamp: 'MGD 10/14/2019 12:46:20'!
 testRenamedDetector
-	| isANewTestChange isAMethodRemovedChange |
+	| isANewTestChange isAMethodRemovedChange sameClassAndStamp testExists |
 
 	isANewTestChange := [ :changeRecord | 
 		changeRecord changeType = #method 
@@ -3150,13 +3267,17 @@ testRenamedDetector
 		and: [ changeRecord methodSelector beginsWith: 'test' ]
 		and: [ changeRecord priorMethod isNil ]].
 	isAMethodRemovedChange := [ :changeRecord | changeRecord isMethodDeletion].
-	
+	sameClassAndStamp := [ :previous :current | 
+		previous changeClassName = current changeClassName
+		and: [ previous stamp = current stamp ]].
+	testExists := [ :changeRecord | inventory hasTest: (UninstalledMethodReference selector: changeRecord methodSelector class: changeRecord changeClassName)].
+			
 	^ ChangeDetector for: TestRenamed withLookahead: 2 detectsWhen: [ :changeRecord1 :changeRecord2 |
 		changeRecord2 notNil
 		and: [ isANewTestChange value: changeRecord1 ]
 		and: [ isAMethodRemovedChange value: changeRecord2 ]
-		and: [ changeRecord1 changeClassName = changeRecord2 changeClassName ]
-		and: [ inventory hasTest: (UninstalledMethodReference selector: changeRecord2 methodSelector class: changeRecord2 changeClassName) ]]! !
+		and: [ sameClassAndStamp value: changeRecord1 value: changeRecord2 ]
+		and: [ testExists value: changeRecord2 ]]! !
 
 !ChangeLog methodsFor: 'detectors' stamp: 'MGD 10/10/2019 18:55:13'!
 testUtilityChangeDetector
@@ -3171,78 +3292,6 @@ unknownChangeDetector
 !ChangeLog class methodsFor: 'instance creation' stamp: 'MGD 7/12/2019 11:10:51'!
 from: anOrderedCollection using: aCodeInventory 
 	^ self new changeList: anOrderedCollection; inventory: aCodeInventory! !
-
-!CodeInventory methodsFor: 'entries' stamp: 'MGD 10/3/2019 16:19:20'!
-classRemoved: className 
-	(testClasses includes: className) ifTrue: [ 
-		self removeTestsOf: className.
-		testClasses remove: className.
-	].! !
-
-!CodeInventory methodsFor: 'entries' stamp: 'MGD 9/8/2019 15:13:41'!
-methodRemoved: aMethodReference 
-	tests remove: aMethodReference ifAbsent: [].! !
-
-!CodeInventory methodsFor: 'entries' stamp: 'MGD 9/3/2019 10:56:39'!
-newTest: aTestReference	
-	tests add: aTestReference.
-! !
-
-!CodeInventory methodsFor: 'entries' stamp: 'MGD 6/13/2019 17:09:02'!
-newTestClass: aSymbol 
-	testClasses add: aSymbol! !
-
-!CodeInventory methodsFor: 'entries' stamp: 'MGD 9/5/2019 08:12:52'!
-testRenamedFrom: previousTestReference to: currentTestReference.
-	tests remove: previousTestReference.
-	tests add: currentTestReference ! !
-
-!CodeInventory methodsFor: 'initialization' stamp: 'MGD 6/14/2019 07:24:36'!
-initialize
-	testClasses := Set new.
-	tests := Set new.! !
-
-!CodeInventory methodsFor: 'initialization' stamp: 'MGD 9/5/2019 09:02:02'!
-initializeTestsOf: aCollectionOfTestClasses
-	aCollectionOfTestClasses do: [ :testClass | self addTestsOf: testClass ].! !
-
-!CodeInventory methodsFor: 'initialization' stamp: 'MGD 7/20/2019 17:24:18'!
-testClasses: aCollectionOfTestClasses
-	| classNames |
-	classNames := aCollectionOfTestClasses collect: [ :aClass | aClass name ].
-	testClasses := Set withAll: classNames.
-		
-	self initializeTestsOf: aCollectionOfTestClasses.! !
-
-!CodeInventory methodsFor: 'querying' stamp: 'MGD 6/14/2019 07:24:56'!
-allTests
-	^ tests! !
-
-!CodeInventory methodsFor: 'querying' stamp: 'MGD 7/20/2019 16:54:46'!
-hasATestClassNamed: aSymbol
-	^ testClasses includes: aSymbol! !
-
-!CodeInventory methodsFor: 'querying' stamp: 'MGD 9/8/2019 15:14:44'!
-hasTest: aTestReference
-	^ tests includes: aTestReference ! !
-
-!CodeInventory methodsFor: 'private' stamp: 'MGD 10/3/2019 18:21:46'!
-addTestsOf: aClass 
-	| testReference |
-	
-	aClass allTestSelectors do: [ :selector |
-		testReference := UninstalledMethodReference selector: selector class: aClass name.
-		self newTest: testReference
-	]! !
-
-!CodeInventory methodsFor: 'private' stamp: 'MGD 10/10/2019 20:16:08'!
-removeTestsOf: className 
-	tests select: [ :testReference | testReference methodClass = className ] thenDo: [ :testReference | tests remove: testReference ].
-	! !
-
-!CodeInventory class methodsFor: 'as yet unclassified' stamp: 'MGD 6/27/2019 11:23:34'!
-withTestClasses: aCollection
-	^ self new testClasses: aCollection.! !
 
 !TDDGuru methodsFor: 'initialization' stamp: 'MGD 3/21/2019 07:27:13'!
 changesFile: aFileName 
@@ -3259,13 +3308,13 @@ changesFile: aFileName state: aTDDState
 initialState: aTDDState
 	initialState := aTDDState! !
 
-!TDDGuru methodsFor: 'initialization' stamp: 'MGD 7/20/2019 17:22:36'!
+!TDDGuru methodsFor: 'initialization' stamp: 'MGD 10/14/2019 15:22:47'!
 initialTestClasses: anArray 
-	inventory := CodeInventory withTestClasses: anArray ! !
+	inventory := TestInventory withTestClasses: anArray ! !
 
-!TDDGuru methodsFor: 'initialization' stamp: 'MGD 9/26/2019 20:49:26'!
+!TDDGuru methodsFor: 'initialization' stamp: 'MGD 10/14/2019 15:22:47'!
 initialize
-	inventory := CodeInventory new.
+	inventory := TestInventory new.
 	startingPoint := 1.! !
 
 !TDDGuru methodsFor: 'initialization' stamp: 'MGD 9/26/2019 20:54:10'!
@@ -3313,39 +3362,38 @@ showAnalysisResult
 	AnalysisResultWindow open: analysisResult label: 'TDDGuru'.
 ! !
 
-!TDDGuru methodsFor: 'events' stamp: 'MGD 10/3/2019 16:15:30'!
-classRemoved: className
-	inventory classRemoved: className.
-	self currentState classRemoved: className! !
+!TDDGuru methodsFor: 'events' stamp: 'MGD 10/14/2019 16:24:29'!
+modelClassRemoved: className
+	self currentState modelClassRemoved: className! !
 
-!TDDGuru methodsFor: 'events' stamp: 'MGD 10/3/2019 18:33:03'!
-methodRemoved: methodSelector of: className
+!TDDGuru methodsFor: 'events' stamp: 'MGD 10/14/2019 16:25:16'!
+modelMethodAdded: methodSelector in: className
 	| methodReference |
 	methodReference := self methodReferenceWith: methodSelector andClass: className.
-	inventory methodRemoved: methodReference.
-	self currentState methodRemoved: methodReference! !
+	self currentState modelMethodAdded: methodReference.
+	! !
 
-!TDDGuru methodsFor: 'events' stamp: 'MGD 3/19/2019 09:48:50'!
-newProductionClass: className
-	self currentState newProductionClass: className! !
+!TDDGuru methodsFor: 'events' stamp: 'MGD 10/14/2019 16:25:32'!
+modelMethodChanged: methodSelector in: className
+	| methodReference |
+	methodReference := self methodReferenceWith: methodSelector andClass: className.
+	self currentState modelMethodChanged: methodReference ! !
+
+!TDDGuru methodsFor: 'events' stamp: 'MGD 10/14/2019 16:25:48'!
+modelMethodRemoved: methodSelector of: className
+	| methodReference |
+	methodReference := self methodReferenceWith: methodSelector andClass: className.
+	self currentState modelMethodRemoved: methodReference.
+! !
+
+!TDDGuru methodsFor: 'events' stamp: 'MGD 10/14/2019 14:25:50'!
+newModelClass: className
+	self currentState newModelClass: className! !
 
 !TDDGuru methodsFor: 'events' stamp: 'MGD 6/20/2019 16:49:46'!
 newTestClass: className
 	inventory newTestClass: className.
 	self currentState newTestClass: className! !
-
-!TDDGuru methodsFor: 'events' stamp: 'MGD 10/3/2019 18:30:16'!
-productionMethodAdded: methodSelector in: className
-	| methodReference |
-	methodReference := self methodReferenceWith: methodSelector andClass: className.
-	self currentState productionMethodAdded: methodReference.
-	! !
-
-!TDDGuru methodsFor: 'events' stamp: 'MGD 10/3/2019 18:30:34'!
-productionMethodChanged: methodSelector in: className
-	| methodReference |
-	methodReference := self methodReferenceWith: methodSelector andClass: className.
-	self currentState productionMethodChanged: methodReference ! !
 
 !TDDGuru methodsFor: 'events' stamp: 'MGD 10/3/2019 18:30:52'!
 testAdded: testSelector in: className
@@ -3362,6 +3410,11 @@ testChanged: testSelector in: className
 	testReference := self methodReferenceWith: testSelector andClass: className.
 	self currentState testChanged: testReference! !
 
+!TDDGuru methodsFor: 'events' stamp: 'MGD 10/14/2019 16:27:38'!
+testClassRemoved: aSymbol 
+	state testClassRemoved: aSymbol.
+	inventory testClassRemoved: aSymbol.! !
+
 !TDDGuru methodsFor: 'events' stamp: 'MGD 10/3/2019 18:31:31'!
 testFailed: testSelector class: className
 	| testReference |
@@ -3373,6 +3426,13 @@ testPassed: testSelector class: className
 	| testReference |
 	testReference := self methodReferenceWith: testSelector andClass: className.
 	self currentState testPassed: testReference! !
+
+!TDDGuru methodsFor: 'events' stamp: 'MGD 10/14/2019 14:13:14'!
+testRemoved: selector class: className 
+	| methodReference |
+	methodReference := self methodReferenceWith: selector andClass: className.
+	self currentState testRemoved: methodReference.
+	inventory testRemoved: methodReference.! !
 
 !TDDGuru methodsFor: 'events' stamp: 'MGD 10/3/2019 18:32:21'!
 testRenamedFrom: fromSelector to: toSelector in: className
@@ -3453,12 +3513,12 @@ methodAddedBeforeTest: aSelector class: className
 methodChangedBeforeTest: aSelector class: className 
 	^ 'Method ', (self printMethod: aSelector class: className), ' was changed before writing a test'! !
 
-!TDDGuru class methodsFor: 'error messages' stamp: 'MGD 10/10/2019 17:03:11'!
+!TDDGuru class methodsFor: 'error messages' stamp: 'MGD 10/14/2019 11:44:21'!
 methodRemovedBeforeRunningTests: methodSelector class: className 
-	^ 'Method ', (self printMethod: methodSelector class: className), ' was removed before running tests'! !
+	^ (self printMethod: methodSelector class: className), ' was removed before running the tests first'! !
 
-!TDDGuru class methodsFor: 'error messages' stamp: 'MGD 10/10/2019 17:05:50'!
-modelMethodRemovedWhileWriting: aSymbol in: aSymbol2 
+!TDDGuru class methodsFor: 'error messages' stamp: 'MGD 10/14/2019 12:15:44'!
+methodRemovedWhileWritingATest: aSymbol class: aSymbol2 
 	^ (self printMethod: aSymbol class: aSymbol2), ' was removed while writing a test'! !
 
 !TDDGuru class methodsFor: 'error messages' stamp: 'MGD 10/10/2019 17:08:39'!
@@ -3485,13 +3545,29 @@ testAddedErrorMessage: aTestSelector class: className
 testAddedWhileWritingAnother: aSymbol class: className
 	^ (self printMethod: aSymbol class: className), ' was added while writing another test'! !
 
+!TDDGuru class methodsFor: 'error messages' stamp: 'MGD 10/14/2019 14:56:57'!
+testChangedWhileInRed: aSymbol class: aSymbol2 
+	self shouldBeImplemented.! !
+
 !TDDGuru class methodsFor: 'error messages' stamp: 'MGD 10/10/2019 17:07:22'!
 testChangedWhileThisTestWasBeingWritten: testSelector in: className 
 	^ (self printMethod: testSelector class: className), ' was changed while other test was being written'.! !
 
+!TDDGuru class methodsFor: 'error messages' stamp: 'MGD 10/14/2019 16:12:25'!
+testClassRemovedWhileInRed: aSymbol 
+	^ 'Test class ', aSymbol, ' was removed while in Red'.! !
+
 !TDDGuru class methodsFor: 'error messages' stamp: 'MGD 10/10/2019 17:07:57'!
 testDidNotFail: testSelector class: className 
 	^ (self printMethod: testSelector class: className), ' passed but it should have failed'! !
+
+!TDDGuru class methodsFor: 'error messages' stamp: 'MGD 10/14/2019 15:46:30'!
+testRemovedWhileInRed: aSymbol class: aSymbol2 
+	^ (self printMethod: aSymbol class: aSymbol2), ' was removed while in Red'.! !
+
+!TDDGuru class methodsFor: 'error messages' stamp: 'MGD 10/14/2019 11:18:08'!
+testRenamedBeforeRunningTheTests: aSymbol class: aSymbol2 
+	^ (self printMethod: aSymbol class: aSymbol2), ' was renamed before running the tests'.! !
 
 !TDDGuru class methodsFor: 'error messages' stamp: 'MGD 10/10/2019 16:57:55'!
 testUnexpectedlyFailedErrorMessage: aSymbol class: className
@@ -3499,28 +3575,32 @@ testUnexpectedlyFailedErrorMessage: aSymbol class: className
 	testAsString := self printMethod: aSymbol class: className.
 	^ 'Test ', testAsString,' had passed and failed unexpectedly'! !
 
-!TDDState methodsFor: 'events' stamp: 'MGD 3/19/2019 10:14:42'!
-classRemoved: className
+!TDDState methodsFor: 'accessing' stamp: 'MGD 8/1/2019 17:21:26'!
+isCorrect
+	self subclassResponsibility ! !
+
+!TDDState methodsFor: 'events' stamp: 'MGD 10/14/2019 16:24:29'!
+modelClassRemoved: className
 	self subclassResponsibility! !
 
-!TDDState methodsFor: 'events' stamp: 'MGD 3/20/2019 20:00:17'!
-methodRemoved: aSymbol
+!TDDState methodsFor: 'events' stamp: 'MGD 10/14/2019 14:25:15'!
+modelMethodAdded: methodSelector
 	self subclassResponsibility! !
 
-!TDDState methodsFor: 'events' stamp: 'MGD 3/19/2019 09:42:57'!
-newProductionClass: className
+!TDDState methodsFor: 'events' stamp: 'MGD 10/14/2019 14:25:33'!
+modelMethodChanged: methodSelector
+	self subclassResponsibility! !
+
+!TDDState methodsFor: 'events' stamp: 'MGD 10/14/2019 14:24:44'!
+modelMethodRemoved: aSymbol
+	self subclassResponsibility! !
+
+!TDDState methodsFor: 'events' stamp: 'MGD 10/14/2019 14:25:50'!
+newModelClass: className
 	self subclassResponsibility! !
 
 !TDDState methodsFor: 'events' stamp: 'MGD 3/19/2019 09:44:50'!
 newTestClass: className
-	self subclassResponsibility! !
-
-!TDDState methodsFor: 'events' stamp: 'MGD 5/24/2019 11:37:50'!
-productionMethodAdded: methodSelector
-	self subclassResponsibility! !
-
-!TDDState methodsFor: 'events' stamp: 'MGD 5/24/2019 11:37:55'!
-productionMethodChanged: methodSelector
 	self subclassResponsibility! !
 
 !TDDState methodsFor: 'events' stamp: 'MGD 5/24/2019 11:38:16'!
@@ -3541,6 +3621,14 @@ testPassed: aTestReference
 	
 	self allTestsPassed ifTrue: [ self transitionTo: Green new ]! !
 
+!TDDState methodsFor: 'events' stamp: 'MGD 10/14/2019 14:30:11'!
+testRemoved: methodSelector
+	self subclassResponsibility! !
+
+!TDDState methodsFor: 'events' stamp: 'MGD 10/14/2019 11:25:12'!
+testRenamedFrom: fromMethodReference to: toMethodReference 
+	self subclassResponsibility! !
+
 !TDDState methodsFor: 'initialization' stamp: 'MGD 3/19/2019 09:45:31'!
 context: aContext
 	context := aContext! !
@@ -3548,6 +3636,10 @@ context: aContext
 !TDDState methodsFor: 'comparing' stamp: 'MGD 3/21/2019 07:22:29'!
 = anObject
 	^ self class = anObject! !
+
+!TDDState methodsFor: 'comparing' stamp: 'MGD 10/12/2019 12:43:12'!
+hash
+	^ super hash bitXor: self name hash! !
 
 !TDDState methodsFor: 'state transitioning' stamp: 'MGD 5/30/2019 18:35:22'!
 reportError: aString 
@@ -3570,10 +3662,6 @@ transitionTo: newState
 printString
 	self subclassResponsibility ! !
 
-!TDDState methodsFor: 'accessing' stamp: 'MGD 8/1/2019 17:21:26'!
-isCorrect
-	self subclassResponsibility ! !
-
 !TDDState methodsFor: 'private' stamp: 'MGD 8/6/2019 11:53:38'!
 allTests
 	^ context allTests ! !
@@ -3582,25 +3670,25 @@ allTests
 allTestsPassed
 	^ passedTests = self allTests! !
 
-!Green methodsFor: 'events' stamp: 'MGD 8/14/2019 16:55:47'!
-classRemoved: aSymbol 
+!Green methodsFor: 'events' stamp: 'MGD 10/14/2019 16:24:29'!
+modelClassRemoved: aSymbol 
 	self transitionTo: Refactor new! !
 
-!Green methodsFor: 'events' stamp: 'MGD 8/14/2019 17:34:08'!
-methodRemoved: aSymbol 
+!Green methodsFor: 'events' stamp: 'MGD 10/14/2019 14:25:15'!
+modelMethodAdded: methodSelector 
 	self transitionTo: Refactor new! !
 
-!Green methodsFor: 'events' stamp: 'MGD 8/14/2019 16:54:34'!
-newProductionClass: aSymbol 
-	self transitionTo: Refactor new! !
-
-!Green methodsFor: 'events' stamp: 'MGD 8/7/2019 20:27:42'!
-productionMethodAdded: methodSelector 
-	self transitionTo: Refactor new! !
-
-!Green methodsFor: 'events' stamp: 'MGD 8/14/2019 16:26:41'!
-productionMethodChanged: aSymbol 
+!Green methodsFor: 'events' stamp: 'MGD 10/14/2019 14:25:33'!
+modelMethodChanged: aSymbol 
 	self transitionTo: Refactor new.! !
+
+!Green methodsFor: 'events' stamp: 'MGD 10/14/2019 14:24:44'!
+modelMethodRemoved: aSymbol 
+	self transitionTo: Refactor new! !
+
+!Green methodsFor: 'events' stamp: 'MGD 10/14/2019 14:25:50'!
+newModelClass: aSymbol 
+	self transitionTo: Refactor new! !
 
 !Green methodsFor: 'events' stamp: 'MGD 9/5/2019 08:08:11'!
 testAdded: aTestReference 
@@ -3610,6 +3698,10 @@ testAdded: aTestReference
 testChanged: aSymbol 
 	self transitionTo: Refactor new! !
 
+!Green methodsFor: 'events' stamp: 'MGD 10/14/2019 16:24:29'!
+testClassRemoved: aSymbol 
+	self modelClassRemoved: aSymbol! !
+
 !Green methodsFor: 'events' stamp: 'MGD 10/10/2019 20:16:08'!
 testFailed: aTestReference 
 	self reportError: (TDDGuru testUnexpectedlyFailedErrorMessage: aTestReference selector class: aTestReference methodClass) andTransitionTo: Red new.! !
@@ -3617,6 +3709,10 @@ testFailed: aTestReference
 !Green methodsFor: 'events' stamp: 'MGD 6/14/2019 13:04:09'!
 testPassed: aSymbol 
 	! !
+
+!Green methodsFor: 'events' stamp: 'MGD 10/14/2019 14:13:47'!
+testRemoved: aSymbol 
+	self transitionTo: Refactor new! !
 
 !Green methodsFor: 'events' stamp: 'MGD 8/15/2019 15:58:34'!
 testRenamedFrom: aSymbol to: aSymbol2 
@@ -3641,40 +3737,33 @@ firstTest: aMethodReference secondTest: anotherMethodReference
 	secondTest := anotherMethodReference.
 	passedTests := Set new.! !
 
-!MoreThanOneTestWritten methodsFor: 'events' stamp: 'MGD 10/9/2019 17:14:27'!
-classRemoved: aSymbol 
+!MoreThanOneTestWritten methodsFor: 'events' stamp: 'MGD 10/14/2019 16:24:28'!
+modelClassRemoved: aSymbol 
 	self reportErrorWhenSecondTestWasAdded.
 	self transitionTo: NotDoingTDD new.! !
 
-!MoreThanOneTestWritten methodsFor: 'events' stamp: 'MGD 10/9/2019 17:14:51'!
-methodRemoved: aMethodReference 
-	| remainingTest |
-	
-	(self isOneOfTheCurrentTests: aMethodReference)
-		ifTrue: [ 
-			remainingTest := self remainingTest: aMethodReference.
-			self transitionTo: (WritingAFailingTest currentTest: remainingTest) ]
-		ifFalse: [ 
-			self reportErrorWhenSecondTestWasAdded.
-			self transitionTo: NotDoingTDD new ]! !
+!MoreThanOneTestWritten methodsFor: 'events' stamp: 'MGD 10/14/2019 14:25:15'!
+modelMethodAdded: anUninstalledMethodReference 
+	self reportErrorWhenSecondTestWasAdded.
+	self transitionTo: NotDoingTDD new.! !
 
-!MoreThanOneTestWritten methodsFor: 'events' stamp: 'MGD 10/9/2019 17:15:00'!
-newProductionClass: aSymbol 
+!MoreThanOneTestWritten methodsFor: 'events' stamp: 'MGD 10/14/2019 14:25:33'!
+modelMethodChanged: anUninstalledMethodReference 
+	self reportErrorWhenSecondTestWasAdded.
+	self transitionTo: NotDoingTDD new.! !
+
+!MoreThanOneTestWritten methodsFor: 'events' stamp: 'MGD 10/14/2019 14:24:44'!
+modelMethodRemoved: aMethodReference 
+	self reportErrorWhenSecondTestWasAdded.
+	self transitionTo: NotDoingTDD new! !
+
+!MoreThanOneTestWritten methodsFor: 'events' stamp: 'MGD 10/14/2019 14:25:50'!
+newModelClass: aSymbol 
 	self reportErrorWhenSecondTestWasAdded.
 	self transitionTo: NotDoingTDD new.! !
 
 !MoreThanOneTestWritten methodsFor: 'events' stamp: 'MGD 10/9/2019 17:15:04'!
 newTestClass: aSymbol 
-	self reportErrorWhenSecondTestWasAdded.
-	self transitionTo: NotDoingTDD new.! !
-
-!MoreThanOneTestWritten methodsFor: 'events' stamp: 'MGD 10/9/2019 17:15:08'!
-productionMethodAdded: anUninstalledMethodReference 
-	self reportErrorWhenSecondTestWasAdded.
-	self transitionTo: NotDoingTDD new.! !
-
-!MoreThanOneTestWritten methodsFor: 'events' stamp: 'MGD 10/9/2019 17:15:13'!
-productionMethodChanged: anUninstalledMethodReference 
 	self reportErrorWhenSecondTestWasAdded.
 	self transitionTo: NotDoingTDD new.! !
 
@@ -3689,6 +3778,10 @@ testChanged: anUninstalledMethodReference
 		self reportErrorWhenSecondTestWasAdded.
 		self transitionTo: NotDoingTDD new ]! !
 
+!MoreThanOneTestWritten methodsFor: 'events' stamp: 'MGD 10/14/2019 16:24:29'!
+testClassRemoved: aSymbol 
+	self modelClassRemoved: aSymbol! !
+
 !MoreThanOneTestWritten methodsFor: 'events' stamp: 'MGD 10/9/2019 17:12:54'!
 testFailed: anUninstalledMethodReference 
 	self reportErrorWhenSecondTestWasAdded.
@@ -3699,6 +3792,18 @@ testPassed: aTestReference
 	self reportErrorWhenSecondTestWasAdded.
 	self testDidNotFailErrorInCurrentTest: aTestReference.
 	super testPassed: aTestReference.! !
+
+!MoreThanOneTestWritten methodsFor: 'events' stamp: 'MGD 10/14/2019 14:14:17'!
+testRemoved: aMethodReference 
+	| remainingTest |
+	
+	(self isOneOfTheCurrentTests: aMethodReference)
+		ifTrue: [ 
+			remainingTest := self remainingTest: aMethodReference.
+			self transitionTo: (WritingAFailingTest currentTest: remainingTest) ]
+		ifFalse: [ 
+			self reportErrorWhenSecondTestWasAdded.
+			self transitionTo: NotDoingTDD new ]! !
 
 !MoreThanOneTestWritten methodsFor: 'events' stamp: 'MGD 10/10/2019 18:49:53'!
 testRenamedFrom: previousTestReference to: currentTestReference 
@@ -3743,53 +3848,61 @@ testDidNotFailErrorInCurrentTest: aTestReference
 printString
 	^ 'Writing a failing test'! !
 
+!MoreThanOneTestWritten methodsFor: 'accessing' stamp: 'MGD 10/11/2019 08:47:54'!
+isCorrect
+	^ true! !
+
 !MoreThanOneTestWritten class methodsFor: 'instance creation' stamp: 'MGD 10/9/2019 15:53:36'!
 with: anUninstalledMethodReference and: anUninstalledMethodReference2 
 	^ self new firstTest: anUninstalledMethodReference secondTest: anUninstalledMethodReference2! !
-
-!NotDoingTDD methodsFor: 'printing' stamp: 'MGD 8/1/2019 10:44:31'!
-classRemoved: className
-	! !
-
-!NotDoingTDD methodsFor: 'printing' stamp: 'MGD 8/6/2019 11:54:21'!
-methodRemoved: aSymbol
-! !
-
-!NotDoingTDD methodsFor: 'printing' stamp: 'MGD 7/28/2019 17:22:37'!
-newProductionClass: className
-	! !
-
-!NotDoingTDD methodsFor: 'printing' stamp: 'MGD 8/1/2019 09:30:40'!
-newTestClass: className
-	! !
 
 !NotDoingTDD methodsFor: 'printing' stamp: 'MGD 6/21/2019 07:49:29'!
 printString
 	^ 'Not doing TDD'! !
 
-!NotDoingTDD methodsFor: 'printing' stamp: 'MGD 7/22/2019 15:02:49'!
-productionMethodChanged: aSelector
+!NotDoingTDD methodsFor: 'events' stamp: 'MGD 10/14/2019 16:24:28'!
+modelClassRemoved: className
 	! !
 
-!NotDoingTDD methodsFor: 'printing' stamp: 'MGD 8/1/2019 15:46:44'!
-testAdded: methodSelector
+!NotDoingTDD methodsFor: 'events' stamp: 'MGD 10/14/2019 14:25:15'!
+modelMethodAdded: aSymbol 
 	! !
 
-!NotDoingTDD methodsFor: 'printing' stamp: 'MGD 8/1/2019 11:01:15'!
-testFailed: aTestSelector
+!NotDoingTDD methodsFor: 'events' stamp: 'MGD 10/14/2019 14:25:33'!
+modelMethodChanged: aSelector
 	! !
 
-!NotDoingTDD methodsFor: 'printing' stamp: 'MGD 8/6/2019 11:54:54'!
-testRenamedFrom: aTestSelector to: aTestSelector2
+!NotDoingTDD methodsFor: 'events' stamp: 'MGD 10/14/2019 14:24:44'!
+modelMethodRemoved: aSymbol
 ! !
 
-!NotDoingTDD methodsFor: 'events' stamp: 'MGD 7/22/2019 15:04:12'!
-productionMethodAdded: aSymbol 
+!NotDoingTDD methodsFor: 'events' stamp: 'MGD 10/14/2019 14:25:50'!
+newModelClass: className
+	! !
+
+!NotDoingTDD methodsFor: 'events' stamp: 'MGD 8/1/2019 09:30:40'!
+newTestClass: className
+	! !
+
+!NotDoingTDD methodsFor: 'events' stamp: 'MGD 8/1/2019 15:46:44'!
+testAdded: methodSelector
 	! !
 
 !NotDoingTDD methodsFor: 'events' stamp: 'MGD 7/22/2019 15:03:54'!
 testChanged: aSymbol 
 	! !
+
+!NotDoingTDD methodsFor: 'events' stamp: 'MGD 8/1/2019 11:01:15'!
+testFailed: aTestSelector
+	! !
+
+!NotDoingTDD methodsFor: 'events' stamp: 'MGD 10/14/2019 14:16:15'!
+testRemoved: aMethodReference
+! !
+
+!NotDoingTDD methodsFor: 'events' stamp: 'MGD 8/6/2019 11:54:54'!
+testRenamedFrom: aTestSelector to: aTestSelector2
+! !
 
 !NotDoingTDD methodsFor: 'initialization' stamp: 'MGD 8/1/2019 15:48:27'!
 initialize
@@ -3801,29 +3914,29 @@ initialize
 isCorrect
 	^ false! !
 
-!NotStarted methodsFor: 'events' stamp: 'MGD 10/10/2019 17:01:40'!
-classRemoved: className
+!NotStarted methodsFor: 'events' stamp: 'MGD 10/14/2019 16:24:29'!
+modelClassRemoved: className
 	self reportError: (TDDGuru classRemovedBeforeWritingATestErrorMessage: className) andTransitionTo: NotDoingTDD new.! !
 
-!NotStarted methodsFor: 'events' stamp: 'MGD 10/10/2019 20:16:08'!
-methodRemoved: methodReference 
+!NotStarted methodsFor: 'events' stamp: 'MGD 10/14/2019 14:25:15'!
+modelMethodAdded: methodReference 
+	self reportError: (TDDGuru methodAddedBeforeTest: methodReference selector class: methodReference methodClass) andTransitionTo: NotDoingTDD new.! !
+
+!NotStarted methodsFor: 'events' stamp: 'MGD 10/14/2019 14:25:33'!
+modelMethodChanged: methodReference
+	self reportError: (TDDGuru methodChangedBeforeTest: methodReference selector class: methodReference methodClass) andTransitionTo: NotDoingTDD new.! !
+
+!NotStarted methodsFor: 'events' stamp: 'MGD 10/14/2019 14:24:44'!
+modelMethodRemoved: methodReference 
 	self reportError: (TDDGuru methodRemovedBeforeRunningTests: methodReference selector class: methodReference methodClass) andTransitionTo: NotDoingTDD new.! !
 
-!NotStarted methodsFor: 'events' stamp: 'MGD 6/14/2019 07:43:42'!
-newProductionClass: className
+!NotStarted methodsFor: 'events' stamp: 'MGD 10/14/2019 14:25:50'!
+newModelClass: className
 	! !
 
 !NotStarted methodsFor: 'events' stamp: 'MGD 3/21/2019 07:27:47'!
 newTestClass: className
 	context setState: WritingAFailingTest new.! !
-
-!NotStarted methodsFor: 'events' stamp: 'MGD 10/10/2019 20:16:08'!
-productionMethodAdded: methodReference 
-	self reportError: (TDDGuru methodAddedBeforeTest: methodReference selector class: methodReference methodClass) andTransitionTo: NotDoingTDD new.! !
-
-!NotStarted methodsFor: 'events' stamp: 'MGD 10/10/2019 20:16:08'!
-productionMethodChanged: methodReference
-	self reportError: (TDDGuru methodChangedBeforeTest: methodReference selector class: methodReference methodClass) andTransitionTo: NotDoingTDD new.! !
 
 !NotStarted methodsFor: 'events' stamp: 'MGD 9/16/2019 20:45:06'!
 testAdded: testReference
@@ -3833,13 +3946,24 @@ testAdded: testReference
 testChanged: methodSelector
 	self transitionTo: WritingAFailingTest new.! !
 
+!NotStarted methodsFor: 'events' stamp: 'MGD 10/14/2019 16:24:29'!
+testClassRemoved: className
+	self modelClassRemoved: className ! !
+
 !NotStarted methodsFor: 'events' stamp: 'MGD 4/6/2019 18:31:11'!
 testFailed: aSymbol 
 	context setState: Red new.! !
 
-!NotStarted methodsFor: 'events' stamp: 'MGD 7/15/2019 07:35:38'!
-testRenamedFrom: aSymbol to: aSymbol2 
-	! !
+!NotStarted methodsFor: 'events' stamp: 'MGD 10/14/2019 14:16:39'!
+testRemoved: methodReference 
+	self reportError: (TDDGuru methodRemovedBeforeRunningTests: methodReference selector class: methodReference methodClass) andTransitionTo: NotDoingTDD new.! !
+
+!NotStarted methodsFor: 'events' stamp: 'MGD 10/14/2019 11:19:39'!
+testRenamedFrom: fromMethodReference to: toMethodReference 
+	| errorMessage |
+	
+	errorMessage := TDDGuru testRenamedBeforeRunningTheTests: fromMethodReference selector class: toMethodReference methodClass.
+	self reportError: errorMessage andTransitionTo: NotDoingTDD new.! !
 
 !NotStarted methodsFor: 'printing' stamp: 'MGD 6/21/2019 07:50:00'!
 printString
@@ -3857,37 +3981,48 @@ initialize
 allTestsPassed
 	^ passedTests = self allTests ! !
 
-!Red methodsFor: 'events' stamp: 'MGD 10/3/2019 20:21:49'!
-classRemoved: aSymbol 
+!Red methodsFor: 'events' stamp: 'MGD 10/14/2019 16:24:29'!
+modelClassRemoved: aSymbol 
 	! !
 
-!Red methodsFor: 'events' stamp: 'MGD 10/3/2019 20:20:40'!
-methodRemoved: anUninstalledMethodReference 
+!Red methodsFor: 'events' stamp: 'MGD 10/14/2019 14:25:15'!
+modelMethodAdded: aSymbol 
 	! !
 
-!Red methodsFor: 'events' stamp: 'MGD 5/30/2019 19:28:14'!
-newProductionClass: aSymbol 
+!Red methodsFor: 'events' stamp: 'MGD 10/14/2019 14:25:33'!
+modelMethodChanged: aSymbol 
 	! !
 
-!Red methodsFor: 'events' stamp: 'MGD 5/30/2019 19:30:02'!
-productionMethodAdded: aSymbol 
+!Red methodsFor: 'events' stamp: 'MGD 10/14/2019 14:24:44'!
+modelMethodRemoved: anUninstalledMethodReference 
 	! !
 
-!Red methodsFor: 'events' stamp: 'MGD 5/30/2019 21:42:06'!
-productionMethodChanged: aSymbol 
+!Red methodsFor: 'events' stamp: 'MGD 10/14/2019 14:25:50'!
+newModelClass: aSymbol 
 	! !
 
 !Red methodsFor: 'events' stamp: 'MGD 10/10/2019 20:16:08'!
 testAdded: aTestReference 
 	self reportError: (TDDGuru testAddedErrorMessage: aTestReference selector class: aTestReference methodClass)  andTransitionTo: NotDoingTDD new.! !
 
-!Red methodsFor: 'events' stamp: 'MGD 8/8/2019 19:29:49'!
-testChanged: aSymbol 
+!Red methodsFor: 'events' stamp: 'MGD 10/14/2019 14:59:17'!
+testChanged: aTestReference 
+	! !
+
+!Red methodsFor: 'events' stamp: 'MGD 10/14/2019 16:22:30'!
+testClassRemoved: aSymbol 
+	| errorMessage |
+	errorMessage := TDDGuru testClassRemovedWhileInRed: aSymbol.
+	self reportError: errorMessage
 	! !
 
 !Red methodsFor: 'events' stamp: 'MGD 6/14/2019 09:19:31'!
 testFailed: aSymbol 
 	passedTests remove: aSymbol ifAbsent: [].! !
+
+!Red methodsFor: 'events' stamp: 'MGD 10/14/2019 15:45:41'!
+testRemoved: anUninstalledMethodReference 
+	self reportError: (TDDGuru testRemovedWhileInRed: anUninstalledMethodReference selector class: anUninstalledMethodReference methodClass)! !
 
 !Red methodsFor: 'events' stamp: 'MGD 9/5/2019 08:31:07'!
 testRenamedFrom: previousTestReference to: currentTestReference
@@ -3905,32 +4040,32 @@ printString
 isCorrect
 	^ true! !
 
-!Refactor methodsFor: 'events' stamp: 'MGD 8/15/2019 18:41:59'!
-classRemoved: aSymbol 
-	! !
-
 !Refactor methodsFor: 'events' stamp: 'MGD 8/15/2019 18:38:21'!
 initialize
 	passedTests := Set new.! !
 
-!Refactor methodsFor: 'events' stamp: 'MGD 9/29/2019 19:22:45'!
-methodRemoved: aTestReference 
+!Refactor methodsFor: 'events' stamp: 'MGD 10/14/2019 16:24:29'!
+modelClassRemoved: aSymbol 
 	! !
 
-!Refactor methodsFor: 'events' stamp: 'MGD 8/15/2019 16:30:10'!
-newProductionClass: aSymbol 
+!Refactor methodsFor: 'events' stamp: 'MGD 10/14/2019 14:25:15'!
+modelMethodAdded: aSymbol 
+	! !
+
+!Refactor methodsFor: 'events' stamp: 'MGD 10/14/2019 14:25:33'!
+modelMethodChanged: aSymbol 
+	! !
+
+!Refactor methodsFor: 'events' stamp: 'MGD 10/14/2019 14:24:44'!
+modelMethodRemoved: aTestReference 
+	! !
+
+!Refactor methodsFor: 'events' stamp: 'MGD 10/14/2019 14:25:50'!
+newModelClass: aSymbol 
 	! !
 
 !Refactor methodsFor: 'events' stamp: 'MGD 8/15/2019 17:20:50'!
 newTestClass: aSymbol 
-	! !
-
-!Refactor methodsFor: 'events' stamp: 'MGD 8/15/2019 16:28:08'!
-productionMethodAdded: aSymbol 
-	! !
-
-!Refactor methodsFor: 'events' stamp: 'MGD 8/15/2019 16:27:41'!
-productionMethodChanged: aSymbol 
 	! !
 
 !Refactor methodsFor: 'events' stamp: 'MGD 10/10/2019 20:16:08'!
@@ -3941,9 +4076,17 @@ testAdded: aTestReference
 testChanged: aSymbol 
 	! !
 
+!Refactor methodsFor: 'events' stamp: 'MGD 10/14/2019 16:22:46'!
+testClassRemoved: aSymbol 
+	! !
+
 !Refactor methodsFor: 'events' stamp: 'MGD 8/15/2019 18:39:20'!
 testFailed: aSymbol 
 	passedTests remove: aSymbol ifAbsent: [].! !
+
+!Refactor methodsFor: 'events' stamp: 'MGD 10/14/2019 14:17:02'!
+testRemoved: aTestReference 
+	! !
 
 !Refactor methodsFor: 'events' stamp: 'MGD 8/15/2019 17:08:12'!
 testRenamedFrom: aSymbol to: aSymbol2 
@@ -3957,39 +4100,38 @@ isCorrect
 printString
 	^ 'Refactor'! !
 
-!WritingAFailingTest methodsFor: 'events' stamp: 'MGD 10/2/2019 21:49:27'!
-classRemoved: aSymbol 
+!WritingAFailingTest methodsFor: 'events' stamp: 'MGD 10/14/2019 16:24:29'!
+modelClassRemoved: aSymbol 
 	self transitionTo: NotDoingTDD new.! !
 
-!WritingAFailingTest methodsFor: 'events' stamp: 'MGD 10/10/2019 20:16:08'!
-methodRemoved: aMethodReference 
-	| errorMessage |
-	
-	test = aMethodReference ifTrue: [ ^ self transitionTo: Green new ].
-	
-	errorMessage := TDDGuru modelMethodRemovedWhileWriting: aMethodReference selector in: aMethodReference methodClass.
-	self reportError: errorMessage andTransitionTo: NotDoingTDD new.! !
-
-!WritingAFailingTest methodsFor: 'events' stamp: 'MGD 6/14/2019 07:57:06'!
-newProductionClass: className
-! !
-
-!WritingAFailingTest methodsFor: 'events' stamp: 'MGD 5/2/2019 20:23:47'!
-newTestClass: aSymbol 
-	! !
-
-!WritingAFailingTest methodsFor: 'events' stamp: 'MGD 10/10/2019 20:16:08'!
-productionMethodAdded: methodReference 
+!WritingAFailingTest methodsFor: 'events' stamp: 'MGD 10/14/2019 14:25:15'!
+modelMethodAdded: methodReference 
 	| errorMessage |
 	errorMessage := TDDGuru productionMethodAdded: methodReference selector class: methodReference methodClass.
 	self reportError: errorMessage andTransitionTo: NotDoingTDD new.
 ! !
 
-!WritingAFailingTest methodsFor: 'events' stamp: 'MGD 10/10/2019 20:16:08'!
-productionMethodChanged: methodReference 
+!WritingAFailingTest methodsFor: 'events' stamp: 'MGD 10/14/2019 14:25:33'!
+modelMethodChanged: methodReference 
 	| errorMessage |
 	errorMessage := TDDGuru productionMethodChanged: methodReference selector class: methodReference methodClass.
 	self reportError: errorMessage andTransitionTo: NotDoingTDD new ! !
+
+!WritingAFailingTest methodsFor: 'events' stamp: 'MGD 10/14/2019 14:24:44'!
+modelMethodRemoved: aMethodReference 
+	| errorMessage |
+	
+	errorMessage := TDDGuru methodRemovedWhileWritingATest: aMethodReference selector class: aMethodReference methodClass.
+	self reportError: errorMessage andTransitionTo: NotDoingTDD new
+	! !
+
+!WritingAFailingTest methodsFor: 'events' stamp: 'MGD 10/14/2019 14:25:50'!
+newModelClass: className
+! !
+
+!WritingAFailingTest methodsFor: 'events' stamp: 'MGD 5/2/2019 20:23:47'!
+newTestClass: aSymbol 
+	! !
 
 !WritingAFailingTest methodsFor: 'events' stamp: 'MGD 10/6/2019 18:02:43'!
 testAdded: aTestReference 
@@ -4006,6 +4148,10 @@ testChanged: aTestReference
 		errorMessage := TDDGuru testChangedWhileThisTestWasBeingWritten: aTestReference selector in: aTestReference methodClass.
 		self reportError: errorMessage andTransitionTo: NotDoingTDD new ]! !
 
+!WritingAFailingTest methodsFor: 'events' stamp: 'MGD 10/14/2019 16:23:00'!
+testClassRemoved: aSymbol 
+	self transitionTo: NotDoingTDD new.! !
+
 !WritingAFailingTest methodsFor: 'events' stamp: 'MGD 8/6/2019 12:12:21'!
 testFailed: aSymbol 
 	self transitionTo: Red new.! !
@@ -4018,13 +4164,24 @@ testPassed: aTestReference
 		errorMessage := TDDGuru testDidNotFail: aTestReference selector class: aTestReference methodClass.
 		self reportError: errorMessage andTransitionTo: Green new ]! !
 
+!WritingAFailingTest methodsFor: 'events' stamp: 'MGD 10/14/2019 14:18:21'!
+testRemoved: aMethodReference 
+	| errorMessage |
+	
+	test = aMethodReference ifTrue: [ ^ self transitionTo: Green new ].
+	
+	errorMessage := TDDGuru methodRemovedWhileWritingATest: aMethodReference selector class: aMethodReference methodClass.
+	self reportError: errorMessage.
+
+	! !
+
 !WritingAFailingTest methodsFor: 'events' stamp: 'MGD 10/2/2019 21:36:54'!
 testRenamedFrom: previousTestReference to: currentTestReference 
 	test = previousTestReference ifTrue: [ self currentTest: currentTestReference ]! !
 
-!WritingAFailingTest methodsFor: 'printing' stamp: 'MGD 6/21/2019 07:50:42'!
+!WritingAFailingTest methodsFor: 'printing' stamp: 'MGD 10/13/2019 11:24:05'!
 printString
-	^ 'Writing a failing test'! !
+	^ 'Writing a failing test - ', test selector, '::', test methodClass.! !
 
 !WritingAFailingTest methodsFor: 'accessing' stamp: 'MGD 9/3/2019 10:34:31'!
 currentTest
@@ -4041,6 +4198,78 @@ currentTest: aSelector
 !WritingAFailingTest class methodsFor: 'instance creation' stamp: 'MGD 9/3/2019 10:36:10'!
 currentTest: aTestReference
 	^ self new currentTest: aTestReference ! !
+
+!TestInventory methodsFor: 'entries' stamp: 'MGD 9/3/2019 10:56:39'!
+newTest: aTestReference	
+	tests add: aTestReference.
+! !
+
+!TestInventory methodsFor: 'entries' stamp: 'MGD 6/13/2019 17:09:02'!
+newTestClass: aSymbol 
+	testClasses add: aSymbol! !
+
+!TestInventory methodsFor: 'entries' stamp: 'MGD 10/14/2019 16:28:01'!
+testClassRemoved: className 
+	(testClasses includes: className) ifTrue: [ 
+		self removeTestsOf: className.
+		testClasses remove: className.
+	].! !
+
+!TestInventory methodsFor: 'entries' stamp: 'MGD 10/14/2019 14:12:54'!
+testRemoved: aMethodReference 
+	tests remove: aMethodReference ifAbsent: [].! !
+
+!TestInventory methodsFor: 'entries' stamp: 'MGD 9/5/2019 08:12:52'!
+testRenamedFrom: previousTestReference to: currentTestReference.
+	tests remove: previousTestReference.
+	tests add: currentTestReference ! !
+
+!TestInventory methodsFor: 'initialization' stamp: 'MGD 6/14/2019 07:24:36'!
+initialize
+	testClasses := Set new.
+	tests := Set new.! !
+
+!TestInventory methodsFor: 'initialization' stamp: 'MGD 9/5/2019 09:02:02'!
+initializeTestsOf: aCollectionOfTestClasses
+	aCollectionOfTestClasses do: [ :testClass | self addTestsOf: testClass ].! !
+
+!TestInventory methodsFor: 'initialization' stamp: 'MGD 7/20/2019 17:24:18'!
+testClasses: aCollectionOfTestClasses
+	| classNames |
+	classNames := aCollectionOfTestClasses collect: [ :aClass | aClass name ].
+	testClasses := Set withAll: classNames.
+		
+	self initializeTestsOf: aCollectionOfTestClasses.! !
+
+!TestInventory methodsFor: 'querying' stamp: 'MGD 6/14/2019 07:24:56'!
+allTests
+	^ tests! !
+
+!TestInventory methodsFor: 'querying' stamp: 'MGD 7/20/2019 16:54:46'!
+hasATestClassNamed: aSymbol
+	^ testClasses includes: aSymbol! !
+
+!TestInventory methodsFor: 'querying' stamp: 'MGD 9/8/2019 15:14:44'!
+hasTest: aTestReference
+	^ tests includes: aTestReference ! !
+
+!TestInventory methodsFor: 'private' stamp: 'MGD 10/3/2019 18:21:46'!
+addTestsOf: aClass 
+	| testReference |
+	
+	aClass allTestSelectors do: [ :selector |
+		testReference := UninstalledMethodReference selector: selector class: aClass name.
+		self newTest: testReference
+	]! !
+
+!TestInventory methodsFor: 'private' stamp: 'MGD 10/10/2019 20:16:08'!
+removeTestsOf: className 
+	tests select: [ :testReference | testReference methodClass = className ] thenDo: [ :testReference | tests remove: testReference ].
+	! !
+
+!TestInventory class methodsFor: 'as yet unclassified' stamp: 'MGD 6/27/2019 11:23:34'!
+withTestClasses: aCollection
+	^ self new testClasses: aCollection.! !
 
 !TimeLine methodsFor: 'accessing' stamp: 'MGD 8/30/2019 08:56:40'!
 changeEvents

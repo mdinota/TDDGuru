@@ -1,488 +1,488 @@
-'From Cuis 5.0 [latest update: #3839] on 22 October 2019 at 8:57:41 pm'!
+'From Cuis 5.0 [latest update: #3839] on 22 October 2019 at 10:46:52 pm'!
 'Description Please enter a description for this package'!
-!provides: 'TDDGuru' 1 23!
+!provides: 'TDDGuru' 1 24!
 SystemOrganization addCategory: #'TDDGuru-Tests'!
 SystemOrganization addCategory: #'TDDGuru-Model'!
 SystemOrganization addCategory: #'TDDGuru-Tools'!
 
 
-!classDefinition: #ChangeListMorph category: #'TDDGuru-Tools' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: #ChangeListMorph category: #'TDDGuru-Tools' stamp: 'MGD 10/22/2019 22:46:53'!
 PluggableListMorph subclass: #ChangeListMorph
 	instanceVariableNames: 'analysisResult'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Tools'!
-!classDefinition: 'ChangeListMorph class' category: #'TDDGuru-Tools' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: 'ChangeListMorph class' category: #'TDDGuru-Tools' stamp: 'MGD 10/22/2019 22:46:53'!
 ChangeListMorph class
 	instanceVariableNames: ''!
 
-!classDefinition: #PickAChangeWindow category: #'TDDGuru-Tools' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: #PickAChangeWindow category: #'TDDGuru-Tools' stamp: 'MGD 10/22/2019 22:46:53'!
 ChangeListWindow subclass: #PickAChangeWindow
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Tools'!
-!classDefinition: 'PickAChangeWindow class' category: #'TDDGuru-Tools' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: 'PickAChangeWindow class' category: #'TDDGuru-Tools' stamp: 'MGD 10/22/2019 22:46:53'!
 PickAChangeWindow class
 	instanceVariableNames: ''!
 
-!classDefinition: #AnalysisResultWindow category: #'TDDGuru-Tools' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: #AnalysisResultWindow category: #'TDDGuru-Tools' stamp: 'MGD 10/22/2019 22:46:53'!
 SystemWindow subclass: #AnalysisResultWindow
 	instanceVariableNames: 'changeDetail index changeDetailTitle changeCode'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Tools'!
-!classDefinition: 'AnalysisResultWindow class' category: #'TDDGuru-Tools' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: 'AnalysisResultWindow class' category: #'TDDGuru-Tools' stamp: 'MGD 10/22/2019 22:46:53'!
 AnalysisResultWindow class
 	instanceVariableNames: ''!
 
-!classDefinition: #InnerChangeListMorph category: #'TDDGuru-Tools' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: #InnerChangeListMorph category: #'TDDGuru-Tools' stamp: 'MGD 10/22/2019 22:46:53'!
 InnerListMorph subclass: #InnerChangeListMorph
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Tools'!
-!classDefinition: 'InnerChangeListMorph class' category: #'TDDGuru-Tools' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: 'InnerChangeListMorph class' category: #'TDDGuru-Tools' stamp: 'MGD 10/22/2019 22:46:53'!
 InnerChangeListMorph class
 	instanceVariableNames: ''!
 
-!classDefinition: #TDDStateIcon category: #'TDDGuru-Tools' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: #TDDStateIcon category: #'TDDGuru-Tools' stamp: 'MGD 10/22/2019 22:46:53'!
 RectangleLikeMorph subclass: #TDDStateIcon
 	instanceVariableNames: 'tddState width height'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Tools'!
-!classDefinition: 'TDDStateIcon class' category: #'TDDGuru-Tools' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: 'TDDStateIcon class' category: #'TDDGuru-Tools' stamp: 'MGD 10/22/2019 22:46:53'!
 TDDStateIcon class
 	instanceVariableNames: ''!
 
-!testClassDefinition: #TDDGuruTest category: #'TDDGuru-Tests' stamp: 'MGD 10/22/2019 20:57:42'!
+!testClassDefinition: #TDDGuruTest category: #'TDDGuru-Tests' stamp: 'MGD 10/22/2019 22:46:53'!
 TestCase subclass: #TDDGuruTest
 	instanceVariableNames: 'tddGuru classesByName previousUserChangesFile'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Tests'!
-!classDefinition: 'TDDGuruTest class' category: #'TDDGuru-Tests' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: 'TDDGuruTest class' category: #'TDDGuru-Tests' stamp: 'MGD 10/22/2019 22:46:53'!
 TDDGuruTest class
 	instanceVariableNames: ''!
 
-!testClassDefinition: #GreenTest category: #'TDDGuru-Tests' stamp: 'MGD 10/22/2019 20:57:42'!
+!testClassDefinition: #GreenTest category: #'TDDGuru-Tests' stamp: 'MGD 10/22/2019 22:46:53'!
 TDDGuruTest subclass: #GreenTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Tests'!
-!classDefinition: 'GreenTest class' category: #'TDDGuru-Tests' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: 'GreenTest class' category: #'TDDGuru-Tests' stamp: 'MGD 10/22/2019 22:46:53'!
 GreenTest class
 	instanceVariableNames: ''!
 
-!testClassDefinition: #MiscTest category: #'TDDGuru-Tests' stamp: 'MGD 10/22/2019 20:57:42'!
+!testClassDefinition: #MiscTest category: #'TDDGuru-Tests' stamp: 'MGD 10/22/2019 22:46:53'!
 TDDGuruTest subclass: #MiscTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Tests'!
-!classDefinition: 'MiscTest class' category: #'TDDGuru-Tests' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: 'MiscTest class' category: #'TDDGuru-Tests' stamp: 'MGD 10/22/2019 22:46:53'!
 MiscTest class
 	instanceVariableNames: ''!
 
-!testClassDefinition: #MoreThanOneTestWrittenTest category: #'TDDGuru-Tests' stamp: 'MGD 10/22/2019 20:57:42'!
+!testClassDefinition: #MoreThanOneTestWrittenTest category: #'TDDGuru-Tests' stamp: 'MGD 10/22/2019 22:46:53'!
 TDDGuruTest subclass: #MoreThanOneTestWrittenTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Tests'!
-!classDefinition: 'MoreThanOneTestWrittenTest class' category: #'TDDGuru-Tests' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: 'MoreThanOneTestWrittenTest class' category: #'TDDGuru-Tests' stamp: 'MGD 10/22/2019 22:46:53'!
 MoreThanOneTestWrittenTest class
 	instanceVariableNames: ''!
 
-!testClassDefinition: #NotDoingTDDTest category: #'TDDGuru-Tests' stamp: 'MGD 10/22/2019 20:57:42'!
+!testClassDefinition: #NotDoingTDDTest category: #'TDDGuru-Tests' stamp: 'MGD 10/22/2019 22:46:53'!
 TDDGuruTest subclass: #NotDoingTDDTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Tests'!
-!classDefinition: 'NotDoingTDDTest class' category: #'TDDGuru-Tests' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: 'NotDoingTDDTest class' category: #'TDDGuru-Tests' stamp: 'MGD 10/22/2019 22:46:53'!
 NotDoingTDDTest class
 	instanceVariableNames: ''!
 
-!testClassDefinition: #NotStartedTest category: #'TDDGuru-Tests' stamp: 'MGD 10/22/2019 20:57:42'!
+!testClassDefinition: #NotStartedTest category: #'TDDGuru-Tests' stamp: 'MGD 10/22/2019 22:46:53'!
 TDDGuruTest subclass: #NotStartedTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Tests'!
-!classDefinition: 'NotStartedTest class' category: #'TDDGuru-Tests' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: 'NotStartedTest class' category: #'TDDGuru-Tests' stamp: 'MGD 10/22/2019 22:46:53'!
 NotStartedTest class
 	instanceVariableNames: ''!
 
-!testClassDefinition: #RedTest category: #'TDDGuru-Tests' stamp: 'MGD 10/22/2019 20:57:42'!
+!testClassDefinition: #RedTest category: #'TDDGuru-Tests' stamp: 'MGD 10/22/2019 22:46:53'!
 TDDGuruTest subclass: #RedTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Tests'!
-!classDefinition: 'RedTest class' category: #'TDDGuru-Tests' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: 'RedTest class' category: #'TDDGuru-Tests' stamp: 'MGD 10/22/2019 22:46:53'!
 RedTest class
 	instanceVariableNames: ''!
 
-!testClassDefinition: #RefactorTest category: #'TDDGuru-Tests' stamp: 'MGD 10/22/2019 20:57:42'!
+!testClassDefinition: #RefactorTest category: #'TDDGuru-Tests' stamp: 'MGD 10/22/2019 22:46:53'!
 TDDGuruTest subclass: #RefactorTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Tests'!
-!classDefinition: 'RefactorTest class' category: #'TDDGuru-Tests' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: 'RefactorTest class' category: #'TDDGuru-Tests' stamp: 'MGD 10/22/2019 22:46:53'!
 RefactorTest class
 	instanceVariableNames: ''!
 
-!testClassDefinition: #WritingAFailingTestTest category: #'TDDGuru-Tests' stamp: 'MGD 10/22/2019 20:57:42'!
+!testClassDefinition: #WritingAFailingTestTest category: #'TDDGuru-Tests' stamp: 'MGD 10/22/2019 22:46:53'!
 TDDGuruTest subclass: #WritingAFailingTestTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Tests'!
-!classDefinition: 'WritingAFailingTestTest class' category: #'TDDGuru-Tests' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: 'WritingAFailingTestTest class' category: #'TDDGuru-Tests' stamp: 'MGD 10/22/2019 22:46:53'!
 WritingAFailingTestTest class
 	instanceVariableNames: ''!
 
-!classDefinition: #AnalysisResult category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: #AnalysisResult category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 Object subclass: #AnalysisResult
 	instanceVariableNames: 'errors changes currentSelection selectedChange timeline'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'AnalysisResult class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: 'AnalysisResult class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 AnalysisResult class
 	instanceVariableNames: ''!
 
-!classDefinition: #Change category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: #Change category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 Object subclass: #Change
 	instanceVariableNames: 'changeRecord'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'Change class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: 'Change class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 Change class
 	instanceVariableNames: ''!
 
-!classDefinition: #ClassRemoved category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: #ClassRemoved category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 Change subclass: #ClassRemoved
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'ClassRemoved class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: 'ClassRemoved class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 ClassRemoved class
 	instanceVariableNames: ''!
 
-!classDefinition: #MethodRemoved category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: #MethodRemoved category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 Change subclass: #MethodRemoved
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'MethodRemoved class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: 'MethodRemoved class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 MethodRemoved class
 	instanceVariableNames: ''!
 
-!classDefinition: #ModelMethodChanged category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: #ModelMethodChanged category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 Change subclass: #ModelMethodChanged
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'ModelMethodChanged class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: 'ModelMethodChanged class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 ModelMethodChanged class
 	instanceVariableNames: ''!
 
-!classDefinition: #NewModelClass category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: #NewModelClass category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 Change subclass: #NewModelClass
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'NewModelClass class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: 'NewModelClass class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 NewModelClass class
 	instanceVariableNames: ''!
 
-!classDefinition: #NewModelMethod category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: #NewModelMethod category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 Change subclass: #NewModelMethod
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'NewModelMethod class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: 'NewModelMethod class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 NewModelMethod class
 	instanceVariableNames: ''!
 
-!classDefinition: #NewTest category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: #NewTest category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 Change subclass: #NewTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'NewTest class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: 'NewTest class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 NewTest class
 	instanceVariableNames: ''!
 
-!classDefinition: #NewTestClass category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: #NewTestClass category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 Change subclass: #NewTestClass
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'NewTestClass class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: 'NewTestClass class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 NewTestClass class
 	instanceVariableNames: ''!
 
-!classDefinition: #TestChanged category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: #TestChanged category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 Change subclass: #TestChanged
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'TestChanged class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: 'TestChanged class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 TestChanged class
 	instanceVariableNames: ''!
 
-!classDefinition: #TestClassRemoved category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: #TestClassRemoved category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 Change subclass: #TestClassRemoved
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'TestClassRemoved class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: 'TestClassRemoved class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 TestClassRemoved class
 	instanceVariableNames: ''!
 
-!classDefinition: #TestFailed category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: #TestFailed category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 Change subclass: #TestFailed
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'TestFailed class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: 'TestFailed class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 TestFailed class
 	instanceVariableNames: ''!
 
-!classDefinition: #TestPassed category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: #TestPassed category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 Change subclass: #TestPassed
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'TestPassed class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: 'TestPassed class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 TestPassed class
 	instanceVariableNames: ''!
 
-!classDefinition: #TestRemoved category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: #TestRemoved category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 Change subclass: #TestRemoved
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'TestRemoved class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: 'TestRemoved class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 TestRemoved class
 	instanceVariableNames: ''!
 
-!classDefinition: #TestRenamed category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: #TestRenamed category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 Change subclass: #TestRenamed
 	instanceVariableNames: 'newTestChangeRecord testRemovedChangeRecord'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'TestRenamed class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: 'TestRenamed class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 TestRenamed class
 	instanceVariableNames: ''!
 
-!classDefinition: #TestUtilityChanged category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: #TestUtilityChanged category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 Change subclass: #TestUtilityChanged
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'TestUtilityChanged class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: 'TestUtilityChanged class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 TestUtilityChanged class
 	instanceVariableNames: ''!
 
-!classDefinition: #UnknownChange category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: #UnknownChange category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 Change subclass: #UnknownChange
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'UnknownChange class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: 'UnknownChange class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 UnknownChange class
 	instanceVariableNames: ''!
 
-!classDefinition: #ChangeDetector category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: #ChangeDetector category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 Object subclass: #ChangeDetector
 	instanceVariableNames: 'changeClass lookahead changeDetectedBlock detectBlock'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'ChangeDetector class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: 'ChangeDetector class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 ChangeDetector class
 	instanceVariableNames: ''!
 
-!classDefinition: #ChangeLog category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: #ChangeLog category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 Object subclass: #ChangeLog
 	instanceVariableNames: 'changeList inventory changeDetectors'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'ChangeLog class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: 'ChangeLog class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 ChangeLog class
 	instanceVariableNames: ''!
 
-!classDefinition: #TDDGuru category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: #TDDGuru category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 Object subclass: #TDDGuru
 	instanceVariableNames: 'changeLog changesFile state analysisResult currentChange inventory initialState initialTestClasses startingPoint previousChange'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'TDDGuru class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: 'TDDGuru class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 TDDGuru class
 	instanceVariableNames: ''!
 
-!classDefinition: #TDDState category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: #TDDState category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 Object subclass: #TDDState
 	instanceVariableNames: 'context passedTests'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'TDDState class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: 'TDDState class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 TDDState class
 	instanceVariableNames: ''!
 
-!classDefinition: #Green category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: #Green category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 TDDState subclass: #Green
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'Green class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: 'Green class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 Green class
 	instanceVariableNames: ''!
 
-!classDefinition: #MoreThanOneTestWritten category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: #MoreThanOneTestWritten category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 TDDState subclass: #MoreThanOneTestWritten
 	instanceVariableNames: 'firstTest secondTest errorWasReported testAddedChange isCorrect'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'MoreThanOneTestWritten class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: 'MoreThanOneTestWritten class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 MoreThanOneTestWritten class
 	instanceVariableNames: ''!
 
-!classDefinition: #NotDoingTDD category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: #NotDoingTDD category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 TDDState subclass: #NotDoingTDD
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'NotDoingTDD class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: 'NotDoingTDD class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 NotDoingTDD class
 	instanceVariableNames: ''!
 
-!classDefinition: #NotStarted category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: #NotStarted category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 TDDState subclass: #NotStarted
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'NotStarted class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: 'NotStarted class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 NotStarted class
 	instanceVariableNames: ''!
 
-!classDefinition: #Red category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: #Red category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 TDDState subclass: #Red
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'Red class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: 'Red class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 Red class
 	instanceVariableNames: ''!
 
-!classDefinition: #Refactor category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: #Refactor category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 TDDState subclass: #Refactor
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'Refactor class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: 'Refactor class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 Refactor class
 	instanceVariableNames: ''!
 
-!classDefinition: #WritingAFailingTest category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: #WritingAFailingTest category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 TDDState subclass: #WritingAFailingTest
 	instanceVariableNames: 'test'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'WritingAFailingTest class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: 'WritingAFailingTest class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 WritingAFailingTest class
 	instanceVariableNames: ''!
 
-!classDefinition: #TestInventory category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: #TestInventory category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 Object subclass: #TestInventory
 	instanceVariableNames: 'testClasses tests'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'TestInventory class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: 'TestInventory class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 TestInventory class
 	instanceVariableNames: ''!
 
-!classDefinition: #TimeLine category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: #TimeLine category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 Object subclass: #TimeLine
 	instanceVariableNames: 'events selectedEvent changes'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'TimeLine class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: 'TimeLine class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 TimeLine class
 	instanceVariableNames: ''!
 
-!classDefinition: #TimeLineEvent category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: #TimeLineEvent category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 Object subclass: #TimeLineEvent
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'TimeLineEvent class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: 'TimeLineEvent class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 TimeLineEvent class
 	instanceVariableNames: ''!
 
-!classDefinition: #ChangeEvent category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: #ChangeEvent category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 TimeLineEvent subclass: #ChangeEvent
 	instanceVariableNames: 'change'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'ChangeEvent class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: 'ChangeEvent class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 ChangeEvent class
 	instanceVariableNames: ''!
 
-!classDefinition: #StateTransitionEvent category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: #StateTransitionEvent category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 TimeLineEvent subclass: #StateTransitionEvent
 	instanceVariableNames: 'fromState toState'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'StateTransitionEvent class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: 'StateTransitionEvent class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 StateTransitionEvent class
 	instanceVariableNames: ''!
 
-!classDefinition: #UninstalledMethodReference category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: #UninstalledMethodReference category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 Object subclass: #UninstalledMethodReference
 	instanceVariableNames: 'selector className'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'UninstalledMethodReference class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 20:57:42'!
+!classDefinition: 'UninstalledMethodReference class' category: #'TDDGuru-Model' stamp: 'MGD 10/22/2019 22:46:53'!
 UninstalledMethodReference class
 	instanceVariableNames: ''!
 
@@ -1154,6 +1154,19 @@ test13WhenATestClassIsRemovedThenIsRefactoring
 	tddGuru initialTestClasses: { self classNamed: #TestClassA. self classNamed: #TestClassB }.
 	
 	self logChangesWhile: [ self removeClass: #TestClassB ].
+		
+	result _ tddGuru run.
+		
+	self assertHasNoErrors: result.
+	self assert: tddGuru currentState equals: Refactor.! !
+
+!GreenTest methodsFor: 'tests' stamp: 'MGD 10/22/2019 21:01:26'!
+test14WhenATestClassIsAddedThenIsRefactoring
+	| result |
+	
+	tddGuru initialState: Green new.
+	
+	self logChangesWhile: [ self newClassNamed: #TestClassA subclassOf: TestCase. ].
 		
 	result _ tddGuru run.
 		
@@ -3800,6 +3813,10 @@ modelMethodRemoved: aSymbol
 
 !Green methodsFor: 'events' stamp: 'MGD 10/14/2019 14:25:50'!
 newModelClass: aSymbol 
+	self transitionTo: Refactor new! !
+
+!Green methodsFor: 'events' stamp: 'MGD 10/22/2019 21:01:52'!
+newTestClass: aSymbol 
 	self transitionTo: Refactor new! !
 
 !Green methodsFor: 'events' stamp: 'MGD 9/5/2019 08:08:11'!

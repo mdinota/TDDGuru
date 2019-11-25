@@ -1,6 +1,6 @@
-'From Cuis 5.0 [latest update: #3956] on 20 November 2019 at 7:42:04 pm'!
+'From Cuis 5.0 [latest update: #3956] on 25 November 2019 at 8:28:56 pm'!
 'Description Reorganization '!
-!provides: 'TDDGuru' 1 34!
+!provides: 'TDDGuru' 1 35!
 !requires: '__TDDGuru-TestData__' 1 0 nil!
 !requires: 'TDDGuruSecondBootstrapping' 1 0 nil!
 SystemOrganization addCategory: #'TDDGuru-Model'!
@@ -782,9 +782,46 @@ rerun
 
 	! !
 
+!AnalysisResultWindow class methodsFor: 'colors' stamp: 'MGD 11/21/2019 17:19:05'!
+analyzeWholeFile: userChangesFileName
+	(TDDGuru on: userChangesFileName) run; showAnalysisResult
+	! !
+
 !AnalysisResultWindow class methodsFor: 'colors' stamp: 'MGD 10/3/2019 19:23:58'!
 errorColor
 	^ Color fromHexString: '#dc3545'! !
+
+!AnalysisResultWindow class methodsFor: 'colors' stamp: 'MGD 11/24/2019 10:03:58'!
+lastSnapshotPosition: userChangesFileName	
+	| end done block positions prevBlock |
+	userChangesFileName asFileEntry readStreamDo: [ :changesFile |
+		positions _ SortedCollection new.
+		end _ changesFile size.
+		prevBlock _ end.
+		block _ end - 1024 max: 0.
+		done _ false.
+		[ done or: [ positions size > 0 ]]
+			whileFalse: [
+				changesFile position: block.
+				"ignore first fragment"
+				changesFile nextChunk.
+				[ changesFile position < prevBlock ]
+					whileTrue: [
+						| pos chunk |
+						pos _ changesFile position.
+						chunk _ changesFile nextChunk.
+						((Smalltalk isQuitRecord: chunk) or: [ Smalltalk isSnapshotRecord: chunk ])
+							ifTrue: [ positions add: pos ]].
+				block = 0
+					ifTrue: [done _ true]
+					ifFalse: [
+						prevBlock _ block.
+						block _ block - 1024 max: 0]].
+	].
+
+	^ positions isEmpty ifTrue: [0] ifFalse: [positions last]
+	
+! !
 
 !AnalysisResultWindow class methodsFor: 'colors' stamp: 'MGD 11/7/2019 20:35:29'!
 openFor: anAnalysisResult analyzedBy: tddGuru
@@ -794,19 +831,61 @@ openFor: anAnalysisResult analyzedBy: tddGuru
 	
 	! !
 
-!AnalysisResultWindow class methodsFor: 'colors' stamp: 'MGD 11/7/2019 15:34:37'!
-startAnalysis
-	| selected changeList fileStream userChangesFileName |
-	userChangesFileName := FillInTheBlankMorph request: 'Where are the changes logged?' initialAnswer: Smalltalk defaultUserChangesName onCancel: [ ^ nil ]. 	
-	fileStream := userChangesFileName asFileEntry readStream.
+!AnalysisResultWindow class methodsFor: 'colors' stamp: 'MGD 11/21/2019 17:47:59'!
+pickAChangeAndAnalyze: userChangesFileName	
+	| changeList fileStream startPosition |
+
+	startPosition := self pickStartPositionFromSnapshots: userChangesFileName.
 	
-	fileStream ifNotNil: [
-		selected := (SelectionMenu labels: { 'The whole change log' . 'From a specific change'} selections: { #all . #pick }) startUpWithCaption: 'TDDGuru should analyze...'.
-		changeList := ChangeList new scanFile: fileStream from: 0 to: fileStream size .
-	
-		selected = #pick ifTrue: [ PickAChangeWindow open: changeList label: 'Pick a change'].
-		selected = #all ifTrue: [ (TDDGuru on: userChangesFileName) run; showAnalysisResult ] ]
+	startPosition ifNotNil: [
+		fileStream := userChangesFileName asFileEntry readStream.
+		changeList := ChangeList new scanFile: fileStream from: startPosition to: fileStream size .
+		PickAChangeWindow open: changeList label: 'Pick a change' ]
 	! !
+
+!AnalysisResultWindow class methodsFor: 'colors' stamp: 'MGD 11/24/2019 09:54:53'!
+pickStartPositionFromSnapshots: userChangesFileName	
+	
+	"Prompt with a menu of how far back to go when browsing a changes file."
+
+	| banners positions pos chunk i startPosition |
+	
+	startPosition := self lastSnapshotPosition: userChangesFileName.
+	userChangesFileName asFileEntry readStreamDo: [ :changesFile |
+		banners _ OrderedCollection new.
+		positions _ OrderedCollection new.
+		pos _ startPosition.
+		[pos = 0
+			or: [banners size > 20]] 		"Go back at most 20 image exits"
+			whileFalse: [
+				changesFile position: pos.
+				chunk _ changesFile nextChunk.
+				i _ chunk indexOfSubCollection: 'priorSource: ' startingAt: 1.
+				i > 0
+					ifTrue: [
+						positions addLast: pos.
+						banners addLast: (chunk copyFrom: 5 to: i - 2).
+						pos _ Number readFrom: (chunk copyFrom: i + 13 to: chunk size)]
+					ifFalse: [
+						pos _ 0]].
+	].
+	positions addLast: 0.
+	banners addLast: 'Whole file'.
+	^ (SelectionMenu labelList: banners selections: positions)
+				startUpWithCaption: 'Browse as far back as...'.
+! !
+
+!AnalysisResultWindow class methodsFor: 'colors' stamp: 'MGD 11/21/2019 18:07:25'!
+startAnalysis
+	| selected changesFile userChangesFileName |
+	userChangesFileName := FillInTheBlankMorph request: 'Where are the changes logged?' initialAnswer: Smalltalk defaultUserChangesName onCancel: [ ^ nil ]. 	
+	changesFile := userChangesFileName asFileEntry.
+	
+	changesFile exists ifTrue: [
+		selected := (SelectionMenu labels: { 'The whole change log' . 'From a specific change'} selections: { #all . #pick }) startUpWithCaption: 'TDDGuru should analyze...'.
+		selected = #pick ifTrue: [ self pickAChangeAndAnalyze: userChangesFileName ].
+		selected = #all ifTrue: [ self analyzeWholeFile: userChangesFileName ] 
+	]! !
 
 !AnalysisResultWindow class methodsFor: 'colors' stamp: 'MGD 10/15/2019 18:52:43'!
 stateTransitionColor: aTDDState
@@ -4542,12 +4621,14 @@ isCorrect
 modelClassRemoved: aSymbol 
 	! !
 
-!Refactor methodsFor: 'events' stamp: 'MGD 11/12/2019 11:23:23'!
+!Refactor methodsFor: 'events' stamp: 'MGD 11/22/2019 07:55:48'!
 modelMethodAdded: aMethodReference 
+	newModelMethods remove: aMethodReference ifAbsent: [].
 	newModelMethods add: aMethodReference ! !
 
-!Refactor methodsFor: 'events' stamp: 'MGD 11/12/2019 11:33:34'!
+!Refactor methodsFor: 'events' stamp: 'MGD 11/22/2019 07:56:45'!
 modelMethodChanged: aMethodReference 
+	changedModelMethods remove: aMethodReference ifAbsent: [].
 	changedModelMethods add: aMethodReference! !
 
 !Refactor methodsFor: 'events' stamp: 'MGD 11/20/2019 18:50:23'!
@@ -4801,10 +4882,10 @@ removeTestsOf: className
 withTestClasses: aCollection
 	^ self new testClasses: aCollection.! !
 
-!TimeLine methodsFor: 'accessing' stamp: 'MGD 8/30/2019 08:56:40'!
+!TimeLine methodsFor: 'accessing' stamp: 'MGD 11/22/2019 07:50:59'!
 changeEvents
-	changes ifNil: [ changes := events select: [ :event | event type = #change ] ].
-	^ changes
+	^ events select: [ :event | event type = #change ].
+
 	! !
 
 !TimeLine methodsFor: 'accessing' stamp: 'MGD 8/30/2019 09:03:27'!
@@ -4854,7 +4935,7 @@ stateAfter: aChange
 	(eventAfter type = #stateTransition) ifTrue: [ ^ eventAfter stateTo ] ifFalse: [ ^ (self lastStateTransitionBefore: aChange) stateTo ].
 	! !
 
-!TimeLine methodsFor: 'register events' stamp: 'MGD 6/20/2019 19:22:53'!
+!TimeLine methodsFor: 'register events' stamp: 'MGD 11/22/2019 07:51:22'!
 addChange: aChange
 	self addEvent: (ChangeEvent for: aChange)! !
 

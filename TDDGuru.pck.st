@@ -1,6 +1,6 @@
-'From Cuis 5.0 [latest update: #3956] on 25 November 2019 at 8:28:56 pm'!
+'From Cuis 5.0 [latest update: #3956] on 26 November 2019 at 3:26:02 pm'!
 'Description Reorganization '!
-!provides: 'TDDGuru' 1 35!
+!provides: 'TDDGuru' 1 36!
 !requires: '__TDDGuru-TestData__' 1 0 nil!
 !requires: 'TDDGuruSecondBootstrapping' 1 0 nil!
 SystemOrganization addCategory: #'TDDGuru-Model'!
@@ -450,7 +450,7 @@ TestInventory class
 
 !classDefinition: #TimeLine category: #'TDDGuru-Model'!
 Object subclass: #TimeLine
-	instanceVariableNames: 'events selectedEvent changes'
+	instanceVariableNames: 'events selectedEvent changes statesAfterChanges'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
@@ -1146,18 +1146,16 @@ test01WhenANewTestIsAddedThenIsWritingAFailingTest
 	self assertHasNoErrors: result.
 	self assert: tddGuru currentState equals: WritingAFailingTest.! !
 
-!GreenTest methodsFor: 'tests' stamp: 'MGD 9/9/2019 20:27:03'!
+!GreenTest methodsFor: 'tests' stamp: 'MGD 11/26/2019 15:17:06'!
 test02WhenAProductionMethodIsAddedThenIsRefactoring
-	| result |
 	
 	self newClassNamed: #ProductionClass subclassOf: Object. 
 	tddGuru initialState: Green new.
 	
 	self logChangesWhile: [ self compileMethod: 'm1 ^ 1' in: #ProductionClass. ].
 		
-	result _ tddGuru run.
+	tddGuru run.
 		
-	self assertHasNoErrors: result.
 	self assert: tddGuru currentState equals: Refactor.! !
 
 !GreenTest methodsFor: 'tests' stamp: 'MGD 9/9/2019 20:29:02'!
@@ -2567,18 +2565,16 @@ test01WhenAProductionMethodIsChangedIsStillRefactoring
 	self assertHasNoErrors: result.
 	self assert: tddGuru currentState equals: Refactor.! !
 
-!RefactorTest methodsFor: 'tests' stamp: 'MGD 9/14/2019 12:32:24'!
+!RefactorTest methodsFor: 'tests' stamp: 'MGD 11/26/2019 15:13:48'!
 test02WhenAProductionMethodIsAddedIsStillRefactoring
-	| result |
-	
+
 	self newClassNamed: #ModelClass subclassOf: Object. 
 	tddGuru initialState: Refactor new.
 	
 	self logChangesWhile: [ self compileMethod: 'm1 ^ 1' in: #ModelClass ].
 		
-	result _ tddGuru run.
+	tddGuru run.
 		
-	self assertHasNoErrors: result.
 	self assert: tddGuru currentState equals: Refactor.! !
 
 !RefactorTest methodsFor: 'tests' stamp: 'MGD 8/15/2019 16:29:57'!
@@ -2930,6 +2926,26 @@ test21WhenAModelMethodIsAddedAndIsUsedAsAVariableNameIsNotAValidRefactor
 	result _ tddGuru run.
 		
 	self assertCurrentStateIs: Green.
+	self assert: result hasNErrors: 1.
+	self assert: result hasErrorWithDescription: (TDDGuru modelMethodWasNotUsedDuringRefactor: #m2 class: #ModelClassA).! !
+
+!RefactorTest methodsFor: 'tests' stamp: 'MGD 11/26/2019 15:02:15'!
+test22WhenAModelMethodIsNotUsedWhenAnalysisIsFinishedThereIsAnError
+	| result |
+	
+	self logChangesWhile: [ 
+		self newClassNamed: #TestClassA subclassOf: TestCase.
+		self compileMethod: 'test01 self assert: ModelClassA new m1 equals: 1' in: #TestClassA.
+		self runAllTestsOf: #TestClassA.
+		self newClassNamed: #ModelClassA subclassOf: Object.
+		self compileMethod: 'm1 ^ 1' in: #ModelClassA.
+		self runAllTestsOf: #TestClassA.
+		self compileMethod: 'm2 ^ 1' in: #ModelClassA.
+	].
+		
+	result _ tddGuru run.
+		
+	self assertCurrentStateIs: Refactor.
 	self assert: result hasNErrors: 1.
 	self assert: result hasErrorWithDescription: (TDDGuru modelMethodWasNotUsedDuringRefactor: #m2 class: #ModelClassA).! !
 
@@ -3901,13 +3917,15 @@ rerun
 	^ self run
 	! !
 
-!TDDGuru methodsFor: 'running' stamp: 'MGD 11/7/2019 20:10:18'!
+!TDDGuru methodsFor: 'running' stamp: 'MGD 11/26/2019 15:08:35'!
 run	
 	analysisResult := AnalysisResult new.
 	
 	self setState: initialState.
 	
 	self changeLog do: [ :change | self analyzeChange: change ].
+	
+	self currentState analysisFinished.
 	
 	^ analysisResult! !
 
@@ -4148,6 +4166,10 @@ testUnexpectedlyFailedErrorMessage: aSymbol class: className
 !TDDState methodsFor: 'accessing' stamp: 'MGD 8/1/2019 17:21:26'!
 isCorrect
 	self subclassResponsibility ! !
+
+!TDDState methodsFor: 'events' stamp: 'MGD 11/26/2019 15:09:04'!
+analysisFinished
+! !
 
 !TDDState methodsFor: 'events' stamp: 'MGD 10/14/2019 16:24:29'!
 modelClassRemoved: className
@@ -4617,6 +4639,10 @@ printString
 isCorrect
 	^ true! !
 
+!Refactor methodsFor: 'events' stamp: 'MGD 11/26/2019 15:09:33'!
+analysisFinished
+	self checkIfItWasAValidRefactor ! !
+
 !Refactor methodsFor: 'events' stamp: 'MGD 10/14/2019 16:24:29'!
 modelClassRemoved: aSymbol 
 	! !
@@ -4888,9 +4914,11 @@ changeEvents
 
 	! !
 
-!TimeLine methodsFor: 'accessing' stamp: 'MGD 8/30/2019 09:03:27'!
+!TimeLine methodsFor: 'accessing' stamp: 'MGD 11/25/2019 20:45:37'!
 changes
-	^ self changeEvents collect: [ :changeEvent | changeEvent change ]! !
+	changes ifNil: [ changes := self changeEvents collect: [ :changeEvent | changeEvent change ] ].
+	
+	^ changes ! !
 
 !TimeLine methodsFor: 'accessing' stamp: 'MGD 8/19/2019 11:46:25'!
 events
@@ -4902,9 +4930,10 @@ states
 	^ self changeEvents collect: [ :changeEvent | self stateAfter: changeEvent change ]
 	! !
 
-!TimeLine methodsFor: 'initialization' stamp: 'MGD 6/20/2019 19:15:20'!
+!TimeLine methodsFor: 'initialization' stamp: 'MGD 11/25/2019 20:46:44'!
 initialize
-	events := OrderedCollection new.! !
+	events := OrderedCollection new.
+	statesAfterChanges := Dictionary new.! !
 
 !TimeLine methodsFor: 'querying' stamp: 'MGD 11/12/2019 16:58:11'!
 changeWhenMethodWasAdded: aSelector in: className 
@@ -4925,23 +4954,32 @@ lastStateTransitionBefore: aChange
 	
 	! !
 
-!TimeLine methodsFor: 'querying' stamp: 'MGD 6/27/2019 10:26:33'!
+!TimeLine methodsFor: 'querying' stamp: 'MGD 11/25/2019 20:40:51'!
 stateAfter: aChange 
-	| eventForChange eventAfter |
+	| eventForChange eventAfter stateAfter |
+	
+	statesAfterChanges at: aChange ifPresent: [ :aState | ^ aState ].
 	
 	eventForChange := events detect: [ :event | event type = #change and: [ event change = aChange ]].
 	eventAfter := events after: eventForChange ifNone: [ ^ (self lastStateTransitionBefore: aChange) stateTo ]. 
 	
-	(eventAfter type = #stateTransition) ifTrue: [ ^ eventAfter stateTo ] ifFalse: [ ^ (self lastStateTransitionBefore: aChange) stateTo ].
+	(eventAfter type = #stateTransition) 
+		ifTrue: [ stateAfter := eventAfter stateTo ] 
+		ifFalse: [ stateAfter := (self lastStateTransitionBefore: aChange) stateTo ].
+		
+	statesAfterChanges at: aChange put: stateAfter.
+	^ stateAfter 
 	! !
 
 !TimeLine methodsFor: 'register events' stamp: 'MGD 11/22/2019 07:51:22'!
 addChange: aChange
 	self addEvent: (ChangeEvent for: aChange)! !
 
-!TimeLine methodsFor: 'register events' stamp: 'MGD 6/20/2019 19:21:48'!
+!TimeLine methodsFor: 'register events' stamp: 'MGD 11/25/2019 20:50:48'!
 addEvent: anEvent
-	events add: anEvent! !
+	events add: anEvent.
+	changes := nil.
+	statesAfterChanges := Dictionary new.! !
 
 !TimeLine methodsFor: 'register events' stamp: 'MGD 6/27/2019 10:22:01'!
 stateTransitionFrom: previousTDDState to: currentTDDState

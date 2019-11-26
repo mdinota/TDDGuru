@@ -1,16 +1,16 @@
-'From Cuis 5.0 [latest update: #3937] on 28 October 2019 at 8:45:09 am'!
+'From Cuis 5.0 [latest update: #3956] on 26 November 2019 at 2:41:05 pm'!
 'Description Change on test class definition'!
-!provides: 'TDDGuruFirstBootstrapping' 1 1!
+!provides: 'TDDGuruFirstBootstrapping' 1 2!
 SystemOrganization addCategory: #TDDGuruFirstBootstrapping!
 
 
-!classDefinition: #TestRunChangeRecord category: #TDDGuruFirstBootstrapping stamp: 'HAW 10/28/2019 08:45:10'!
+!classDefinition: #TestRunChangeRecord category: #TDDGuruFirstBootstrapping!
 ChangeListElement subclass: #TestRunChangeRecord
 	instanceVariableNames: 'className selector result stamp'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuruFirstBootstrapping'!
-!classDefinition: 'TestRunChangeRecord class' category: #TDDGuruFirstBootstrapping stamp: 'HAW 10/28/2019 08:45:10'!
+!classDefinition: 'TestRunChangeRecord class' category: #TDDGuruFirstBootstrapping!
 TestRunChangeRecord class
 	instanceVariableNames: ''!
 
@@ -56,6 +56,10 @@ stamp
 string
 	^ 'testRun: ', self changeClassName,' ', self methodSelector, ' ', self result, '; ', self stamp.! !
 
+!TestRunChangeRecord methodsFor: 'initialization' stamp: 'MGD 11/26/2019 14:39:58'!
+fileIn
+! !
+
 !TestRunChangeRecord methodsFor: 'initialization' stamp: 'HAW 10/26/2019 22:57:18'!
 testCase: aClassName selector: aSelector result: aString stamp: aStamp
 
@@ -63,42 +67,6 @@ testCase: aClassName selector: aSelector result: aString stamp: aStamp
 	selector := aSelector.
 	result := aString.
 	stamp := aStamp.! !
-
-!ChangeList methodsFor: '*TDDGuruFirstBootstrapping' stamp: 'HAW 10/28/2019 08:36:10'!
-scanSpecificChangeRecordType
-	"Scan anything that involves more than one chunk"
-
-	| itemPosition item tokens firstToken secondToken |
-
-	itemPosition _ file position.
-	item _ file nextChunk.	
-	
-	(self itemIsRecognized: item) ifFalse: [
-		"Maybe a preamble, but not one we recognize; bail out with the preamble trick"
-		^ self scanAndIgnore: item in: itemPosition ].
-
-	tokens _ Scanner new scanTokens: item.
-	tokens size >= 2 ifTrue: [
-		firstToken _ tokens first.
-		secondToken _ tokens second.
-		
-		firstToken == #classDefinition: 
-			ifTrue: [ ^ self scanClassDefinition: tokens ].
-		(firstToken == #classRemoval: or: [ firstToken == #classMoveToSomePackage: ]) 
-			ifTrue: [ ^ self scanClassRemoval: tokens ].
-		(firstToken == #methodRemoval: or: [ firstToken == #methodMoveToSomePackage: ]) 
-			ifTrue: [ ^ self scanMethodRemoval: tokens ].
-		(secondToken == #methodsFor: or: [ tokens third == #methodsFor: ]) 
-			ifTrue: [ ^ self scanMethodDefinition: tokens ].
-		secondToken == #commentStamp: 
-			ifTrue: [ ^ self scanClassComment: tokens ].
-		firstToken == #provides: 
-			ifTrue: [ ^ self scanFeatureProvision: tokens ].
-		firstToken == #requires: 
-			ifTrue: [ ^ self scanFeatureRequirement: tokens ].
-		firstToken == #testRun: 
-			ifTrue: [ ^ self scanTestRun: tokens ].
-		]! !
 
 !ChangeList methodsFor: '*TDDGuruFirstBootstrapping' stamp: 'HAW 10/26/2019 22:55:07'!
 scanTestRun: tokens

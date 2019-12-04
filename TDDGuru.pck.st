@@ -1,6 +1,6 @@
-'From Cuis 5.0 [latest update: #3956] on 26 November 2019 at 3:26:02 pm'!
+'From Cuis 5.0 [latest update: #3956] on 4 December 2019 at 6:17:37 pm'!
 'Description Reorganization '!
-!provides: 'TDDGuru' 1 36!
+!provides: 'TDDGuru' 1 37!
 !requires: '__TDDGuru-TestData__' 1 0 nil!
 !requires: 'TDDGuruSecondBootstrapping' 1 0 nil!
 SystemOrganization addCategory: #'TDDGuru-Model'!
@@ -460,7 +460,7 @@ TimeLine class
 
 !classDefinition: #TimeLineEvent category: #'TDDGuru-Model'!
 Object subclass: #TimeLineEvent
-	instanceVariableNames: ''
+	instanceVariableNames: 'timeline'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
@@ -3359,6 +3359,26 @@ changes
 isRecognized
 	^ true! !
 
+!Change methodsFor: 'accessing' stamp: 'MGD 11/27/2019 20:15:08'!
+time
+	| timeParts hoursPart minutesPart secondsPart |
+	
+	timeParts := self timeString findTokens: ':'.
+	
+	timeParts size = 3 ifFalse: [ self error: 'Incorrect time format ', self timeString ].
+	
+	hoursPart := timeParts first asNumber.
+	minutesPart := timeParts second asNumber.
+	secondsPart := timeParts third asNumber.
+	
+	^ hoursPart hours + minutesPart minutes + secondsPart seconds 
+	
+	! !
+
+!Change methodsFor: 'accessing' stamp: 'MGD 11/27/2019 19:06:57'!
+timeString
+	^ self stamp substrings third! !
+
 !Change methodsFor: 'printing' stamp: 'MGD 9/24/2019 15:42:35'!
 changeClass
 	^ changeRecord changeClass! !
@@ -3377,11 +3397,9 @@ code
 description
 	self subclassResponsibility.! !
 
-!Change methodsFor: 'printing' stamp: 'MGD 8/16/2019 08:54:43'!
-printString
-	| time |
-	time := self stamp substrings third.
-	^ '[', time, '] ', '[', self category printString, '] ', self description.! !
+!Change methodsFor: 'printing' stamp: 'MGD 11/26/2019 16:09:29'!
+printString	
+	^ '[', self category printString, '] ', self description.! !
 
 !Change methodsFor: 'printing' stamp: 'MGD 5/23/2019 11:02:32'!
 stamp
@@ -4908,9 +4926,9 @@ removeTestsOf: className
 withTestClasses: aCollection
 	^ self new testClasses: aCollection.! !
 
-!TimeLine methodsFor: 'accessing' stamp: 'MGD 11/22/2019 07:50:59'!
+!TimeLine methodsFor: 'accessing' stamp: 'MGD 11/27/2019 20:14:09'!
 changeEvents
-	^ events select: [ :event | event type = #change ].
+	^ self eventsWithType: #change.
 
 	! !
 
@@ -4942,6 +4960,16 @@ changeWhenMethodWasAdded: aSelector in: className
 			and: [ aChange methodSelector = aSelector ]
 			and: [ aChange changeClassName = className ] ]! !
 
+!TimeLine methodsFor: 'querying' stamp: 'MGD 11/27/2019 20:13:19'!
+eventBefore: anEvent
+
+	^ (self eventsWithType: anEvent type) before: anEvent ifNone: [ ^ nil ].! !
+
+!TimeLine methodsFor: 'querying' stamp: 'MGD 11/27/2019 20:14:33'!
+eventsWithType: aSymbol
+
+	^ self events select: [ :anEvent | anEvent type = aSymbol ]! !
+
 !TimeLine methodsFor: 'querying' stamp: 'MGD 6/20/2019 20:27:31'!
 lastStateTransitionBefore: aChange 
 	| indexOfEvent stateTransitionsBefore eventsUpToChangeEvent |
@@ -4971,9 +4999,9 @@ stateAfter: aChange
 	^ stateAfter 
 	! !
 
-!TimeLine methodsFor: 'register events' stamp: 'MGD 11/22/2019 07:51:22'!
+!TimeLine methodsFor: 'register events' stamp: 'MGD 11/27/2019 20:10:23'!
 addChange: aChange
-	self addEvent: (ChangeEvent for: aChange)! !
+	self addEvent: (ChangeEvent for: aChange in: self)! !
 
 !TimeLine methodsFor: 'register events' stamp: 'MGD 11/25/2019 20:50:48'!
 addEvent: anEvent
@@ -4981,9 +5009,9 @@ addEvent: anEvent
 	changes := nil.
 	statesAfterChanges := Dictionary new.! !
 
-!TimeLine methodsFor: 'register events' stamp: 'MGD 6/27/2019 10:22:01'!
+!TimeLine methodsFor: 'register events' stamp: 'MGD 11/27/2019 20:10:30'!
 stateTransitionFrom: previousTDDState to: currentTDDState
-	self addEvent: (StateTransitionEvent from: previousTDDState to: currentTDDState)! !
+	self addEvent: (StateTransitionEvent from: previousTDDState to: currentTDDState in: self)! !
 
 !TimeLine methodsFor: 'selection' stamp: 'MGD 9/29/2019 19:20:21'!
 changeAt: index
@@ -5030,6 +5058,10 @@ shouldStyle: aText with: aSHTextStylerST80
 textStylerClassFor: textGetter
 	^SHTextStylerST80! !
 
+!TimeLineEvent methodsFor: 'accessing' stamp: 'MGD 11/27/2019 20:08:45'!
+timeline
+	^ timeline ! !
+
 !TimeLineEvent methodsFor: 'accessing' stamp: 'MGD 6/20/2019 19:17:36'!
 type
 	self subclassResponsibility ! !
@@ -5038,7 +5070,15 @@ type
 printString
 	self subclassResponsibility ! !
 
-!ChangeEvent methodsFor: 'initialization' stamp: 'MGD 6/20/2019 20:13:30'!
+!TimeLineEvent methodsFor: 'as yet unclassified' stamp: 'MGD 11/27/2019 19:41:58'!
+previousEvent
+	^ self timeline eventBefore: self ! !
+
+!TimeLineEvent methodsFor: 'as yet unclassified' stamp: 'MGD 11/27/2019 20:08:08'!
+timeline: aTimeline
+	timeline := aTimeline ! !
+
+!ChangeEvent methodsFor: 'initialization' stamp: 'MGD 11/27/2019 20:07:19'!
 change: aChange
 	change := aChange! !
 
@@ -5050,17 +5090,57 @@ change
 type
 	^ #change! !
 
+!ChangeEvent methodsFor: 'displaying' stamp: 'MGD 11/26/2019 16:33:57'!
+changeCategory
+
+	^ self change category printString! !
+
+!ChangeEvent methodsFor: 'displaying' stamp: 'MGD 11/26/2019 16:34:08'!
+changeDescription
+
+	^ self change description! !
+
+!ChangeEvent methodsFor: 'displaying' stamp: 'MGD 11/27/2019 19:07:42'!
+changeTime
+
+	^ self change timeString! !
+
 !ChangeEvent methodsFor: 'displaying' stamp: 'MGD 6/25/2019 09:42:14'!
 displayOn: aMorph
 	aMorph displayChange: self change! !
 
-!ChangeEvent methodsFor: 'displaying' stamp: 'MGD 6/21/2019 07:39:23'!
-printString
-	^ self change printString ! !
+!ChangeEvent methodsFor: 'displaying' stamp: 'MGD 12/4/2019 18:13:47'!
+minutesAsString: timeDifference
 
-!ChangeEvent class methodsFor: 'instance creation' stamp: 'MGD 6/20/2019 20:17:19'!
-for: aChange 
-	^ self new change: aChange! !
+	^ String streamContents: [ :aStream | timeDifference minutes abs printOn: aStream integerDigits: 2 fractionDigits: 0 ]! !
+
+!ChangeEvent methodsFor: 'displaying' stamp: 'MGD 11/27/2019 19:42:17'!
+printString
+	^ '[', self changeTime, ' ', self timeDifferenceWithPreviousChange, '] [', self changeCategory, '] ', self changeDescription.! !
+
+!ChangeEvent methodsFor: 'displaying' stamp: 'MGD 12/4/2019 18:14:07'!
+secondsAsString: timeDifference
+
+	^ String streamContents: [ :aStream | timeDifference seconds abs printOn: aStream integerDigits: 2 fractionDigits: 0 ]! !
+
+!ChangeEvent methodsFor: 'displaying' stamp: 'MGD 12/4/2019 18:15:11'!
+timeDifferenceWithPreviousChange
+	| previousEvent timeDifference |
+	
+	previousEvent := self previousEvent.
+	previousEvent ifNil: [ ^ '00m00s' ].
+	
+	timeDifference := self change time - previousEvent change time.
+	
+	timeDifference > 1 hours 
+		ifTrue: [ ^ '>1 hour' ] 
+		ifFalse: [ ^ (self minutesAsString: timeDifference), 'm', (self secondsAsString: timeDifference), 's' ] ! !
+
+!ChangeEvent class methodsFor: 'instance creation' stamp: 'MGD 11/27/2019 20:07:35'!
+for: aChange in: aTimeline
+	^ self new 
+		change: aChange; 
+		timeline: aTimeline! !
 
 !StateTransitionEvent methodsFor: 'accessing' stamp: 'MGD 6/27/2019 10:26:58'!
 stateFrom
@@ -5094,9 +5174,12 @@ displayOn: aMorph
 printString
 	^ self stateTo printString! !
 
-!StateTransitionEvent class methodsFor: 'instance creation' stamp: 'MGD 6/27/2019 10:23:54'!
-from: previousTDDState to: currentTDDState
-	^ self new from: previousTDDState; to: currentTDDState.! !
+!StateTransitionEvent class methodsFor: 'instance creation' stamp: 'MGD 11/27/2019 20:09:52'!
+from: previousTDDState to: currentTDDState in: aTimeline
+	^ self new 
+		from: previousTDDState; 
+		to: currentTDDState;
+		timeline: aTimeline! !
 
 !StateTransitionEvent class methodsFor: 'instance creation' stamp: 'MGD 6/20/2019 20:16:42'!
 with: aTDDState

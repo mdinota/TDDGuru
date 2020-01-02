@@ -1,11 +1,11 @@
-'From Cuis 5.0 [latest update: #3956] on 4 December 2019 at 6:17:37 pm'!
+'From Cuis 5.0 [latest update: #3964] on 2 January 2020 at 9:07:12 am'!
 'Description Reorganization '!
-!provides: 'TDDGuru' 1 37!
+!provides: 'TDDGuru' 1 41!
 !requires: '__TDDGuru-TestData__' 1 0 nil!
 !requires: 'TDDGuruSecondBootstrapping' 1 0 nil!
+SystemOrganization addCategory: #'TDDGuru-Tests'!
 SystemOrganization addCategory: #'TDDGuru-Model'!
 SystemOrganization addCategory: #'TDDGuru-Tools'!
-SystemOrganization addCategory: #'TDDGuru-Tests'!
 
 
 !classDefinition: #ChangeListMorph category: #'TDDGuru-Tools'!
@@ -60,7 +60,7 @@ TDDStateIcon class
 
 !classDefinition: #TDDGuruTest category: #'TDDGuru-Tests'!
 TestCase subclass: #TDDGuruTest
-	instanceVariableNames: 'tddGuru classesByName'
+	instanceVariableNames: 'tddGuru classesByName previousUserChangesExtension'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Tests'!
@@ -148,6 +148,36 @@ TDDGuruTest subclass: #WritingAFailingTestTest
 WritingAFailingTestTest class
 	instanceVariableNames: ''!
 
+!classDefinition: #TestChangesTest category: #'TDDGuru-Tests'!
+TestCase subclass: #TestChangesTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TDDGuru-Tests'!
+!classDefinition: 'TestChangesTest class' category: #'TDDGuru-Tests'!
+TestChangesTest class
+	instanceVariableNames: ''!
+
+!classDefinition: #LogTestChangesTest category: #'TDDGuru-Tests'!
+TestChangesTest subclass: #LogTestChangesTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TDDGuru-Tests'!
+!classDefinition: 'LogTestChangesTest class' category: #'TDDGuru-Tests'!
+LogTestChangesTest class
+	instanceVariableNames: ''!
+
+!classDefinition: #ScanTestChangesTest category: #'TDDGuru-Tests'!
+TestChangesTest subclass: #ScanTestChangesTest
+	instanceVariableNames: 'mockClass'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TDDGuru-Tests'!
+!classDefinition: 'ScanTestChangesTest class' category: #'TDDGuru-Tests'!
+ScanTestChangesTest class
+	instanceVariableNames: ''!
+
 !classDefinition: #TestChangesTestData category: #'TDDGuru-Tests'!
 TestCase subclass: #TestChangesTestData
 	instanceVariableNames: ''
@@ -186,6 +216,16 @@ Change subclass: #ClassRemoved
 	category: 'TDDGuru-Model'!
 !classDefinition: 'ClassRemoved class' category: #'TDDGuru-Model'!
 ClassRemoved class
+	instanceVariableNames: ''!
+
+!classDefinition: #ClassRenamed category: #'TDDGuru-Model'!
+Change subclass: #ClassRenamed
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TDDGuru-Model'!
+!classDefinition: 'ClassRenamed class' category: #'TDDGuru-Model'!
+ClassRenamed class
 	instanceVariableNames: ''!
 
 !classDefinition: #MethodRemoved category: #'TDDGuru-Model'!
@@ -498,26 +538,6 @@ Object subclass: #UninstalledMethodReference
 UninstalledMethodReference class
 	instanceVariableNames: ''!
 
-!classDefinition: #LogTestChangesTest category: #'TDDGuru-Tests'!
-ProtoObject subclass: #LogTestChangesTest
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'TDDGuru-Tests'!
-!classDefinition: 'LogTestChangesTest class' category: #'TDDGuru-Tests'!
-LogTestChangesTest class
-	instanceVariableNames: ''!
-
-!classDefinition: #ScanTestChangesTest category: #'TDDGuru-Tests'!
-ProtoObject subclass: #ScanTestChangesTest
-	instanceVariableNames: 'mockClass'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'TDDGuru-Tests'!
-!classDefinition: 'ScanTestChangesTest class' category: #'TDDGuru-Tests'!
-ScanTestChangesTest class
-	instanceVariableNames: ''!
-
 
 !Change methodsFor: 'accessing' stamp: 'MGD 5/31/2019 07:28:53'!
 category
@@ -530,6 +550,10 @@ printOn: aStream
 !ClassRemoved methodsFor: 'accessing' stamp: 'MGD 7/15/2019 07:40:25'!
 category
 	^ #classRemoved! !
+
+!ClassRenamed methodsFor: 'accessing' stamp: 'MGD 12/19/2019 20:45:49'!
+category
+	^ #classRenamed! !
 
 !MethodRemoved methodsFor: 'accessing' stamp: 'MGD 6/26/2019 19:12:27'!
 category
@@ -1055,15 +1079,30 @@ assertCurrentStateIs: aState
 assertHasNoErrors: aResult
 	self assert: aResult hasNErrors: 0.! !
 
-!TDDGuruTest methodsFor: 'logging' stamp: 'HAW 10/31/2019 16:13:42'!
+!TDDGuruTest methodsFor: 'logging' stamp: 'MGD 12/19/2019 16:59:06'!
+changeFileWithExtension: fileExtension
+
+	^(FileIOAccessor default baseNameFor: Smalltalk imageName), fileExtension! !
+
+!TDDGuruTest methodsFor: 'logging' stamp: 'MGD 12/19/2019 16:59:28'!
 changesFileForTests
 
-	^(FileIOAccessor default baseNameFor: Smalltalk imageName), self userChangesForTestFileExtension! !
+	^ self changeFileWithExtension: self userChangesForTestFileExtension! !
 
 !TDDGuruTest methodsFor: 'logging' stamp: 'HAW 10/31/2019 16:13:03'!
 logChangesWhile: aBlockClosure 
 
 	^Preferences use: self userChangesForTestFileExtension asUserChangesFileNameExtensionWhile: aBlockClosure! !
+
+!TDDGuruTest methodsFor: 'logging' stamp: 'MGD 12/19/2019 17:09:28'!
+tddGuruTestChangesFileExtension
+
+	^ '.tddguru.test.changes'! !
+
+!TDDGuruTest methodsFor: 'logging' stamp: 'MGD 12/19/2019 17:11:03'!
+tddGuruTestDefaultChangesFile
+
+	^ self changeFileWithExtension: self tddGuruTestChangesFileExtension ! !
 
 !TDDGuruTest methodsFor: 'logging' stamp: 'HAW 10/31/2019 16:12:34'!
 userChangesForTestFileExtension
@@ -1100,6 +1139,16 @@ removeClass: aSymbol
 removeMethodWithSelector: aSymbol from: className 
 	(self classNamed: className) removeSelector: aSymbol ! !
 
+!TDDGuruTest methodsFor: 'helpers' stamp: 'MGD 12/19/2019 19:38:12'!
+renameClass: aSymbol to: aSymbol2 
+	| class |
+	class := self classNamed: aSymbol.
+	
+	classesByName removeKey: aSymbol.
+	classesByName at: aSymbol2 put: class.
+	
+	class rename: aSymbol2.! !
+
 !TDDGuruTest methodsFor: 'helpers' stamp: 'MGD 9/14/2019 11:35:49'!
 runAllTestsOf: aSymbol 
 	| testClass |
@@ -1118,18 +1167,22 @@ classCategoryOfTestData
 
 	^ '__TDDGuru-TestData__'! !
 
-!TDDGuruTest methodsFor: 'initialization' stamp: 'HAW 11/1/2019 15:58:13'!
+!TDDGuruTest methodsFor: 'initialization' stamp: 'MGD 12/19/2019 17:09:28'!
 setUp
 	
 	tddGuru := TDDGuru on: self changesFileForTests.
 	classesByName := Dictionary new.
+	previousUserChangesExtension := Preferences userChangesFileNameExtension.
+	Preferences parameters at: #userChangesFileNameExtension put: self tddGuruTestChangesFileExtension
 ! !
 
-!TDDGuruTest methodsFor: 'finalization' stamp: 'HAW 11/1/2019 15:48:48'!
+!TDDGuruTest methodsFor: 'finalization' stamp: 'MGD 12/19/2019 17:11:23'!
 tearDown
 	
 	self changesFileForTests asFileEntry delete.
-	SystemOrganization removeSystemCategory: self classCategoryOfTestData.! !
+	self tddGuruTestDefaultChangesFile asFileEntry delete.
+	SystemOrganization removeSystemCategory: self classCategoryOfTestData.
+	Preferences parameters at: #userChangesFileNameExtension put: previousUserChangesExtension! !
 
 !GreenTest methodsFor: 'tests' stamp: 'MGD 9/9/2019 20:25:59'!
 test01WhenANewTestIsAddedThenIsWritingAFailingTest
@@ -1348,9 +1401,25 @@ test14WhenATestClassIsAddedThenIsRefactoring
 	self assertHasNoErrors: result.
 	self assert: tddGuru currentState equals: Refactor.! !
 
-!MoreThanOneTestWrittenTest methodsFor: 'tests' stamp: 'MGD 10/10/2019 17:00:24'!
-test01WhenAClassIsRemovedIsNotDoingTDD
+!GreenTest methodsFor: 'tests' stamp: 'MGD 12/19/2019 19:37:44'!
+test15WhenATestClassIsRenamedThenIsRefactoring
 	| result |
+	
+	self newClassNamed: #TestClassA subclassOf: TestCase.
+	tddGuru initialState: Green new.
+	tddGuru initialTestClasses: { self classNamed: #TestClassA }.
+	
+	self logChangesWhile: [ self renameClass: #TestClassA to: #TestClassB ].
+		
+	result _ tddGuru run.
+		
+	self assertHasNoErrors: result.
+	self assert: tddGuru currentState equals: Refactor.! !
+
+!MoreThanOneTestWrittenTest methodsFor: 'tests' stamp: 'MGD 12/19/2019 17:21:42'!
+test01WhenAClassIsRemovedIsNotDoingTDD
+	| result |	
+	
 	self newClassNamed: #Something subclassOf: Object.
 
 	self logChangesWhile: [
@@ -2949,7 +3018,27 @@ test22WhenAModelMethodIsNotUsedWhenAnalysisIsFinishedThereIsAnError
 	self assert: result hasNErrors: 1.
 	self assert: result hasErrorWithDescription: (TDDGuru modelMethodWasNotUsedDuringRefactor: #m2 class: #ModelClassA).! !
 
-!WritingAFailingTestTest methodsFor: 'tests' stamp: 'MGD 9/14/2019 12:38:38'!
+!RefactorTest methodsFor: 'tests' stamp: 'MGD 12/19/2019 20:08:26'!
+test23WhenATestClassIsRenamedThoseTestsAreStillTakenIntoAccount
+	| result |
+	
+	self logChangesWhile: [ 
+		self newClassNamed: #TestClassA subclassOf: TestCase.
+		self compileMethod: 'test01 self assert: ModelClassA new m1 equals: 1' in: #TestClassA.
+		self runAllTestsOf: #TestClassA.
+		self newClassNamed: #ModelClassA subclassOf: Object.
+		self compileMethod: 'm1 ^ 1' in: #ModelClassA.
+		self runAllTestsOf: #TestClassA.
+		self renameClass: #TestClassA to: #TestClassB.
+		self runTest: #test01 class: #TestClassB
+	].
+		
+	result _ tddGuru run.
+		
+	self assertCurrentStateIs: Green.
+	self assertHasNoErrors: result ! !
+
+!WritingAFailingTestTest methodsFor: 'tests' stamp: 'MGD 12/19/2019 17:25:19'!
 test01WhenTheTestIsChangedThenIsStillWritingAFailingTest
 	| result |
 	
@@ -3271,6 +3360,170 @@ test19AnotherTestIsRemovedAnErrorIsReportedAndIsStillWritingAFailingTest
 	self assert: result hasErrorWithDescription: (TDDGuru methodRemovedWhileWritingATest: #test01 class: #TestClassB).
 	self assert: tddGuru currentState equals: WritingAFailingTest.! !
 
+!TestChangesTest methodsFor: 'helpers' stamp: 'MGD 12/19/2019 17:33:03'!
+changeFileWithExtension: fileExtension
+
+	^(FileIOAccessor default baseNameFor: Smalltalk imageName), fileExtension! !
+
+!TestChangesTest methodsFor: 'helpers' stamp: 'MGD 12/19/2019 16:00:42'!
+changeUserChangesFileWhile: aBlock
+	^ Preferences use: self userChangesForTestFileExtension asUserChangesFileNameExtensionWhile: aBlock! !
+
+!TestChangesTest methodsFor: 'helpers' stamp: 'MGD 12/19/2019 17:33:19'!
+changesFileForTests
+	^ self changeFileWithExtension: self userChangesForTestFileExtension ! !
+
+!TestChangesTest methodsFor: 'helpers' stamp: 'MGD 12/19/2019 16:19:29'!
+classCategoryOfTestData
+	^ '__TDDGuru-TestData__'! !
+
+!TestChangesTest methodsFor: 'helpers' stamp: 'MGD 12/19/2019 16:05:00'!
+scanChangesFromFile
+	| fileStream changeList |
+
+	fileStream := self changesFileForTests asFileEntry readStream.
+	changeList := ChangeList new scanFile: fileStream from: 0 to: fileStream size.
+
+	^ changeList changeList.! !
+
+!TestChangesTest methodsFor: 'helpers' stamp: 'MGD 12/19/2019 16:03:48'!
+userChangesForTestFileExtension
+	^ '.test.changes'! !
+
+!TestChangesTest methodsFor: 'setUp/tearDown' stamp: 'MGD 12/19/2019 17:33:41'!
+tearDown
+	self changesFileForTests asFileEntry delete.
+	SystemOrganization removeSystemCategory: self classCategoryOfTestData.! !
+
+!LogTestChangesTest methodsFor: 'tests' stamp: 'MGD 11/2/2019 17:04:07'!
+test01RunningAPassingTestShouldBeLogged
+	" Log format expected:
+
+	!!testRun: #TestCase #testSelector stamp: changeStamp!!
+	PASSED
+	"
+	| testName |
+	
+	self changeUserChangesFileWhile: [
+		testName := #aTestThatPass. 
+		self runTest: testName of: TestChangesTestData.
+
+		self assertIsLoggedOnce: '!!testRun: #', TestChangesTestData name, ' #', testName, ' stamp:'.
+		self assertIsLoggedOnce: 'PASSED!!' ]! !
+
+!LogTestChangesTest methodsFor: 'tests' stamp: 'MGD 11/2/2019 17:04:07'!
+test02RunningAFailingTestShouldBeLogged
+	" Log format expected:
+
+	!!testRun #NewTestCase #testSelector stamp: changeStamp!!
+	FAILURE
+	"
+	| testName |
+	
+	self changeUserChangesFileWhile: [
+		testName := #aTestThatFails.
+		self runTest: testName of: TestChangesTestData.
+		
+		self assertIsLoggedOnce: '!!testRun: #', TestChangesTestData name, ' #', testName, ' stamp:'.
+		self assertIsLoggedOnce: 'FAILURE!!' ]! !
+
+!LogTestChangesTest methodsFor: 'tests' stamp: 'MGD 11/2/2019 17:04:07'!
+test03RunningATestWithAnErrorShouldBeLogged
+	" Log format expected:
+
+	!!testRun #NewTestCase #testSelector stamp: changeStamp!!
+	ERROR
+	"
+	| testName |
+	
+	self changeUserChangesFileWhile: [
+		testName := #aTestThatErrors.
+		self runTest: testName of: TestChangesTestData.
+
+		self assertIsLoggedOnce: '!!testRun: #', TestChangesTestData name, ' #', testName, ' stamp:'.
+		self assertIsLoggedOnce: 'ERROR!!' ]! !
+
+!LogTestChangesTest methodsFor: 'run tests' stamp: 'MGD 11/2/2019 17:04:07'!
+runTest: aTestSelector of: aTestClass
+	[ aTestClass run: aTestSelector ] on: Error do: []! !
+
+!LogTestChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 12/19/2019 16:24:17'!
+assertIsLogged: aString times: stringCount
+	| logContent startPosition indexOfSubstring |
+
+	logContent := self changesFileForTests asFileEntry textContents.
+
+	(stringCount <= 0)
+		ifTrue: [ self deny: (logContent includesSubString: aString) ]
+		ifFalse:	[
+			startPosition := 1.
+			self assert: (logContent includesSubString: aString).
+			stringCount timesRepeat: [
+				indexOfSubstring := logContent findString: aString startingAt: startPosition.
+
+				self assert: indexOfSubstring > 0.
+				startPosition := indexOfSubstring.
+			]
+		]
+
+	! !
+
+!LogTestChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 12/19/2019 16:23:03'!
+assertIsLoggedOnce: aString
+	self assertIsLogged: aString times: 1.
+	! !
+
+!ScanTestChangesTest methodsFor: 'tests' stamp: 'HAW 11/1/2019 16:10:40'!
+test01ScanPassingTestChange
+
+	| testRunChange |
+
+	self changeUserChangesFileWhile: [
+		TestChangesTestData run: #aTestThatPass.
+
+		testRunChange := self scanChangesFromFile last.
+
+		self assert: testRunChange changeType equals: #testRun.
+		self assert: testRunChange changeClassName equals: TestChangesTestData name.
+		self assert: testRunChange methodSelector equals: #aTestThatPass.
+		self assert: testRunChange isPassed.
+		self deny: testRunChange stamp isNil ]! !
+
+!ScanTestChangesTest methodsFor: 'tests' stamp: 'HAW 11/1/2019 16:11:00'!
+test02ScanFailedTestChange
+
+	| testRunChange |
+
+	self changeUserChangesFileWhile: [
+		TestChangesTestData run: #aTestThatFails.
+
+		testRunChange := self scanChangesFromFile last.
+
+		self assert: testRunChange changeType equals: #testRun.
+		self assert: testRunChange changeClassName equals: TestChangesTestData name.
+		self assert: testRunChange methodSelector equals: #aTestThatFails.
+		self assert: testRunChange isFailure ]! !
+
+!ScanTestChangesTest methodsFor: 'tests' stamp: 'MGD 12/19/2019 16:25:34'!
+test03ScanNewTestClass
+	
+	| newClass newClassChange |
+
+	self changeUserChangesFileWhile: [
+		newClass := TestCase 
+			subclass: #TestClassA
+			instanceVariableNames: '' 
+			classVariableNames: '' 
+			poolDictionaries: '' 
+			category: self classCategoryOfTestData.
+		newClassChange := self scanChangesFromFile last.
+
+		self assert: newClassChange changeType equals: #classDefinition.
+		self assert: newClassChange changeClassName equals: #TestClassA.
+		self assert: newClassChange changeClass equals: newClass.
+		self assert: newClassChange isTestClassChange.
+		self deny: newClassChange stamp isNil ]! !
+
 !TestChangesTestData methodsFor: 'test data' stamp: 'HAW 11/1/2019 16:05:04'!
 aTestThatErrors
 
@@ -3355,24 +3608,30 @@ changes
 	
 	^ timeline changes! !
 
+!Change methodsFor: 'accessing' stamp: 'MGD 12/26/2019 19:48:15'!
+dateString
+	^ self stamp substrings second! !
+
 !Change methodsFor: 'accessing' stamp: 'MGD 5/16/2019 19:34:59'!
 isRecognized
 	^ true! !
 
-!Change methodsFor: 'accessing' stamp: 'MGD 11/27/2019 20:15:08'!
+!Change methodsFor: 'accessing' stamp: 'MGD 12/26/2019 19:50:53'!
 time
-	| timeParts hoursPart minutesPart secondsPart |
+	| timeParts hours minutes seconds date time |
 	
+	date := FixedGregorianDate fromDate: self dateString asDate.
 	timeParts := self timeString findTokens: ':'.
 	
 	timeParts size = 3 ifFalse: [ self error: 'Incorrect time format ', self timeString ].
 	
-	hoursPart := timeParts first asNumber.
-	minutesPart := timeParts second asNumber.
-	secondsPart := timeParts third asNumber.
+	hours := timeParts first asNumber.
+	minutes := timeParts second asNumber.
+	seconds := timeParts third asNumber.
 	
-	^ hoursPart hours + minutesPart minutes + secondsPart seconds 
+	time := TimeOfDay hours: hours minutes: minutes seconds: seconds.	
 	
+	^ GregorianDateTime date: date timeOfDay: time.
 	! !
 
 !Change methodsFor: 'accessing' stamp: 'MGD 11/27/2019 19:06:57'!
@@ -3409,9 +3668,9 @@ stamp
 changeRecord: aChangeRecord
 	changeRecord := aChangeRecord ! !
 
-!Change methodsFor: 'reporting' stamp: 'MGD 6/13/2019 18:38:16'!
+!Change methodsFor: 'reporting' stamp: 'MGD 12/19/2019 19:48:35'!
 reportChangeTo: tddGuru 
-	self subclassResponsibility ! !
+	tddGuru classRenamedFrom: self previousName to: self currentName! !
 
 !Change class methodsFor: 'instance creation' stamp: 'MGD 7/12/2019 12:37:43'!
 newFor: aChangeRecord
@@ -3424,6 +3683,18 @@ description
 !ClassRemoved methodsFor: 'reporting' stamp: 'MGD 10/14/2019 16:24:29'!
 reportChangeTo: tddGuru
 	tddGuru modelClassRemoved: changeRecord changeClassName! !
+
+!ClassRenamed methodsFor: 'accessing' stamp: 'MGD 12/19/2019 19:49:20'!
+currentName
+	^ changeRecord newClassName ! !
+
+!ClassRenamed methodsFor: 'accessing' stamp: 'MGD 12/19/2019 20:46:38'!
+description
+	^ self previousName , ' was renamed to ', self currentName.! !
+
+!ClassRenamed methodsFor: 'accessing' stamp: 'MGD 12/19/2019 19:49:03'!
+previousName
+	^ changeRecord changeClassName ! !
 
 !MethodRemoved methodsFor: 'accessing' stamp: 'MGD 10/15/2019 16:25:44'!
 description
@@ -3723,13 +3994,14 @@ for: aChangeClass withLookahead: lookahead detectsWhen: aBlock
 changeList: anOrderedCollection 
 	changeList := anOrderedCollection .! !
 
-!ChangeLog methodsFor: 'initialization' stamp: 'MGD 10/14/2019 16:14:10'!
+!ChangeLog methodsFor: 'initialization' stamp: 'MGD 12/19/2019 19:43:54'!
 initialize
 	changeDetectors := OrderedCollection new.
 	
 	changeDetectors add: self testRenamedDetector.
 	changeDetectors add: self testClassRemovedDetector.
 	changeDetectors add: self classRemovedDetector.
+	changeDetectors add: self classRenamedDetector.
 	changeDetectors add: self testRemovedDetector.
 	changeDetectors add: self modelMethodRemovedDetector.
 	changeDetectors add: self newProductionClassDetector.
@@ -3770,6 +4042,10 @@ nextChange: aChangeList
 !ChangeLog methodsFor: 'detectors' stamp: 'MGD 7/17/2019 11:43:05'!
 classRemovedDetector
 	^ ChangeDetector for: ClassRemoved withLookahead: 1 detectsWhen: [ :aChangeRecord | aChangeRecord isClassDeletion ]! !
+
+!ChangeLog methodsFor: 'detectors' stamp: 'MGD 12/19/2019 19:45:49'!
+classRenamedDetector
+	^ ChangeDetector for: ClassRenamed withLookahead: 1 detectsWhen: [ :aChangeRecord | aChangeRecord changeType = #classRenamed ]! !
 
 !ChangeLog methodsFor: 'detectors' stamp: 'MGD 10/14/2019 13:12:59'!
 modelMethodRemovedDetector
@@ -3951,6 +4227,11 @@ run
 showAnalysisResult	
 	AnalysisResultWindow openFor: analysisResult analyzedBy: self.
 ! !
+
+!TDDGuru methodsFor: 'events' stamp: 'MGD 12/19/2019 20:09:11'!
+classRenamedFrom: previousName to: currentName 
+	inventory classRenamedFrom: previousName to: currentName.
+	self currentState classRenamedFrom: previousName to: currentName ! !
 
 !TDDGuru methodsFor: 'events' stamp: 'MGD 10/14/2019 16:24:29'!
 modelClassRemoved: className
@@ -4189,6 +4470,10 @@ isCorrect
 analysisFinished
 ! !
 
+!TDDState methodsFor: 'events' stamp: 'MGD 12/19/2019 20:31:51'!
+classRenamedFrom: aSymbol to: aSymbol2
+	! !
+
 !TDDState methodsFor: 'events' stamp: 'MGD 10/14/2019 16:24:29'!
 modelClassRemoved: className
 	self subclassResponsibility! !
@@ -4287,6 +4572,10 @@ allTests
 !TDDState methodsFor: 'private' stamp: 'MGD 10/10/2019 16:48:52'!
 allTestsPassed
 	^ passedTests = self allTests! !
+
+!Green methodsFor: 'events' stamp: 'MGD 12/19/2019 19:50:26'!
+classRenamedFrom: aSymbol to: aSymbol2 
+	self transitionTo: Refactor new! !
 
 !Green methodsFor: 'events' stamp: 'MGD 10/14/2019 16:24:29'!
 modelClassRemoved: aSymbol 
@@ -4710,13 +4999,6 @@ testRemoved: methodSelector! !
 testRenamedFrom: aSymbol to: aSymbol2 
 	! !
 
-!Refactor methodsFor: 'initialization' stamp: 'MGD 11/12/2019 17:43:12'!
-initialize
-	newModelMethods := Set new.
-	changedModelMethods := Set new.
-	
-	super initialize ! !
-
 !Refactor methodsFor: 'printing' stamp: 'MGD 8/16/2019 08:26:32'!
 isCorrect
 	^ true! !
@@ -4724,6 +5006,13 @@ isCorrect
 !Refactor methodsFor: 'printing' stamp: 'MGD 8/16/2019 08:25:44'!
 printString
 	^ 'Refactor'! !
+
+!Refactor methodsFor: 'initialization' stamp: 'MGD 11/12/2019 17:43:12'!
+initialize
+	newModelMethods := Set new.
+	changedModelMethods := Set new.
+	
+	super initialize ! !
 
 !Refactor methodsFor: 'state transitioning' stamp: 'MGD 11/12/2019 17:32:12'!
 transitionTo: aTDDState
@@ -4854,6 +5143,14 @@ currentTest: aSelector
 currentTest: aTestReference
 	^ self new currentTest: aTestReference ! !
 
+!TestInventory methodsFor: 'entries' stamp: 'MGD 12/19/2019 20:20:35'!
+classRenamedFrom: previousClassName to: currentClassName 
+	(testClasses includes: previousClassName) ifTrue: [
+		testClasses remove: previousClassName.
+		testClasses add: currentClassName.
+		self replaceTestOf: previousClassName with: currentClassName ]
+	! !
+
 !TestInventory methodsFor: 'entries' stamp: 'MGD 9/3/2019 10:56:39'!
 newTest: aTestReference	
 	tests add: aTestReference.
@@ -4921,6 +5218,14 @@ addTestsOf: aClass
 removeTestsOf: className 
 	tests select: [ :testReference | testReference methodClass = className ] thenDo: [ :testReference | tests remove: testReference ].
 	! !
+
+!TestInventory methodsFor: 'private' stamp: 'MGD 12/19/2019 20:29:46'!
+replaceTestOf: previousClassName with: currentClassName
+	tests 
+		select: [ :testReference | testReference methodClass = previousClassName ] 
+		thenDo: [ :testReference | 
+			tests remove: testReference.
+			tests add: (testReference copyWith: currentClassName) ].! !
 
 !TestInventory class methodsFor: 'as yet unclassified' stamp: 'MGD 6/27/2019 11:23:34'!
 withTestClasses: aCollection
@@ -5109,30 +5414,39 @@ changeTime
 displayOn: aMorph
 	aMorph displayChange: self change! !
 
-!ChangeEvent methodsFor: 'displaying' stamp: 'MGD 12/4/2019 18:13:47'!
+!ChangeEvent methodsFor: 'displaying' stamp: 'MGD 1/2/2020 08:57:47'!
 minutesAsString: timeDifference
-
-	^ String streamContents: [ :aStream | timeDifference minutes abs printOn: aStream integerDigits: 2 fractionDigits: 0 ]! !
+	| inMinutes |
+	
+	timeDifference > (TimeUnits minute with: 1) 
+		ifTrue: [ inMinutes := ((timeDifference convertTo: TimeUnits minute) floor) amount. ]
+		ifFalse: [ inMinutes := 0 ].
+		
+	^ String streamContents: [ :aStream | inMinutes printOn: aStream integerDigits: 2 fractionDigits: 0 ]! !
 
 !ChangeEvent methodsFor: 'displaying' stamp: 'MGD 11/27/2019 19:42:17'!
 printString
 	^ '[', self changeTime, ' ', self timeDifferenceWithPreviousChange, '] [', self changeCategory, '] ', self changeDescription.! !
 
-!ChangeEvent methodsFor: 'displaying' stamp: 'MGD 12/4/2019 18:14:07'!
+!ChangeEvent methodsFor: 'displaying' stamp: 'MGD 1/2/2020 08:57:58'!
 secondsAsString: timeDifference
+	| inMinutes inSeconds |
+	
+	inMinutes := ((timeDifference convertTo: TimeUnits minute) floor).
+	inSeconds := ((timeDifference - inMinutes) convertTo: TimeUnits second) abs amount.
 
-	^ String streamContents: [ :aStream | timeDifference seconds abs printOn: aStream integerDigits: 2 fractionDigits: 0 ]! !
+	^ String streamContents: [ :aStream | inSeconds printOn: aStream integerDigits: 2 fractionDigits: 0 ]! !
 
-!ChangeEvent methodsFor: 'displaying' stamp: 'MGD 12/4/2019 18:15:11'!
+!ChangeEvent methodsFor: 'displaying' stamp: 'MGD 1/2/2020 08:57:37'!
 timeDifferenceWithPreviousChange
 	| previousEvent timeDifference |
 	
 	previousEvent := self previousEvent.
 	previousEvent ifNil: [ ^ '00m00s' ].
 	
-	timeDifference := self change time - previousEvent change time.
-	
-	timeDifference > 1 hours 
+	timeDifference := self change time distanceFrom: previousEvent change time.
+
+	timeDifference > (TimeUnits hour with: 1)
 		ifTrue: [ ^ '>1 hour' ] 
 		ifFalse: [ ^ (self minutesAsString: timeDifference), 'm', (self secondsAsString: timeDifference), 's' ] ! !
 
@@ -5215,11 +5529,11 @@ selector
 hash
 	^ self methodClass hash + self selector hash! !
 
-!UninstalledMethodReference methodsFor: 'as yet unclassified' stamp: 'MGD 11/15/2019 09:34:36'!
+!UninstalledMethodReference methodsFor: 'inspecting' stamp: 'MGD 11/15/2019 09:34:36'!
 methodClassIfInstalled
 	^ (Smalltalk classNamed: self methodClass) ifNil: [ ^ UndefinedObject ]! !
 
-!UninstalledMethodReference methodsFor: 'as yet unclassified' stamp: 'MGD 11/15/2019 20:09:12'!
+!UninstalledMethodReference methodsFor: 'inspecting' stamp: 'MGD 11/15/2019 20:09:12'!
 sendsMessageWithSelector: aSymbol
 	| methodNode |
 	methodNode := Parser parse: sourceCode class: self methodClassIfInstalled.
@@ -5229,6 +5543,10 @@ sendsMessageWithSelector: aSymbol
 	
 	^ false! !
 
+!UninstalledMethodReference methodsFor: 'as yet unclassified' stamp: 'MGD 12/19/2019 20:29:08'!
+copyWith: newClassName  
+	^ self class selector: self selector class: newClassName sourceCode: sourceCode ! !
+
 !UninstalledMethodReference class methodsFor: 'instance creation' stamp: 'MGD 9/2/2019 20:05:36'!
 selector: testSelector class: className 
 	^ self new selector: testSelector; class: className ! !
@@ -5236,109 +5554,6 @@ selector: testSelector class: className
 !UninstalledMethodReference class methodsFor: 'instance creation' stamp: 'MGD 11/15/2019 09:13:45'!
 selector: testSelector class: className sourceCode: aSourceCodeString
 	^ self new selector: testSelector; class: className; sourceCode: aSourceCodeString.! !
-
-!LogTestChangesTest methodsFor: 'tests' stamp: 'MGD 11/2/2019 17:04:07'!
-test01RunningAPassingTestShouldBeLogged
-	" Log format expected:
-
-	!!testRun: #TestCase #testSelector stamp: changeStamp!!
-	PASSED
-	"
-	| testName |
-	
-	self changeUserChangesFileWhile: [
-		testName := #aTestThatPass. 
-		self runTest: testName of: TestChangesTestData.
-
-		self assertIsLoggedOnce: '!!testRun: #', TestChangesTestData name, ' #', testName, ' stamp:'.
-		self assertIsLoggedOnce: 'PASSED!!' ]! !
-
-!LogTestChangesTest methodsFor: 'tests' stamp: 'MGD 11/2/2019 17:04:07'!
-test02RunningAFailingTestShouldBeLogged
-	" Log format expected:
-
-	!!testRun #NewTestCase #testSelector stamp: changeStamp!!
-	FAILURE
-	"
-	| testName |
-	
-	self changeUserChangesFileWhile: [
-		testName := #aTestThatFails.
-		self runTest: testName of: TestChangesTestData.
-		
-		self assertIsLoggedOnce: '!!testRun: #', TestChangesTestData name, ' #', testName, ' stamp:'.
-		self assertIsLoggedOnce: 'FAILURE!!' ]! !
-
-!LogTestChangesTest methodsFor: 'tests' stamp: 'MGD 11/2/2019 17:04:07'!
-test03RunningATestWithAnErrorShouldBeLogged
-	" Log format expected:
-
-	!!testRun #NewTestCase #testSelector stamp: changeStamp!!
-	ERROR
-	"
-	| testName |
-	
-	self changeUserChangesFileWhile: [
-		testName := #aTestThatErrors.
-		self runTest: testName of: TestChangesTestData.
-
-		self assertIsLoggedOnce: '!!testRun: #', TestChangesTestData name, ' #', testName, ' stamp:'.
-		self assertIsLoggedOnce: 'ERROR!!' ]! !
-
-!LogTestChangesTest methodsFor: 'run tests' stamp: 'MGD 11/2/2019 17:04:07'!
-runTest: aTestSelector of: aTestClass
-	[ aTestClass run: aTestSelector ] on: Error do: []! !
-
-!ScanTestChangesTest methodsFor: 'tests' stamp: 'HAW 11/1/2019 16:10:40'!
-test01ScanPassingTestChange
-
-	| testRunChange |
-
-	self changeUserChangesFileWhile: [
-		TestChangesTestData run: #aTestThatPass.
-
-		testRunChange := self scanChangesFromFile last.
-
-		self assert: testRunChange changeType equals: #testRun.
-		self assert: testRunChange changeClassName equals: TestChangesTestData name.
-		self assert: testRunChange methodSelector equals: #aTestThatPass.
-		self assert: testRunChange isPassed.
-		self deny: testRunChange stamp isNil ]! !
-
-!ScanTestChangesTest methodsFor: 'tests' stamp: 'HAW 11/1/2019 16:11:00'!
-test02ScanFailedTestChange
-
-	| testRunChange |
-
-	self changeUserChangesFileWhile: [
-		TestChangesTestData run: #aTestThatFails.
-
-		testRunChange := self scanChangesFromFile last.
-
-		self assert: testRunChange changeType equals: #testRun.
-		self assert: testRunChange changeClassName equals: TestChangesTestData name.
-		self assert: testRunChange methodSelector equals: #aTestThatFails.
-		self assert: testRunChange isFailure ]! !
-
-!ScanTestChangesTest methodsFor: 'tests' stamp: 'HAW 11/1/2019 16:13:54'!
-test03ScanNewTestClass
-	
-	| newClass newClassChange |
-
-	self changeUserChangesFileWhile: [
-		newClass := TestCase 
-			subclass: self testDataClassName 
-			instanceVariableNames: '' 
-			classVariableNames: '' 
-			poolDictionaries: '' 
-			category: self classCategoryOfTestData.
-		newClassChange := self scanChangesFromFile last.
-
-		self assert: newClassChange changeType equals: #classDefinition.
-		self assert: newClassChange changeClassName equals: self testDataClassName.
-		self assert: newClassChange changeClass equals: newClass.
-		self assert: newClassChange isTestClassChange.
-		self deny: newClassChange stamp isNil ]! !
 
 !TestCase methodsFor: '*TDDGuru' stamp: 'HAW 10/26/2019 23:09:43'!
 logRunWithResult: aString

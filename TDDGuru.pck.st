@@ -1,6 +1,6 @@
-'From Cuis 5.0 [latest update: #3964] on 2 January 2020 at 9:07:12 am'!
+'From Cuis 5.0 [latest update: #3964] on 22 January 2020 at 6:50:37 pm'!
 'Description Reorganization '!
-!provides: 'TDDGuru' 1 41!
+!provides: 'TDDGuru' 1 42!
 !requires: '__TDDGuru-TestData__' 1 0 nil!
 !requires: 'TDDGuruSecondBootstrapping' 1 0 nil!
 SystemOrganization addCategory: #'TDDGuru-Tests'!
@@ -490,7 +490,7 @@ TestInventory class
 
 !classDefinition: #TimeLine category: #'TDDGuru-Model'!
 Object subclass: #TimeLine
-	instanceVariableNames: 'events selectedEvent changes statesAfterChanges'
+	instanceVariableNames: 'events selectedEvent changes statesAfterChanges analysisResult currentSection'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
@@ -710,15 +710,6 @@ buttonPanel
 	row addMorph: rerunButton.
 	^ row! !
 
-!AnalysisResultWindow methodsFor: 'GUI building' stamp: 'MGD 8/22/2019 20:46:05'!
-clearCodeSection
-	changeCode contents: ''! !
-
-!AnalysisResultWindow methodsFor: 'GUI building' stamp: 'MGD 6/25/2019 09:53:05'!
-clearDetailSection
-	changeDetailTitle contents: ''.
-	changeDetail contents: ''.! !
-
 !AnalysisResultWindow methodsFor: 'GUI building' stamp: 'MGD 11/7/2019 19:29:17'!
 code
 	changeCode := TextModelMorph textProvider: model timeline textGetter: #selectedCode.
@@ -726,20 +717,13 @@ code
 	
 	^ changeCode! !
 
-!AnalysisResultWindow methodsFor: 'GUI building' stamp: 'MGD 11/7/2019 19:28:33'!
+!AnalysisResultWindow methodsFor: 'GUI building' stamp: 'MGD 1/22/2020 18:31:17'!
 details
-	| changeDetailSection detailColumn |
-
-	changeDetailSection := LayoutMorph newRow.
-	changeDetailTitle := (StringMorph contents: '') emphasis: 1.
-	changeDetail := StringMorph contents: ''.
-	detailColumn := LayoutMorph newColumn.
-	detailColumn
-		addMorph: changeDetailTitle proportionalHeight: 0.2;
-		addMorph: changeDetail proportionalHeight: 0.8.
-	changeDetailSection addMorph: detailColumn proportionalHeight: 1.
+	changeDetail := TextModelMorph textProvider: model timeline textGetter: #selectedChangeDetail.
+	model timeline when: #detailChanged send: #refetch to: changeDetail model.
+	changeDetail disableEditing.
 	
-	^ changeDetailSection ! !
+	^ changeDetail! !
 
 !AnalysisResultWindow methodsFor: 'GUI building' stamp: 'MGD 11/7/2019 19:18:40'!
 displayChange: aChange
@@ -776,23 +760,13 @@ timeline
 	^ timeline
 ! !
 
-!AnalysisResultWindow methodsFor: 'GUI building' stamp: 'MGD 8/22/2019 20:39:37'!
+!AnalysisResultWindow methodsFor: 'GUI building' stamp: 'MGD 1/21/2020 19:32:10'!
 update: aSection
-	self updateDetailSection.
 	self updateCodeSection.! !
 
-!AnalysisResultWindow methodsFor: 'GUI building' stamp: 'MGD 9/17/2019 16:22:12'!
+!AnalysisResultWindow methodsFor: 'GUI building' stamp: 'MGD 1/4/2020 19:29:55'!
 updateCodeSection
 	changeCode update: #acceptedContents! !
-
-!AnalysisResultWindow methodsFor: 'GUI building' stamp: 'MGD 11/7/2019 19:18:59'!
-updateDetailSection
-	| selectedEvent |
-	
-	self clearDetailSection.
-	
-	selectedEvent := model timeline selectedEvent.
-	selectedEvent ifNotNil: [ selectedEvent displayOn: self ].! !
 
 !AnalysisResultWindow methodsFor: 'actions' stamp: 'MGD 11/7/2019 20:36:32'!
 analyzedBy: aTDDGuru
@@ -3539,9 +3513,9 @@ aTestThatPass
 
 	self assert: true! !
 
-!AnalysisResult methodsFor: 'initialization' stamp: 'MGD 6/25/2019 09:27:15'!
+!AnalysisResult methodsFor: 'initialization' stamp: 'MGD 1/3/2020 08:41:52'!
 initialize
-	timeline := TimeLine new.
+	timeline := TimeLine for: self.
 	errors := Dictionary new.
 	
 	timeline addDependent: self.! !
@@ -5253,6 +5227,11 @@ states
 	^ self changeEvents collect: [ :changeEvent | self stateAfter: changeEvent change ]
 	! !
 
+!TimeLine methodsFor: 'initialization' stamp: 'MGD 1/3/2020 08:42:56'!
+analysisResult: anAnalysisResult
+	analysisResult := anAnalysisResult.
+! !
+
 !TimeLine methodsFor: 'initialization' stamp: 'MGD 11/25/2019 20:46:44'!
 initialize
 	events := OrderedCollection new.
@@ -5322,6 +5301,27 @@ stateTransitionFrom: previousTDDState to: currentTDDState
 changeAt: index
 	^ self changeEvents at: index! !
 
+!TimeLine methodsFor: 'selection' stamp: 'MGD 1/22/2020 18:46:39'!
+selectedChangeDetail
+
+	| detail currentChange correctLabel errorLabel |
+	
+	detail := ''.
+	correctLabel := 'CORRECT' asText addAttribute: (TextColor color: AnalysisResultWindow successColor).
+	errorLabel := 'ERROR' asText addAttribute: (TextColor color: AnalysisResultWindow errorColor) .
+	
+	self selectedEvent ifNotNil: [
+		currentChange := selectedEvent change.
+		(analysisResult isCorrect: currentChange)
+			ifTrue: [ detail := correctLabel, String newLineString. ]
+			ifFalse: [ detail := errorLabel, String newLineString. ].
+		
+		(analysisResult hasError: currentChange) ifTrue: [ 
+			detail := detail, (analysisResult errorIn: currentChange) ].
+	].
+
+	^ detail asText! !
+
 !TimeLine methodsFor: 'selection' stamp: 'MGD 9/25/2019 16:56:27'!
 selectedCode
 	| sourceCode |
@@ -5341,15 +5341,17 @@ selectedEvent
 selectionIndex
  	^ self changeEvents indexOf: selectedEvent.! !
 
-!TimeLine methodsFor: 'selection' stamp: 'MGD 9/29/2019 19:17:26'!
+!TimeLine methodsFor: 'selection' stamp: 'MGD 1/21/2020 19:31:55'!
 selectionIndex: anInteger
 	selectedEvent := anInteger = 0 ifFalse: [ self changeEvents at: anInteger ].
 	
-	self changed: #detailSection! !
+	self changed: #codeSection.
+	self triggerEvent: #detailChanged! !
 
-!TimeLine methodsFor: 'styling' stamp: 'MGD 9/24/2019 16:03:21'!
+!TimeLine methodsFor: 'styling' stamp: 'MGD 1/21/2020 19:47:35'!
 shouldStyle: aText with: aSHTextStylerST80 
 	| changeClass |
+		
 	(self selectedEvent notNil and: [ self selectedEvent type = #change ]) 
 		ifTrue: [ 
 			changeClass := self selectedEvent change changeClass.
@@ -5359,9 +5361,14 @@ shouldStyle: aText with: aSHTextStylerST80
 
 	^ false! !
 
-!TimeLine methodsFor: 'styling' stamp: 'MGD 9/19/2019 09:22:45'!
+!TimeLine methodsFor: 'styling' stamp: 'MGD 1/21/2020 19:47:21'!
 textStylerClassFor: textGetter
-	^SHTextStylerST80! !
+	textGetter = #selectedCode ifTrue: [ ^SHTextStylerST80 ].
+	^ super textStylerClassFor: textGetter ! !
+
+!TimeLine class methodsFor: 'as yet unclassified' stamp: 'MGD 1/3/2020 08:42:25'!
+for: anAnalysisResult
+	^ self new analysisResult: anAnalysisResult ! !
 
 !TimeLineEvent methodsFor: 'accessing' stamp: 'MGD 11/27/2019 20:08:45'!
 timeline

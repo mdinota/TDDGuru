@@ -1,4 +1,4 @@
-'From Cuis 5.0 [latest update: #3964] on 21 March 2020 at 3:31:46 pm'!
+'From Cuis 5.0 [latest update: #3964] on 21 March 2020 at 3:51:01 pm'!
 !classDefinition: #ChangeRecord category: #'Tools-Changes'!
 ChangeListElement subclass: #ChangeRecord
 	instanceVariableNames: 'file position type class category meta stamp prior isTest overrides '
@@ -78,6 +78,10 @@ putSource: sourceStr fromParseNode: methodNode class: class category: catName
 			file newLine ]! !
 
 
+!ChangeRecord methodsFor: 'access' stamp: 'MGD 3/17/2020 19:40:04'!
+overridesASuperclassMethod
+	^ overrides notNil ! !
+
 !ChangeRecord methodsFor: 'initialization' stamp: 'MGD 3/17/2020 19:39:04'!
 file: aFile position: aPosition type: aType class: aClassName category: aClassCategory meta: isMeta stamp: aStamp prior: aPrior overrides: anOverridenMethod
 
@@ -88,10 +92,6 @@ file: aFile position: aPosition type: aType class: aClassName category: aClassCa
 	stamp _ aStamp.
 	prior _ aPrior.
 	overrides _ anOverridenMethod.! !
-
-!ChangeRecord methodsFor: 'as yet unclassified' stamp: 'MGD 3/17/2020 19:40:04'!
-overridesASuperclassMethod
-	^ overrides notNil ! !
 
 
 !ChangeList methodsFor: 'scanning' stamp: 'MGD 3/17/2020 19:35:05'!
@@ -134,3 +134,11 @@ ChangeListElement subclass: #ChangeRecord
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Tools-Changes'!
+
+!ChangeRecord reorganize!
+('access' category changeClass changeClassName changeType compilerClass dateAndTime fileName fileOutOn: isMetaClassChange methodSelector overridesASuperclassMethod prior stamp stamp: string)
+('initialization' file:position:type: file:position:type:class:category:meta:stamp: file:position:type:class:category:meta:stamp:prior: file:position:type:class:category:meta:stamp:prior:overrides: fileIn markAsTest:)
+('testing' isDoIt isTestClassChange)
+('printing' printOn:)
+!
+

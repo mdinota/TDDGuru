@@ -1,6 +1,6 @@
-'From Cuis 5.0 [latest update: #3956] on 26 November 2019 at 2:41:05 pm'!
+'From Cuis 5.0 [latest update: #4075] on 24 March 2020 at 3:20:25 pm'!
 'Description Change on test class definition'!
-!provides: 'TDDGuruFirstBootstrapping' 1 2!
+!provides: 'TDDGuruFirstBootstrapping' 1 3!
 SystemOrganization addCategory: #TDDGuruFirstBootstrapping!
 
 
@@ -68,6 +68,44 @@ testCase: aClassName selector: aSelector result: aString stamp: aStamp
 	result := aString.
 	stamp := aStamp.! !
 
+!ChangeList methodsFor: '*TDDGuruFirstBootstrapping' stamp: 'MGD 3/24/2020 15:16:12'!
+scanSpecificChangeRecordType
+	"Scan anything that involves more than one chunk"
+
+	| itemPosition item tokens firstToken secondToken |
+
+	itemPosition _ file position.
+	item _ file nextChunk.
+
+	(self itemIsRecognized: item) ifFalse: [
+		"Maybe a preamble, but not one we recognize; bail out with the preamble trick"
+		^ self scanAndIgnore: item in: itemPosition ].
+
+	tokens _ Scanner new scanTokens: item.
+	tokens size >= 2 ifTrue: [
+		firstToken _ tokens first.
+		secondToken _ tokens second.
+
+		firstToken == #classDefinition:
+			ifTrue: [ ^ self scanClassDefinition: tokens ].
+		(firstToken == #classRemoval: or: [ firstToken == #classMoveToSomePackage: ])
+			ifTrue: [ ^ self scanClassRemoval: tokens ].
+		(firstToken == #methodRemoval: or: [ firstToken == #methodMoveToSomePackage: ])
+			ifTrue: [ ^ self scanMethodRemoval: tokens ].
+		(secondToken == #methodsFor: or: [ tokens third == #methodsFor: ])
+			ifTrue: [ ^ self scanMethodDefinition: tokens ].
+		secondToken == #commentStamp:
+			ifTrue: [ ^ self scanClassComment: tokens ].
+		firstToken == #provides:
+			ifTrue: [ ^ self scanFeatureProvision: tokens ].
+		firstToken == #requires:
+			ifTrue: [ ^ self scanFeatureRequirement: tokens ].
+		firstToken == #classRenamed:
+			ifTrue: [ ^ self scanClassRenamed: tokens ].
+		firstToken == #testRun: 
+			ifTrue: [ ^ self scanTestRun: tokens ].
+		]! !
+
 !ChangeList methodsFor: '*TDDGuruFirstBootstrapping' stamp: 'HAW 10/26/2019 22:55:07'!
 scanTestRun: tokens
 
@@ -79,7 +117,7 @@ scanTestRun: tokens
 	
 	self addItem: record text: record string.! !
 
-!ChangeList class methodsFor: '*TDDGuruFirstBootstrapping' stamp: 'HAW 10/28/2019 08:36:27'!
+!ChangeList class methodsFor: '*TDDGuruFirstBootstrapping' stamp: 'MGD 3/24/2020 15:09:35'!
 knownFileInPreambles
 
 	^ `{
@@ -90,4 +128,5 @@ knownFileInPreambles
 	'classMoveToSomePackage:'. 
 	'provides:'. 
 	'requires:'.
+	'classRenamed:'.
 	'testRun:' }`! !

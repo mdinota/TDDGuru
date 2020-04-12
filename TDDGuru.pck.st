@@ -1,6 +1,6 @@
-'From Cuis 5.0 [latest update: #4076] on 7 April 2020 at 5:39:38 pm'!
+'From Cuis 5.0 [latest update: #4076] on 12 April 2020 at 6:09:29 pm'!
 'Description Reorganization '!
-!provides: 'TDDGuru' 1 44!
+!provides: 'TDDGuru' 1 45!
 !requires: '__TDDGuru-TestData__' 1 0 nil!
 !requires: 'TDDGuruSecondBootstrapping' 1 0 nil!
 SystemOrganization addCategory: #'TDDGuru-Tests'!
@@ -208,16 +208,6 @@ Change subclass: #ClassChange
 ClassChange class
 	instanceVariableNames: ''!
 
-!classDefinition: #ClassRemoved category: #'TDDGuru-Model'!
-ClassChange subclass: #ClassRemoved
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'TDDGuru-Model'!
-!classDefinition: 'ClassRemoved class' category: #'TDDGuru-Model'!
-ClassRemoved class
-	instanceVariableNames: ''!
-
 !classDefinition: #ClassRenamed category: #'TDDGuru-Model'!
 ClassChange subclass: #ClassRenamed
 	instanceVariableNames: ''
@@ -226,6 +216,16 @@ ClassChange subclass: #ClassRenamed
 	category: 'TDDGuru-Model'!
 !classDefinition: 'ClassRenamed class' category: #'TDDGuru-Model'!
 ClassRenamed class
+	instanceVariableNames: ''!
+
+!classDefinition: #ModelClassRemoved category: #'TDDGuru-Model'!
+ClassChange subclass: #ModelClassRemoved
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TDDGuru-Model'!
+!classDefinition: 'ModelClassRemoved class' category: #'TDDGuru-Model'!
+ModelClassRemoved class
 	instanceVariableNames: ''!
 
 !classDefinition: #NewModelClass category: #'TDDGuru-Model'!
@@ -567,13 +567,13 @@ category
 printOn: aStream
 	(self category printString, ' - ', self description) printOn: aStream.! !
 
-!ClassRemoved methodsFor: 'accessing' stamp: 'MGD 7/15/2019 07:40:25'!
-category
-	^ #classRemoved! !
-
 !ClassRenamed methodsFor: 'accessing' stamp: 'MGD 12/19/2019 20:45:49'!
 category
 	^ #classRenamed! !
+
+!ModelClassRemoved methodsFor: 'accessing' stamp: 'MGD 7/15/2019 07:40:25'!
+category
+	^ #classRemoved! !
 
 !NewModelClass methodsFor: 'accessing' stamp: 'MGD 8/16/2019 09:58:58'!
 category
@@ -3840,9 +3840,19 @@ changes
 	
 	^ timeline changes! !
 
+!Change methodsFor: 'accessing' stamp: 'MGD 9/18/2019 20:40:55'!
+code
+	
+	^ changeRecord string.
+	! !
+
 !Change methodsFor: 'accessing' stamp: 'MGD 12/26/2019 19:48:15'!
 dateString
 	^ self stamp substrings second! !
+
+!Change methodsFor: 'accessing' stamp: 'MGD 5/16/2019 20:08:13'!
+description
+	self subclassResponsibility.! !
 
 !Change methodsFor: 'accessing' stamp: 'MGD 5/16/2019 19:34:59'!
 isRecognized
@@ -3870,24 +3880,6 @@ time
 timeString
 	^ self stamp substrings third! !
 
-!Change methodsFor: 'printing' stamp: 'MGD 9/24/2019 15:42:35'!
-changeClass
-	^ changeRecord changeClass! !
-
-!Change methodsFor: 'printing' stamp: 'MGD 9/3/2019 11:12:44'!
-changeClassName
-	^ changeRecord changeClassName ! !
-
-!Change methodsFor: 'printing' stamp: 'MGD 9/18/2019 20:40:55'!
-code
-	
-	^ changeRecord string.
-	! !
-
-!Change methodsFor: 'printing' stamp: 'MGD 5/16/2019 20:08:13'!
-description
-	self subclassResponsibility.! !
-
 !Change methodsFor: 'printing' stamp: 'MGD 11/26/2019 16:09:29'!
 printString	
 	^ '[', self category printString, '] ', self description.! !
@@ -3908,13 +3900,13 @@ reportChangeTo: tddGuru
 newFor: aChangeRecord
 	^ self new changeRecord: aChangeRecord! !
 
-!ClassRemoved methodsFor: 'printing' stamp: 'MGD 10/2/2019 19:39:53'!
-description
-	^ self changeClassName, ' was removed'! !
+!ClassChange methodsFor: 'accessing' stamp: 'MGD 4/10/2020 16:45:39'!
+changeClass
+	^ changeRecord changeClass! !
 
-!ClassRemoved methodsFor: 'reporting' stamp: 'MGD 10/14/2019 16:24:29'!
-reportChangeTo: tddGuru
-	tddGuru modelClassRemoved: changeRecord changeClassName! !
+!ClassChange methodsFor: 'accessing' stamp: 'MGD 4/10/2020 16:45:53'!
+changeClassName
+	^ changeRecord changeClassName ! !
 
 !ClassRenamed methodsFor: 'accessing' stamp: 'MGD 12/19/2019 19:49:20'!
 currentName
@@ -3931,6 +3923,14 @@ previousName
 !ClassRenamed methodsFor: 'reporting' stamp: 'MGD 3/18/2020 20:55:38'!
 reportChangeTo: tddGuru 
 	tddGuru classRenamedFrom: self previousName to: self currentName! !
+
+!ModelClassRemoved methodsFor: 'printing' stamp: 'MGD 10/2/2019 19:39:53'!
+description
+	^ self changeClassName, ' was removed'! !
+
+!ModelClassRemoved methodsFor: 'reporting' stamp: 'MGD 10/14/2019 16:24:29'!
+reportChangeTo: tddGuru
+	tddGuru modelClassRemoved: changeRecord changeClassName! !
 
 !NewModelClass methodsFor: 'printing' stamp: 'MGD 8/16/2019 10:07:20'!
 description
@@ -3956,6 +3956,14 @@ description
 reportChangeTo: aTDDGuru 
 	aTDDGuru testClassRemoved: self changeClassName ! !
 
+!MethodChange methodsFor: 'accessing' stamp: 'MGD 4/10/2020 16:34:29'!
+changeClass
+	^ changeRecord changeClass! !
+
+!MethodChange methodsFor: 'accessing' stamp: 'MGD 4/10/2020 16:45:59'!
+changeClassName
+	^ changeRecord changeClassName ! !
+
 !MethodChange methodsFor: 'accessing' stamp: 'MGD 3/18/2020 20:09:33'!
 methodReference
 	^ UninstalledMethodReference selector: self methodSelector class: self changeClassName sourceCode: self code overrides: self overridesASuperclassMethod! !
@@ -3980,15 +3988,17 @@ methodReference
 reportChangeTo: tddGuru
 	tddGuru modelMethodRemoved: self methodReference! !
 
-!ModelMethodChanged methodsFor: 'accessing' stamp: 'MGD 9/18/2019 20:41:16'!
+!ModelMethodChanged methodsFor: 'accessing' stamp: 'HAW 4/5/2020 18:57:47'!
 code
 	| changeClass sourceString |
 	sourceString := changeRecord string.
 	changeClass := changeRecord changeClass.
 	changeClass ifNil: [ ^ sourceString ].
 	
-	^ changeClass compilerClass new
-		format: sourceString in: changeClass notifying: nil! !
+	^ [changeClass compilerClass new
+		format: sourceString in: changeClass notifying: nil]
+		on: InMidstOfFileinNotification
+		do: [ :anException | anException resume: true ]! !
 
 !ModelMethodChanged methodsFor: 'accessing' stamp: 'MGD 10/15/2019 16:26:56'!
 description
@@ -4134,6 +4144,14 @@ reportChangeTo: aTDDGuru
 newFor: aNewTestChangeRecord and: aTestRemovedChangeRecord
 	^ self new newTestChangeRecord: aNewTestChangeRecord; testRemovedChangeRecord: aTestRemovedChangeRecord! !
 
+!TestRun methodsFor: 'accessing' stamp: 'MGD 4/10/2020 16:34:38'!
+changeClass
+	^ changeRecord changeClass! !
+
+!TestRun methodsFor: 'accessing' stamp: 'MGD 4/10/2020 16:46:10'!
+changeClassName
+	^ changeRecord changeClassName ! !
+
 !TestRun methodsFor: 'accessing' stamp: 'MGD 3/18/2020 20:37:19'!
 testReference
 	^ UninstalledMethodReference selector: self testSelector class: self changeClassName sourceCode: self code.! !
@@ -4263,9 +4281,9 @@ nextChange: aChangeList
 
 	! !
 
-!ChangeLog methodsFor: 'detectors' stamp: 'MGD 7/17/2019 11:43:05'!
+!ChangeLog methodsFor: 'detectors' stamp: 'MGD 4/9/2020 17:21:45'!
 classRemovedDetector
-	^ ChangeDetector for: ClassRemoved withLookahead: 1 detectsWhen: [ :aChangeRecord | aChangeRecord isClassDeletion ]! !
+	^ ChangeDetector for: ModelClassRemoved withLookahead: 1 detectsWhen: [ :aChangeRecord | aChangeRecord isClassDeletion ]! !
 
 !ChangeLog methodsFor: 'detectors' stamp: 'MGD 12/19/2019 19:45:49'!
 classRenamedDetector
@@ -5807,10 +5825,12 @@ hash
 methodClassIfInstalled
 	^ (Smalltalk classNamed: self methodClass) ifNil: [ ^ UndefinedObject ]! !
 
-!UninstalledMethodReference methodsFor: 'inspecting' stamp: 'MGD 11/15/2019 20:09:12'!
+!UninstalledMethodReference methodsFor: 'inspecting' stamp: 'HAW 4/5/2020 19:00:44'!
 sendsMessageWithSelector: aSymbol
 	| methodNode |
-	methodNode := Parser parse: sourceCode class: self methodClassIfInstalled.
+	methodNode :=  [ Parser parse: sourceCode class: self methodClassIfInstalled ]
+		on: InMidstOfFileinNotification
+		do: [ :anException | anException resume: true ].
 	
 	methodNode nodesDo: [ :aNode | 
 		(aNode isMessageNode and: [ aNode isMessageNamed: aSymbol ]) ifTrue: [ ^ true ]].

@@ -1,6 +1,6 @@
-'From Cuis 5.0 [latest update: #4075] on 24 March 2020 at 3:20:25 pm'!
-'Description Change on test class definition'!
-!provides: 'TDDGuruFirstBootstrapping' 1 3!
+'From Cuis 5.0 [latest update: #4129] on 2 May 2020 at 12:43:36 pm'!
+'Description Fix due to move of stampFrom: to CompiledMethod'!
+!provides: 'TDDGuruFirstBootstrapping' 1 4!
 SystemOrganization addCategory: #TDDGuruFirstBootstrapping!
 
 
@@ -106,13 +106,13 @@ scanSpecificChangeRecordType
 			ifTrue: [ ^ self scanTestRun: tokens ].
 		]! !
 
-!ChangeList methodsFor: '*TDDGuruFirstBootstrapping' stamp: 'HAW 10/26/2019 22:55:07'!
+!ChangeList methodsFor: '*TDDGuruFirstBootstrapping' stamp: 'HAW 5/2/2020 12:39:10'!
 scanTestRun: tokens
 
 	| result record stamp |
 	
 	result _ file nextChunk.
-	stamp _ self stampFrom: tokens.
+	stamp _ CompiledMethod stampFrom: tokens.
 	record _ TestRunChangeRecord new testCase: tokens second selector: tokens third result: result stamp: stamp.					
 	
 	self addItem: record text: record string.! !

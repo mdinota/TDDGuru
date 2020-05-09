@@ -1,6 +1,6 @@
-'From Cuis 5.0 [latest update: #4076] on 12 April 2020 at 6:09:29 pm'!
+'From Cuis 5.0 [latest update: #4076] on 9 May 2020 at 7:52:58 pm'!
 'Description Reorganization '!
-!provides: 'TDDGuru' 1 45!
+!provides: 'TDDGuru' 1 46!
 !requires: '__TDDGuru-TestData__' 1 0 nil!
 !requires: 'TDDGuruSecondBootstrapping' 1 0 nil!
 SystemOrganization addCategory: #'TDDGuru-Tests'!
@@ -2203,7 +2203,7 @@ test03TDDStateForEachChange
 	self assert: (result stateAfter: secondChange) equals: WritingAFailingTest .
 	self assert: (result stateAfter: thirdChange) equals: Red .! !
 
-!OtherTest methodsFor: 'tests' stamp: 'MGD 9/9/2019 20:25:59'!
+!OtherTest methodsFor: 'tests' stamp: 'MGD 5/9/2020 19:51:42'!
 test04TestRenamesAreGroupedInASingleChange
 	| result |
 	self newClassNamed: #TestClassA subclassOf: TestCase.
@@ -4227,9 +4227,9 @@ newChangeFrom: changeRecords
 	(changeRecords size = 1) ifTrue: [ ^ changeClass newFor: changeRecords first ].
 	(changeRecords size = 2) ifTrue: [ ^ changeClass newFor: changeRecords first and: changeRecords second ].! !
 
-!ChangeDetector class methodsFor: 'instance creation' stamp: 'MGD 7/17/2019 09:11:06'!
-for: aChangeClass withLookahead: lookahead detectsWhen: aBlock
-	^ self new changeClass: aChangeClass; lookahead: lookahead; detectBlock: aBlock.
+!ChangeDetector class methodsFor: 'instance creation' stamp: 'MGD 4/14/2020 18:20:45'!
+for: aChangeClass withLookahead: lookaheadNumber detectsWhen: detectionBlock
+	^ self new changeClass: aChangeClass; lookahead: lookaheadNumber; detectBlock: detectionBlock.
 	! !
 
 !ChangeLog methodsFor: 'initialization' stamp: 'MGD 7/12/2019 11:11:28'!
@@ -4261,21 +4261,19 @@ initialize
 inventory: aCodeInventory 
 	inventory := aCodeInventory ! !
 
-!ChangeLog methodsFor: 'accessing changes' stamp: 'MGD 7/12/2019 11:42:43'!
+!ChangeLog methodsFor: 'accessing changes' stamp: 'MGD 4/14/2020 16:37:16'!
 do: aBlockClosure 
-	| remainingChanges |
-	remainingChanges := changeList.
 	
-	[ remainingChanges isEmpty ] 		
+	[ changeList isEmpty ] 		
 	whileFalse: [ | nextChange |  
-		nextChange := self nextChange: changeList.
+		nextChange := self nextChange.
 		aBlockClosure value: nextChange ].! !
 
-!ChangeLog methodsFor: 'accessing changes' stamp: 'MGD 8/9/2019 15:57:23'!
-nextChange: aChangeList 
+!ChangeLog methodsFor: 'accessing changes' stamp: 'MGD 4/14/2020 16:37:08'!
+nextChange 
 
 	changeDetectors do: [ :changeDetector | 
-		changeDetector detectChangeIn: aChangeList ifTrue: [ :change | ^ change ] ].
+		changeDetector detectChangeIn: changeList ifTrue: [ :change | ^ change ] ].
 	
 	self error: 'No change detected'
 
@@ -4383,9 +4381,9 @@ testUtilityChangeDetector
 unknownChangeDetector
 	^ ChangeDetector for: UnknownChange withLookahead: 1 detectsWhen: [ :aChangeRecord | true ]! !
 
-!ChangeLog class methodsFor: 'instance creation' stamp: 'MGD 7/12/2019 11:10:51'!
-from: anOrderedCollection using: aCodeInventory 
-	^ self new changeList: anOrderedCollection; inventory: aCodeInventory! !
+!ChangeLog class methodsFor: 'instance creation' stamp: 'MGD 4/14/2020 15:54:50'!
+from: aChangeCollection using: aTestInventory 
+	^ self new changeList: aChangeCollection; inventory: aTestInventory! !
 
 !TDDGuru methodsFor: 'initialization' stamp: 'MGD 4/7/2020 17:05:41'!
 changesFile: aFileName 
@@ -5128,9 +5126,12 @@ newModelClass: aSymbol
 newModelMethod: aSymbol 
 	! !
 
-!Red methodsFor: 'events' stamp: 'MGD 4/2/2020 19:47:57'!
-newTest: aTestReference 
-	self reportError: (TDDGuru testAddedErrorMessage: aTestReference selector class: aTestReference methodClass)  andTransitionTo: NotDoingTDD new.! !
+!Red methodsFor: 'events' stamp: 'MGD 4/16/2020 18:51:37'!
+newTest: aTestReference
+	| errorMessage |
+	
+	errorMessage := TDDGuru testAddedErrorMessage: aTestReference selector class: aTestReference methodClass.
+	self reportError: errorMessage andTransitionTo: NotDoingTDD new.! !
 
 !Red methodsFor: 'events' stamp: 'MGD 11/2/2019 16:44:33'!
 newTestClass: aSymbol 

@@ -1,6 +1,6 @@
-'From Cuis 5.0 [latest update: #4532] on 20 May 2021 at 4:35:43 pm'!
+'From Cuis 5.0 [latest update: #4532] on 2 June 2021 at 10:25:21 pm'!
 'Description Hacer TDDStateIcon subclase de Object y definir setBallonText:'!
-!provides: 'TDDGuru' 1 47!
+!provides: 'TDDGuru' 1 48!
 !requires: '__TDDGuru-TestData__' 1 0 nil!
 !requires: 'TDDGuruSecondBootstrapping' 1 0 nil!
 SystemOrganization addCategory: 'TDDGuru-Tests'!
@@ -2208,22 +2208,17 @@ test05TestsWithSameNameInDifferentClassesAreDifferent
 	self assert: changes second category equals: #newTest.
 	! !
 
-!OtherTest methodsFor: 'tests' stamp: 'MGD 9/9/2019 20:17:40'!
+!OtherTest methodsFor: 'tests' stamp: 'MGD 6/1/2021 21:15:10'!
 test06WhenATestHasAnErrorThisTestDoesNotFail
-	| result changes |
-	
-	self newClassNamed: #TestClassA subclassOf: TestCase.
-	self compileMethod: 'test01 ^ self error: ''An error''' in: #TestClassA.
 	
 	self logChangesWhile: [ 
+		self newClassNamed: #TestClassA subclassOf: TestCase.
+		self compileMethod: 'test01 ^ self error: ''An error''' in: #TestClassA.
 		self runTest: #test01 class: #TestClassA
 	].
 		
-	result _ tddGuru run.
-	changes := result changes.
-	self assert: changes size equals: 1.
-	self assert: changes first category equals: #testRun.
-	self assert: changes first testSelector equals: #test01.
+	self shouldnt: [ tddGuru run ] raise: Error
+	
 	! !
 
 !OtherTest methodsFor: 'tests' stamp: 'MGD 9/26/2019 20:44:32'!
@@ -2304,6 +2299,40 @@ test10ChangeWhenAMethodWasAdded
 	
 	changeInWhichWasAdded := result changes at: 3.
 	self assert: (result changeWhenMethodWasAdded: #m2 in: #ModelClassA) equals: changeInWhichWasAdded.
+
+	! !
+
+!OtherTest methodsFor: 'tests' stamp: 'MGD 6/1/2021 21:10:33'!
+test11IgnorePassingTestChangesForUntrackedTests
+	| result |
+	
+	self newClassNamed: #TestClassA subclassOf: TestCase.
+	self compileMethod: 'test01 self assert: true' in: #TestClassA.
+	
+	self logChangesWhile: [ 
+		self runTest: #test01 class: #TestClassA.
+	].
+		
+	result := tddGuru run.
+	
+	self assert: result changes size equals: 0.
+
+	! !
+
+!OtherTest methodsFor: 'tests' stamp: 'MGD 6/1/2021 21:12:48'!
+test12IgnoreFailingTestChangesForUntrackedTests
+	| result |
+	
+	self newClassNamed: #TestClassA subclassOf: TestCase.
+	self compileMethod: 'test01 self assert: false' in: #TestClassA.
+	
+	self logChangesWhile: [ 
+		self runTest: #test01 class: #TestClassA.
+	].
+		
+	result := tddGuru run.
+	
+	self assert: result changes size equals: 0.
 
 	! !
 
@@ -4264,11 +4293,11 @@ modelMethodRemovedDetector
 newProductionClassDetector
 	^ ChangeDetector for: NewModelClass withLookahead: 1 detectsWhen: [ :aChangeRecord | aChangeRecord changeType = #classDefinition and: [ aChangeRecord isTestClassChange not ]]! !
 
-!ChangeLog methodsFor: 'detectors' stamp: 'HAW 10/26/2019 23:01:27'!
+!ChangeLog methodsFor: 'detectors' stamp: 'MGD 6/1/2021 21:27:22'!
 newProductionMethodDetector
 	^ ChangeDetector for: NewModelMethod withLookahead: 1 detectsWhen: [ :aChangeRecord | aChangeRecord changeType = #method 
 		and: [ aChangeRecord isMethodDeletion not ] 
-		and: [ (inventory hasATestClassNamed: aChangeRecord changeClassName) not ]
+		and: [ (self isATestClass: aChangeRecord changeClassName) not ]
 		and: [ aChangeRecord prior isNil ]]! !
 
 !ChangeLog methodsFor: 'detectors' stamp: 'MGD 7/17/2019 11:46:15'!
@@ -4282,43 +4311,50 @@ newTestDetector
 		and: [ aChangeRecord methodSelector beginsWith: 'test' ]
 		and: [ aChangeRecord prior isNil ]]! !
 
-!ChangeLog methodsFor: 'detectors' stamp: 'HAW 10/26/2019 23:01:27'!
+!ChangeLog methodsFor: 'detectors' stamp: 'MGD 6/1/2021 21:28:20'!
 productionMethodChangedDetector
 	^ ChangeDetector for: ModelMethodChanged withLookahead: 1 detectsWhen: [ :aChangeRecord | aChangeRecord changeType = #method 
 		and: [ aChangeRecord isMethodDeletion not ] 
 		and: [ (aChangeRecord methodSelector beginsWith: 'test') not ]
 		and: [ aChangeRecord prior notNil ]
-		and: [ (inventory hasATestClassNamed: aChangeRecord changeClassName) not ]]! !
+		and: [ (self isATestClass: aChangeRecord changeClassName) not ]]! !
 
-!ChangeLog methodsFor: 'detectors' stamp: 'HAW 10/26/2019 23:01:27'!
+!ChangeLog methodsFor: 'detectors' stamp: 'MGD 6/1/2021 21:28:35'!
 testChangedDetector
 	^ ChangeDetector for: TestChanged withLookahead: 1 detectsWhen: [ :aChangeRecord | aChangeRecord changeType = #method 
-		and: [ inventory hasATestClassNamed: aChangeRecord changeClassName ]
+		and: [ self isATestClass: aChangeRecord changeClassName ]
 		and: [ aChangeRecord methodSelector beginsWith: 'test' ]
 		and: [ aChangeRecord prior isNil not ]]! !
 
-!ChangeLog methodsFor: 'detectors' stamp: 'MGD 10/14/2019 16:14:55'!
+!ChangeLog methodsFor: 'detectors' stamp: 'MGD 6/1/2021 21:28:56'!
 testClassRemovedDetector
 	^ ChangeDetector for: TestClassRemoved withLookahead: 1 detectsWhen: [ :aChangeRecord | 
 		aChangeRecord isClassDeletion 
-		and: [ inventory hasATestClassNamed: aChangeRecord changeClassName ] ]! !
+		and: [ self isATestClass: aChangeRecord changeClassName ] ]! !
 
-!ChangeLog methodsFor: 'detectors' stamp: 'MGD 7/17/2019 11:48:03'!
+!ChangeLog methodsFor: 'detectors' stamp: 'MGD 6/1/2021 21:22:16'!
 testFailedDetector
-	^ ChangeDetector for: TestFailed withLookahead: 1 detectsWhen: [ :aChangeRecord | aChangeRecord changeType = #testRun and: [ aChangeRecord isFailure or: aChangeRecord isError ]]! !
+	^ ChangeDetector for: TestFailed withLookahead: 1 detectsWhen: [ :aChangeRecord | 
+		aChangeRecord changeType = #testRun 
+			and: [ aChangeRecord isFailure or: aChangeRecord isError ]
+			and: [ self testIsTracked: aChangeRecord methodSelector class: aChangeRecord changeClassName ]]
+		! !
 
-!ChangeLog methodsFor: 'detectors' stamp: 'MGD 7/17/2019 11:48:37'!
+!ChangeLog methodsFor: 'detectors' stamp: 'MGD 6/1/2021 21:20:18'!
 testPassedDetector
-	^ ChangeDetector for: TestPassed withLookahead: 1 detectsWhen: [ :aChangeRecord | aChangeRecord changeType = #testRun and: [ aChangeRecord isPassed ]]! !
+	^ ChangeDetector for: TestPassed withLookahead: 1 detectsWhen: [ :aChangeRecord | 
+		aChangeRecord changeType = #testRun 
+			and: [ aChangeRecord isPassed ]
+			and: [ self testIsTracked: aChangeRecord methodSelector class: aChangeRecord changeClassName ]]! !
 
-!ChangeLog methodsFor: 'detectors' stamp: 'MGD 11/15/2019 09:03:34'!
+!ChangeLog methodsFor: 'detectors' stamp: 'MGD 6/1/2021 21:29:28'!
 testRemovedDetector
 	| isATest |
-	isATest := [ :changeRecord | inventory hasTestWithSelector: changeRecord methodSelector andClass: changeRecord changeClassName].
+	isATest := [ :changeRecord | self testIsTracked: changeRecord methodSelector class: changeRecord changeClassName].
 	
 	^ ChangeDetector for: TestRemoved withLookahead: 1 detectsWhen: [ :aChangeRecord | aChangeRecord isMethodDeletion and: [ isATest value: aChangeRecord ]]! !
 
-!ChangeLog methodsFor: 'detectors' stamp: 'MGD 11/15/2019 09:04:02'!
+!ChangeLog methodsFor: 'detectors' stamp: 'MGD 6/1/2021 21:21:54'!
 testRenamedDetector
 	| isANewTestChange isAMethodRemovedChange sameClassAndStamp testExists |
 
@@ -4331,7 +4367,7 @@ testRenamedDetector
 	sameClassAndStamp := [ :previous :current | 
 		previous changeClassName = current changeClassName
 		and: [ previous stamp = current stamp ]].
-	testExists := [ :changeRecord | inventory hasTestWithSelector: changeRecord methodSelector andClass: changeRecord changeClassName].
+	testExists := [ :changeRecord | self testIsTracked: changeRecord methodSelector class: changeRecord changeClassName].
 			
 	^ ChangeDetector for: TestRenamed withLookahead: 2 detectsWhen: [ :changeRecord1 :changeRecord2 |
 		changeRecord2 notNil
@@ -4340,15 +4376,24 @@ testRenamedDetector
 		and: [ sameClassAndStamp value: changeRecord1 value: changeRecord2 ]
 		and: [ testExists value: changeRecord2 ]]! !
 
-!ChangeLog methodsFor: 'detectors' stamp: 'MGD 10/10/2019 18:55:13'!
+!ChangeLog methodsFor: 'detectors' stamp: 'MGD 6/1/2021 21:29:51'!
 testUtilityChangeDetector
 	^ ChangeDetector for: TestUtilityChanged withLookahead: 1 detectsWhen: [ :aChangeRecord | aChangeRecord changeType = #method 
-		and: [ inventory hasATestClassNamed: aChangeRecord changeClassName ]
+		and: [ self isATestClass: aChangeRecord changeClassName ]
 		and: [ (aChangeRecord methodSelector beginsWith: 'test') not ]]! !
 
 !ChangeLog methodsFor: 'detectors' stamp: 'MGD 7/17/2019 11:55:23'!
 unknownChangeDetector
 	^ ChangeDetector for: UnknownChange withLookahead: 1 detectsWhen: [ :aChangeRecord | true ]! !
+
+!ChangeLog methodsFor: 'test tracking' stamp: 'MGD 6/1/2021 21:27:12'!
+isATestClass: className
+
+	^ inventory hasATestClassNamed: className! !
+
+!ChangeLog methodsFor: 'test tracking' stamp: 'MGD 6/1/2021 21:32:42'!
+testIsTracked: selector class: className
+	^ inventory hasTestWithSelector: selector andClass: className! !
 
 !ChangeLog class methodsFor: 'instance creation' stamp: 'MGD 4/14/2020 15:54:50'!
 from: aChangeCollection using: aTestInventory 

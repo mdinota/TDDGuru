@@ -1,6 +1,6 @@
-'From Cuis 5.0 [latest update: #4532] on 2 June 2021 at 10:25:21 pm'!
+'From Cuis 5.0 [latest update: #4532] on 9 June 2021 at 8:01:13 pm'!
 'Description Hacer TDDStateIcon subclase de Object y definir setBallonText:'!
-!provides: 'TDDGuru' 1 48!
+!provides: 'TDDGuru' 1 49!
 !requires: '__TDDGuru-TestData__' 1 0 nil!
 !requires: 'TDDGuruSecondBootstrapping' 1 0 nil!
 SystemOrganization addCategory: 'TDDGuru-Tests'!
@@ -470,7 +470,7 @@ Red class
 
 !classDefinition: #Refactor category: 'TDDGuru-Model'!
 TDDState subclass: #Refactor
-	instanceVariableNames: 'newModelMethods changedModelMethods'
+	instanceVariableNames: 'newMethods changedMethods'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
@@ -3062,6 +3062,27 @@ test24WhenAMethodIsOverridenItIsConsideredUsedAndRefactorIsValid
 	self assertCurrentStateIs: Green.
 	self assertHasNoErrors: result ! !
 
+!RefactorTest methodsFor: 'tests' stamp: 'MGD 6/9/2021 19:32:04'!
+test25WhenAModelMethodIsAddedAndUsedInATestRefactorIsValid
+	| result |
+	
+	self logChangesWhile: [ 
+		self newClassNamed: #TestClassA subclassOf: TestCase.
+		self compileMethod: 'test01 self assert: ModelClassA new m1 equals: 1' in: #TestClassA.
+		self runAllTestsOf: #TestClassA.
+		self newClassNamed: #ModelClassA subclassOf: Object.
+		self compileMethod: 'm1 ^ 1' in: #ModelClassA.
+		self runAllTestsOf: #TestClassA.
+		self compileMethod: 'm2 ^ 1' in: #ModelClassA.
+		self compileMethod: 'test01 self assert: ModelClassA new m2 equals: 1' in: #TestClassA.
+		self runAllTestsOf: #TestClassA.
+	].
+		
+	result _ tddGuru run.
+		
+	self assertCurrentStateIs: Green.
+	self assertHasNoErrors: result.! !
+
 !WritingAFailingTestTest methodsFor: 'tests' stamp: 'MGD 12/19/2019 17:25:19'!
 test01WhenTheTestIsChangedThenIsStillWritingAFailingTest
 	| result |
@@ -5190,23 +5211,21 @@ analysisFinished
 modelClassRemoved: aSymbol 
 	! !
 
-!Refactor methodsFor: 'events' stamp: 'MGD 11/22/2019 07:56:45'!
+!Refactor methodsFor: 'events' stamp: 'MGD 6/9/2021 19:49:44'!
 modelMethodChanged: aMethodReference 
-	changedModelMethods remove: aMethodReference ifAbsent: [].
-	changedModelMethods add: aMethodReference! !
+	self markAsChanged: aMethodReference ! !
 
-!Refactor methodsFor: 'events' stamp: 'MGD 11/20/2019 18:50:23'!
+!Refactor methodsFor: 'events' stamp: 'MGD 6/9/2021 19:51:23'!
 modelMethodRemoved: aMethodReference 
-	newModelMethods remove: aMethodReference ifAbsent: [].! !
+	self unmarkAsNew: aMethodReference.! !
 
 !Refactor methodsFor: 'events' stamp: 'MGD 10/14/2019 14:25:50'!
 newModelClass: aSymbol 
 	! !
 
-!Refactor methodsFor: 'events' stamp: 'MGD 4/2/2020 19:15:50'!
+!Refactor methodsFor: 'events' stamp: 'MGD 6/9/2021 19:50:10'!
 newModelMethod: aMethodReference 
-	newModelMethods remove: aMethodReference ifAbsent: [].
-	newModelMethods add: aMethodReference ! !
+	self markAsNew: aMethodReference ! !
 
 !Refactor methodsFor: 'events' stamp: 'MGD 4/7/2020 17:17:59'!
 newTest: aTestReference 
@@ -5219,9 +5238,9 @@ newTest: aTestReference
 newTestClass: aSymbol 
 	! !
 
-!Refactor methodsFor: 'events' stamp: 'MGD 8/15/2019 17:02:32'!
-testChanged: aSymbol 
-	! !
+!Refactor methodsFor: 'events' stamp: 'MGD 6/9/2021 19:49:44'!
+testChanged: aTestReference
+	self markAsChanged: aTestReference! !
 
 !Refactor methodsFor: 'events' stamp: 'MGD 10/14/2019 16:22:46'!
 testClassRemoved: aSymbol 
@@ -5246,10 +5265,10 @@ isCorrect
 printString
 	^ 'Refactor'! !
 
-!Refactor methodsFor: 'initialization' stamp: 'MGD 11/12/2019 17:43:12'!
+!Refactor methodsFor: 'initialization' stamp: 'MGD 6/9/2021 19:37:59'!
 initialize
-	newModelMethods := Set new.
-	changedModelMethods := Set new.
+	newMethods := Set new.
+	changedMethods := Set new.
 	
 	super initialize ! !
 
@@ -5258,9 +5277,9 @@ transitionTo: aTDDState
 	self checkIfItWasAValidRefactor.
 	super transitionTo: aTDDState.	! !
 
-!Refactor methodsFor: 'valid refactor' stamp: 'MGD 3/17/2020 19:44:46'!
+!Refactor methodsFor: 'valid refactor' stamp: 'MGD 6/9/2021 19:37:59'!
 checkIfItWasAValidRefactor
-	newModelMethods do: [ :aMethodReference | 
+	newMethods do: [ :aMethodReference | 
 		(self isUsed: aMethodReference) ifFalse: [ self methodWasNotUsedError: aMethodReference ] ]! !
 
 !Refactor methodsFor: 'valid refactor' stamp: 'MGD 3/17/2020 19:44:34'!
@@ -5268,9 +5287,21 @@ isUsed: aMethodReference
 
 	^ (self overridesASuperclassMethod: aMethodReference) or: [self isUsedInOneOfTheChangedMethods: aMethodReference ]! !
 
-!Refactor methodsFor: 'valid refactor' stamp: 'MGD 11/15/2019 20:18:46'!
+!Refactor methodsFor: 'valid refactor' stamp: 'MGD 6/9/2021 19:37:50'!
 isUsedInOneOfTheChangedMethods: aMethodReference
-	^ changedModelMethods anySatisfy: [ :aChangedMethod | aChangedMethod sendsMessageWithSelector: aMethodReference selector ].! !
+	^ changedMethods anySatisfy: [ :aChangedMethod | aChangedMethod sendsMessageWithSelector: aMethodReference selector ].! !
+
+!Refactor methodsFor: 'valid refactor' stamp: 'MGD 6/9/2021 19:49:44'!
+markAsChanged: aMethodReference
+
+	changedMethods remove: aMethodReference ifAbsent: [].
+	changedMethods add: aMethodReference! !
+
+!Refactor methodsFor: 'valid refactor' stamp: 'MGD 6/9/2021 19:50:10'!
+markAsNew: aMethodReference
+
+	newMethods remove: aMethodReference ifAbsent: [].
+	newMethods add: aMethodReference! !
 
 !Refactor methodsFor: 'valid refactor' stamp: 'MGD 11/20/2019 19:14:22'!
 methodWasNotUsedError: aMethodReference
@@ -5284,6 +5315,11 @@ methodWasNotUsedError: aMethodReference
 overridesASuperclassMethod: aMethodReference
 
 	^ aMethodReference overridesASuperclassMethod! !
+
+!Refactor methodsFor: 'valid refactor' stamp: 'MGD 6/9/2021 19:53:00'!
+unmarkAsNew: aMethodReference
+
+	newMethods remove: aMethodReference ifAbsent: []! !
 
 !Refactor class methodsFor: 'instance creation' stamp: 'MGD 11/20/2019 17:48:01'!
 modelMethodChanged: aMethodReference
